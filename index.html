@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人投资看板</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+</head>
+<body>
+    <div class="app-container">
+        <!-- 侧边导航 -->
+        <nav class="sidebar" id="sidebar">
+            <div class="logo">
+                <span class="logo-icon">📊</span>
+                <span class="logo-text">投资看板</span>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item active" data-tab="dashboard">
+                    <span class="nav-icon">📈</span>
+                    <span class="nav-text">今日看板</span>
+                </li>
+                <li class="nav-item" data-tab="search">
+                    <span class="nav-icon">🔍</span>
+                    <span class="nav-text">基金/股票查询</span>
+                </li>
+                <li class="nav-item" data-tab="capital">
+                    <span class="nav-icon">💰</span>
+                    <span class="nav-text">资金流向</span>
+                </li>
+                <li class="nav-item" data-tab="watchlist">
+                    <span class="nav-icon">⭐</span>
+                    <span class="nav-text">我的自选</span>
+                </li>
+                <li class="nav-item" data-tab="history">
+                    <span class="nav-icon">📋</span>
+                    <span class="nav-text">历史报告</span>
+                </li>
+            </ul>
+            <div class="nav-footer">
+                <div class="update-time" id="updateTime">数据更新时间：--</div>
+            </div>
+        </nav>
+
+        <!-- 移动端顶部导航 -->
+        <header class="mobile-header">
+            <button class="menu-toggle" id="menuToggle">☰</button>
+            <div class="mobile-logo">📊 投资看板</div>
+            <div class="mobile-time" id="mobileTime"></div>
+        </header>
+
+        <!-- 主内容区 -->
+        <main class="main-content" id="mainContent">
+            <!-- 今日看板 -->
+            <section class="tab-content active" id="dashboard">
+                <div class="section-header">
+                    <h1>📊 今日市场分析</h1>
+                    <div class="date-selector">
+                        <input type="date" id="reportDate" class="date-input">
+                    </div>
+                </div>
+
+                <!-- 早间报告 -->
+                <div class="report-card morning-report">
+                    <div class="report-header">
+                        <span class="report-badge morning">🌅 早间分析</span>
+                        <span class="report-time" id="morningTime"></span>
+                    </div>
+                    <div class="report-content" id="morningReport">
+                        <div class="report-section">
+                            <h3>💵 资金流向摘要</h3>
+                            <div class="fund-flow-summary" id="fundFlowSummary"></div>
+                        </div>
+                        <div class="report-section">
+                            <h3>📋 今日推荐</h3>
+                            <div class="recommended-funds" id="recommendedFunds"></div>
+                        </div>
+                        <div class="report-section">
+                            <h3>⚠️ 风险提示</h3>
+                            <div class="risk-warning" id="riskWarning"></div>
+                        </div>
+                        <div class="report-section">
+                            <h3>💡 操作建议</h3>
+                            <div class="operation-advice" id="operationAdvice"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 午后报告 -->
+                <div class="report-card afternoon-report">
+                    <div class="report-header">
+                        <span class="report-badge afternoon">🌇 午后分析</span>
+                        <span class="report-time" id="afternoonTime"></span>
+                    </div>
+                    <div class="report-content" id="afternoonReport">
+                        <div class="report-section">
+                            <h3>📊 午后行情回顾</h3>
+                            <div class="afternoon-review" id="afternoonReview"></div>
+                        </div>
+                        <div class="report-section">
+                            <h3>🔄 板块轮动</h3>
+                            <div class="sector-rotation" id="sectorRotation"></div>
+                        </div>
+                        <div class="report-section">
+                            <h3>📈 明日展望</h3>
+                            <div class="tomorrow-outlook" id="tomorrowOutlook"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 快速自选 -->
+                <div class="quick-watchlist">
+                    <h3>⭐ 自选动态</h3>
+                    <div class="watchlist-grid" id="quickWatchlist"></div>
+                </div>
+            </section>
+
+            <!-- 基金/股票查询 -->
+            <section class="tab-content" id="search">
+                <div class="section-header">
+                    <h1>🔍 基金/股票查询</h1>
+                </div>
+                <div class="search-box">
+                    <input type="text" id="searchInput" class="search-input" placeholder="输入基金代码、名称或股票代码...">
+                    <select id="searchType" class="search-type">
+                        <option value="fund">基金</option>
+                        <option value="stock">股票</option>
+                    </select>
+                    <button class="search-btn" id="searchBtn">查询</button>
+                </div>
+                <div class="search-result" id="searchResult">
+                    <div class="empty-state">
+                        <p>请输入基金代码或股票代码进行查询</p>
+                        <p class="hint">例如：510300（沪深300ETF）、000001（平安银行）</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 资金流向 -->
+            <section class="tab-content" id="capital">
+                <div class="section-header">
+                    <h1>💰 资金流向分析</h1>
+                </div>
+                
+                <div class="capital-overview">
+                    <div class="capital-card main-fund">
+                        <div class="capital-title">主力资金净流入</div>
+                        <div class="capital-value" id="mainFundFlow">--</div>
+                        <div class="capital-change" id="mainFundChange">--</div>
+                    </div>
+                    <div class="capital-card north-fund">
+                        <div class="capital-title">北向资金</div>
+                        <div class="capital-value" id="northFundFlow">--</div>
+                        <div class="capital-change" id="northFundChange">--</div>
+                    </div>
+                    <div class="capital-card south-fund">
+                        <div class="capital-title">南向资金</div>
+                        <div class="capital-value" id="southFundFlow">--</div>
+                        <div class="capital-change" id="southFundChange">--</div>
+                    </div>
+                </div>
+
+                <div class="charts-container">
+                    <div class="chart-card">
+                        <h3>大盘主力资金流向（近5日）</h3>
+                        <div id="mainFundChart" class="echart-container"></div>
+                    </div>
+                    <div class="chart-card">
+                        <h3>北向资金趋势（近5日）</h3>
+                        <div id="northFundChart" class="echart-container"></div>
+                    </div>
+                </div>
+
+                <div class="sector-funds">
+                    <h3>🔥 热门板块资金变化</h3>
+                    <div class="sector-list" id="sectorFundList"></div>
+                </div>
+            </section>
+
+            <!-- 我的自选 -->
+            <section class="tab-content" id="watchlist">
+                <div class="section-header">
+                    <h1>⭐ 我的自选</h1>
+                    <button class="add-btn" id="addWatchBtn">+ 添加自选</button>
+                </div>
+                <div class="watchlist-container" id="watchlistContainer">
+                    <div class="watchlist-table">
+                        <div class="table-header">
+                            <div class="th">名称/代码</div>
+                            <div class="th">最新价</div>
+                            <div class="th">涨跌幅</div>
+                            <div class="th">近1月</div>
+                            <div class="th">操作</div>
+                        </div>
+                        <div class="table-body" id="watchlistBody">
+                            <div class="empty-state">
+                                <p>暂无自选内容</p>
+                                <p class="hint">点击上方"添加自选"按钮，添加您关注的基金或股票</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 历史报告 -->
+            <section class="tab-content" id="history">
+                <div class="section-header">
+                    <h1>📋 历史报告</h1>
+                </div>
+                <div class="history-filters">
+                    <input type="date" id="historyStartDate" class="date-input">
+                    <span class="date-separator">至</span>
+                    <input type="date" id="historyEndDate" class="date-input">
+                    <button class="filter-btn" id="filterHistoryBtn">筛选</button>
+                </div>
+                <div class="history-list" id="historyList"></div>
+            </section>
+        </main>
+    </div>
+
+    <!-- 添加自选弹窗 -->
+    <div class="modal" id="addWatchModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>添加自选</h3>
+                <button class="modal-close" id="closeModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>类型</label>
+                    <select id="addType" class="form-input">
+                        <option value="fund">基金</option>
+                        <option value="stock">股票</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>代码</label>
+                    <input type="text" id="addCode" class="form-input" placeholder="请输入基金/股票代码">
+                </div>
+                <div class="form-group">
+                    <label>名称</label>
+                    <input type="text" id="addName" class="form-input" placeholder="请输入名称">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" id="cancelAdd">取消</button>
+                <button class="btn-primary" id="confirmAdd">添加</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 提示消息 -->
+    <div class="toast" id="toast">
+        <span class="toast-message"></span>
+    </div>
+
+    <script src="data.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
