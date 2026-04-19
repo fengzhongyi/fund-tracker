@@ -123,6 +123,7 @@ function initModals() {
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') {
             modal.classList.remove('active');
+            document.getElementById('fundDetailModal').classList.remove('active');
         }
     });
     
@@ -137,6 +138,21 @@ function initModals() {
     
     // 历史筛选
     document.getElementById('filterHistoryBtn').addEventListener('click', loadHistory);
+    
+    // 基金详情模态框
+    const fundDetailModal = document.getElementById('fundDetailModal');
+    const closeFundDetail = document.getElementById('closeFundDetail');
+    
+    closeFundDetail.addEventListener('click', () => {
+        fundDetailModal.classList.remove('active');
+    });
+    
+    // 点击模态框背景关闭
+    fundDetailModal.addEventListener('click', (e) => {
+        if (e.target === fundDetailModal) {
+            fundDetailModal.classList.remove('active');
+        }
+    });
 }
 
 // ==================== 今日看板 ====================
@@ -188,7 +204,7 @@ function loadMorningReport() {
     
     // 推荐基金
     const fundsHtml = report.recommendedFunds.map(fund => `
-        <div class="fund-card">
+        <div class="fund-card" onclick="openFundDetail('${fund.code}')">
             <div class="fund-info">
                 <h4>${fund.name}</h4>
                 <span class="code">${fund.code}</span>
@@ -202,6 +218,9 @@ function loadMorningReport() {
         </div>
     `).join('');
     document.getElementById('recommendedFunds').innerHTML = fundsHtml;
+    
+    // 激进型基金推荐
+    loadAggressiveFunds();
     
     // 风险提示
     const warningHtml = report.riskWarning.map(w => `<li>${w}</li>`).join('');
@@ -472,7 +491,7 @@ function drawMainFundChart(historyData) {
             data: values,
             itemStyle: {
                 color: function(params) {
-                    return params.value >= 0 ? '#34a853' : '#ea4335';
+                    return params.value >= 0 ? '#e64340' : '#09bb07';  /* 红涨绿跌 */
                 }
             },
             barWidth: '50%'
@@ -809,4 +828,184 @@ function showToast(message, type = 'info') {
     setTimeout(() => {
         toast.classList.remove('show');
     }, 2500);
+}
+
+// ==================== 激进型基金推荐 ====================
+function loadAggressiveFunds() {
+    const container = document.getElementById('aggressiveFunds');
+    if (!container) return;
+    
+    const funds = SAMPLE_DATA.aggressiveFunds;
+    
+    const fundsHtml = `
+        <div class="aggressive-funds-section" style="margin-top: 32px;">
+            <h2>🚀 激进型推荐 <span class="aggressive-badge">高波动·高收益</span></h2>
+            <div class="recommended-funds">
+                ${funds.map(fund => `
+                    <div class="fund-card aggressive" onclick="openFundDetail('${fund.code}')">
+                        <div class="fund-info">
+                            <h4>${fund.name}</h4>
+                            <span class="code">${fund.code}</span>
+                        </div>
+                        <div class="fund-change">
+                            <div class="percent positive">
+                                ${fund.change >= 0 ? '+' : ''}${fund.change}%
+                            </div>
+                            <div class="reason">${fund.reason}</div>
+                        </div>
+                    </div>
+                `).join('')}
+            </div>
+        </div>
+    `;
+    
+    container.innerHTML = fundsHtml;
+}
+
+// ==================== 基金详情页 ====================
+let fundDetailChart = null;
+
+function openFundDetail(code) {
+    const fund = SAMPLE_DATA.fundData[code];
+    if (!fund) {
+        showToast('未找到该基金信息', 'error');
+        return;
+    }
+    
+    const modal = document.getElementById('fundDetailModal');
+    
+    // 填充基本信息
+    document.getElementById('detailFundName').textContent = fund.name;
+    document.getElementById('detailFundCode').textContent = fund.code;
+    document.getElementById('detailFundNav').textContent = `净值：${fund.nav}（${fund.navDate}）`;
+    
+    const changeClass = fund.change >= 0 ? 'up' : 'down';
+    const changeSign = fund.change >= 0 ? '+' : '';
+    const changeEl = document.getElementById('detailFundChange');
+    changeEl.className = `fund-detail-change ${changeClass}`;
+    changeEl.textContent = `${changeSign}${fund.change}%`;
+    
+    // 填充收益数据
+    fillChangeValue('detailDayChange', fund.dayChange);
+    fillChangeValue('detailWeekChange', fund.weekChange);
+    fillChangeValue('detailMonthChange', fund.monthChange);
+    fillChangeValue('detailYearChange', fund.yearChange);
+    
+    // 填充基金信息
+    document.getElementById('detailManager').textContent = fund.manager;
+    document.getElementById('detailSize').textContent = fund.size;
+    document.getElementById('detailNavDate').textContent = fund.navDate;
+    document.getElementById('detailType').textContent = getFundTypeName(fund.type);
+    
+    // 填充基金描述
+    document.getElementById('detailDescription').textContent = fund.description;
+    
+    // 显示模态框
+    modal.classList.add('active');
+    
+    // 绘制净值走势图
+    setTimeout(() => {
+        drawNavChart(fund);
+    }, 100);
+}
+
+function fillChangeValue(elementId, value) {
+    const el = document.getElementById(elementId);
+    const isUp = value >= 0;
+    el.className = `value ${isUp ? 'up' : 'down'}`;
+    el.textContent = `${isUp ? '+' : ''}${value}%`;
+}
+
+function getFundTypeName(type) {
+    const typeMap = {
+        'fund': '基金',
+        'stock': '股票'
+    };
+    return typeMap[type] || type;
+}
+
+// 绘制净值走势图
+function drawNavChart(fund) {
+    const chartDom = document.getElementById('navChart');
+    if (!chartDom || !fund.navHistory || fund.navHistory.length === 0) return;
+    
+    if (fundDetailChart) {
+        fundDetailChart.dispose();
+    }
+    
+    fundDetailChart = echarts.init(chartDom);
+    
+    const dates = fund.navHistory.map(d => d.date.slice(5));
+    const values = fund.navHistory.map(d => d.value);
+    
+    // 判断颜色趋势
+    const startValue = values[0];
+    const endValue = values[values.length - 1];
+    const isUp = endValue >= startValue;
+    const lineColor = isUp ? '#e64340' : '#09bb07';
+    const areaColor = isUp ? 'rgba(230, 67, 64, 0.1)' : 'rgba(9, 187, 7, 0.1)';
+    
+    const option = {
+        tooltip: {
+            trigger: 'axis',
+            formatter: function(params) {
+                const data = params[0];
+                return `${data.name}<br/>净值: ${data.value.toFixed(4)}`;
+            }
+        },
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            top: '10px',
+            containLabel: true
+        },
+        xAxis: {
+            type: 'category',
+            data: dates,
+            boundaryGap: false,
+            axisLine: { lineStyle: { color: '#e0e0e0' } },
+            axisLabel: { 
+                color: '#666',
+                fontSize: 11,
+                rotate: 45
+            }
+        },
+        yAxis: {
+            type: 'value',
+            scale: true,
+            axisLine: { show: false },
+            splitLine: { lineStyle: { color: '#f0f0f0' } },
+            axisLabel: { color: '#666' }
+        },
+        series: [{
+            name: '净值',
+            type: 'line',
+            data: values,
+            smooth: true,
+            symbol: 'circle',
+            symbolSize: 4,
+            lineStyle: {
+                color: lineColor,
+                width: 2
+            },
+            itemStyle: {
+                color: lineColor
+            },
+            areaStyle: {
+                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                    { offset: 0, color: areaColor },
+                    { offset: 1, color: 'rgba(255, 255, 255, 0.05)' }
+                ])
+            }
+        }]
+    };
+    
+    fundDetailChart.setOption(option);
+    
+    window.addEventListener('resize', function() {
+        if (fundDetailChart) {
+            fundDetailChart.resize();
+        }
+    });
 }

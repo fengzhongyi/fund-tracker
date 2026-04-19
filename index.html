@@ -86,6 +86,9 @@
                     </div>
                 </div>
 
+                <!-- 激进型基金推荐区域 -->
+                <div id="aggressiveFunds"></div>
+
                 <!-- 午后报告 -->
                 <div class="report-card afternoon-report">
                     <div class="report-header">
@@ -245,6 +248,88 @@
             <div class="modal-footer">
                 <button class="btn-secondary" id="cancelAdd">取消</button>
                 <button class="btn-primary" id="confirmAdd">添加</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 基金详情弹窗 -->
+    <div class="modal" id="fundDetailModal">
+        <div class="modal-content fund-detail-modal">
+            <div class="modal-header">
+                <h3>基金详情</h3>
+                <button class="modal-close" id="closeFundDetail">&times;</button>
+            </div>
+            <div class="fund-detail-header">
+                <div class="fund-detail-title">
+                    <div class="fund-detail-name" id="detailFundName">--</div>
+                    <div class="fund-detail-code" id="detailFundCode">--</div>
+                </div>
+                <div class="fund-detail-price">
+                    <div class="fund-detail-nav" id="detailFundNav">净值：--</div>
+                    <div class="fund-detail-change up" id="detailFundChange">--</div>
+                </div>
+            </div>
+            <div class="fund-detail-body">
+                <!-- 收益数据 -->
+                <div class="fund-detail-section">
+                    <h4>📊 收益数据</h4>
+                    <div class="return-grid">
+                        <div class="return-item">
+                            <div class="label">日涨跌</div>
+                            <div class="value" id="detailDayChange">--</div>
+                        </div>
+                        <div class="return-item">
+                            <div class="label">近1周</div>
+                            <div class="value" id="detailWeekChange">--</div>
+                        </div>
+                        <div class="return-item">
+                            <div class="label">近1月</div>
+                            <div class="value" id="detailMonthChange">--</div>
+                        </div>
+                        <div class="return-item">
+                            <div class="label">近1年</div>
+                            <div class="value" id="detailYearChange">--</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 净值走势图 -->
+                <div class="fund-detail-section">
+                    <h4>📈 净值走势（近30日）</h4>
+                    <div id="navChart" class="nav-chart-container"></div>
+                </div>
+                <!-- 基金信息 -->
+                <div class="fund-detail-section">
+                    <h4>📋 基金信息</h4>
+                    <div class="fund-info-grid">
+                        <div class="fund-info-item">
+                            <span class="label">基金经理</span>
+                            <span class="value" id="detailManager">--</span>
+                        </div>
+                        <div class="fund-info-item">
+                            <span class="label">基金规模</span>
+                            <span class="value" id="detailSize">--</span>
+                        </div>
+                        <div class="fund-info-item">
+                            <span class="label">净值日期</span>
+                            <span class="value" id="detailNavDate">--</span>
+                        </div>
+                        <div class="fund-info-item">
+                            <span class="label">基金类型</span>
+                            <span class="value" id="detailType">--</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- 基金描述 -->
+                <div class="fund-detail-section">
+                    <h4>📝 基金简介</h4>
+                    <div class="fund-description" id="detailDescription">--</div>
+                </div>
+                <!-- 风险提示 -->
+                <div class="fund-detail-section">
+                    <div class="fund-risk-warning">
+                        <p>基金投资有风险，入市需谨慎。过往业绩不代表未来表现，本页面内容仅供参考，不构成投资建议。投资者应根据自身风险承受能力做出投资决策。</p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
