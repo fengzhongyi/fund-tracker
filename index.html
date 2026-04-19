@@ -71,6 +71,11 @@
                             <h3>💵 资金流向摘要</h3>
                             <div class="fund-flow-summary" id="fundFlowSummary"></div>
                         </div>
+                        <!-- 资金流向分析 -->
+                        <div class="report-section">
+                            <h3>📊 资金流向分析</h3>
+                            <div class="fund-flow-analysis" id="fundFlowAnalysis"></div>
+                        </div>
                         <div class="report-section">
                             <h3>📋 今日推荐</h3>
                             <div class="recommended-funds" id="recommendedFunds"></div>
@@ -84,6 +89,14 @@
                             <div class="operation-advice" id="operationAdvice"></div>
                         </div>
                     </div>
+                </div>
+
+                <!-- 今日重大新闻 -->
+                <div class="report-card daily-news-card">
+                    <div class="report-header">
+                        <span class="report-badge news">📰 今日重大新闻</span>
+                    </div>
+                    <div class="daily-news" id="dailyNews"></div>
                 </div>
 
                 <!-- 激进型基金推荐区域 -->
@@ -352,6 +365,11 @@
                 </div>
             </div>
             <div class="sector-detail-body">
+                <!-- K线图 -->
+                <div class="sector-detail-section">
+                    <h4>📈 K线走势图（近30日）</h4>
+                    <div id="sectorKlineChart" class="sector-kline-container"></div>
+                </div>
                 <div class="sector-detail-section">
                     <h4>🏆 板块龙头股</h4>
                     <div class="leading-stocks" id="detailSectorStocks">
@@ -359,7 +377,7 @@
                     </div>
                 </div>
                 <div class="sector-detail-section">
-                    <h4>📈 近期走势分析</h4>
+                    <h4>📝 近期走势分析</h4>
                     <div class="sector-description" id="detailSectorDescription">
                         <!-- 动态填充 -->
                     </div>

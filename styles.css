@@ -337,6 +337,235 @@ body {
     color: var(--text-secondary);
 }
 
+/* ==================== 资金流向分析 ==================== */
+.fund-flow-analysis {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+    margin-top: 12px;
+}
+
+.analysis-card {
+    background: var(--bg-color);
+    padding: 16px;
+    border-radius: 10px;
+    border-left: 4px solid var(--primary-color);
+}
+
+.analysis-card.main-fund-analysis {
+    border-left-color: #e64340;
+}
+
+.analysis-card.north-fund-analysis {
+    border-left-color: #3498db;
+}
+
+.analysis-card.sector-rotation-analysis {
+    border-left-color: #f39c12;
+}
+
+.analysis-card.operation-advice-card {
+    border-left-color: #27ae60;
+}
+
+.analysis-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+.analysis-icon {
+    font-size: 16px;
+}
+
+.analysis-title {
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--text-primary);
+}
+
+.analysis-trend {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+}
+
+.analysis-details {
+    font-size: 12px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 8px;
+}
+
+.analysis-sentiment {
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 8px;
+    border-radius: 4px;
+    display: inline-block;
+}
+
+.analysis-sentiment.positive {
+    background: rgba(9, 187, 7, 0.1);
+    color: var(--danger-color);
+}
+
+.analysis-sentiment.negative {
+    background: rgba(230, 67, 64, 0.1);
+    color: var(--success-color);
+}
+
+.analysis-sentiment.neutral {
+    background: rgba(243, 156, 18, 0.1);
+    color: #f39c12;
+}
+
+.analysis-conclusion {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--primary-color);
+    padding: 4px 8px;
+    background: rgba(26, 115, 232, 0.1);
+    border-radius: 4px;
+    display: inline-block;
+}
+
+.advice-section {
+    margin-bottom: 10px;
+}
+
+.advice-section:last-child {
+    margin-bottom: 0;
+}
+
+.advice-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+}
+
+.advice-content {
+    font-size: 12px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+}
+
+.risk-points {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.risk-point {
+    font-size: 11px;
+    padding: 2px 8px;
+    background: rgba(230, 67, 64, 0.1);
+    color: var(--success-color);
+    border-radius: 10px;
+}
+
+/* ==================== 每日新闻 ==================== */
+.daily-news-card {
+    margin-bottom: 24px;
+}
+
+.report-badge.news {
+    background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
+    color: #2e7d32;
+}
+
+.daily-news {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.news-item {
+    background: var(--bg-color);
+    padding: 16px;
+    border-radius: 8px;
+    border-left: 3px solid var(--primary-color);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.news-item:hover {
+    transform: translateX(4px);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.news-item:first-child {
+    border-left-color: #e64340;
+}
+
+.news-item:nth-child(2) {
+    border-left-color: #3498db;
+}
+
+.news-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 8px;
+    gap: 12px;
+}
+
+.news-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary);
+    flex: 1;
+}
+
+.news-impact {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 10px;
+    white-space: nowrap;
+}
+
+.news-impact.positive {
+    background: rgba(9, 187, 7, 0.1);
+    color: var(--danger-color);
+}
+
+.news-impact.negative {
+    background: rgba(230, 67, 64, 0.1);
+    color: var(--success-color);
+}
+
+.news-impact.neutral {
+    background: rgba(158, 158, 158, 0.1);
+    color: #757575;
+}
+
+.news-meta {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 8px;
+    font-size: 12px;
+    color: var(--text-secondary);
+}
+
+.news-source {
+    color: var(--primary-color);
+}
+
+.news-summary {
+    font-size: 12px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+/* ==================== 板块K线图 ==================== */
+.sector-kline-container {
+    height: 300px;
+    margin-bottom: 16px;
+}
+
 /* ==================== 风险提示 ==================== */
 .risk-warning {
     background: linear-gradient(135deg, #fff3e0, #fff8e1);

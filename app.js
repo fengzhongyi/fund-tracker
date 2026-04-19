@@ -193,14 +193,20 @@ function initModals() {
 }
 
 // ==================== 今日看板 ====================
-function loadDashboard() {
-    const date = document.getElementById('reportDate').value;
+function loadDashboard(date) {
+    // 如果没有传入日期，使用输入框的日期
+    if (!date) {
+        date = document.getElementById('reportDate').value;
+    }
     
     // 加载早间报告
-    loadMorningReport();
+    loadMorningReport(date);
     
     // 加载午后报告
-    loadAfternoonReport();
+    loadAfternoonReport(date);
+    
+    // 加载每日新闻
+    loadDailyNews();
     
     // 加载快速自选
     loadQuickWatchlist();
@@ -210,7 +216,7 @@ function loadDashboard() {
         `数据更新时间：${new Date().toLocaleString('zh-CN')}`;
 }
 
-function loadMorningReport() {
+function loadMorningReport(date) {
     const report = SAMPLE_DATA.morningReport;
     
     // 时间
@@ -238,6 +244,9 @@ function loadMorningReport() {
         </div>
     `;
     document.getElementById('fundFlowSummary').innerHTML = fundFlowHtml;
+    
+    // 添加资金流向分析
+    loadFundFlowAnalysis();
     
     // 推荐基金
     const fundsHtml = report.recommendedFunds.map(fund => `
@@ -268,7 +277,100 @@ function loadMorningReport() {
     document.getElementById('operationAdvice').innerHTML = `<ul>${adviceHtml}</ul>`;
 }
 
-function loadAfternoonReport() {
+// ==================== 资金流向分析 ====================
+function loadFundFlowAnalysis() {
+    const analysis = FUND_FLOW_ANALYSIS;
+    const container = document.getElementById('fundFlowAnalysis');
+    
+    if (!container) return;
+    
+    const html = `
+        <div class="analysis-card main-fund-analysis">
+            <div class="analysis-header">
+                <span class="analysis-icon">📊</span>
+                <span class="analysis-title">主力资金分析</span>
+            </div>
+            <div class="analysis-trend">${analysis.mainFundAnalysis.trend}</div>
+            <div class="analysis-details">${analysis.mainFundAnalysis.details}</div>
+            <div class="analysis-sentiment ${analysis.mainFundAnalysis.sentiment === '谨慎' ? 'negative' : 'positive'}">
+                市场情绪：${analysis.mainFundAnalysis.sentiment}
+            </div>
+        </div>
+        
+        <div class="analysis-card north-fund-analysis">
+            <div class="analysis-header">
+                <span class="analysis-icon">🌐</span>
+                <span class="analysis-title">北向资金分析</span>
+            </div>
+            <div class="analysis-trend">${analysis.northFundAnalysis.trend}</div>
+            <div class="analysis-details">${analysis.northFundAnalysis.details}</div>
+            <div class="analysis-sentiment ${analysis.northFundAnalysis.sentiment === '观望' ? 'neutral' : ''}">
+                外资态度：${analysis.northFundAnalysis.sentiment}
+            </div>
+        </div>
+        
+        <div class="analysis-card sector-rotation-analysis">
+            <div class="analysis-header">
+                <span class="analysis-icon">🔄</span>
+                <span class="analysis-title">板块轮动分析</span>
+            </div>
+            <div class="analysis-trend">${analysis.sectorRotation.trend}</div>
+            <div class="analysis-details">${analysis.sectorRotation.details}</div>
+            <div class="analysis-conclusion">${analysis.sectorRotation.conclusion}</div>
+        </div>
+        
+        <div class="analysis-card operation-advice-card">
+            <div class="analysis-header">
+                <span class="analysis-icon">💡</span>
+                <span class="analysis-title">操作建议</span>
+            </div>
+            <div class="advice-section">
+                <div class="advice-label">短期建议：</div>
+                <div class="advice-content">${analysis.operationAdvice.shortTerm}</div>
+            </div>
+            <div class="advice-section">
+                <div class="advice-label">中期建议：</div>
+                <div class="advice-content">${analysis.operationAdvice.mediumTerm}</div>
+            </div>
+            <div class="advice-section">
+                <div class="advice-label">风险提示：</div>
+                <div class="risk-points">
+                    ${analysis.operationAdvice.riskPoints.map(point => `<span class="risk-point">${point}</span>`).join('')}
+                </div>
+            </div>
+        </div>
+    `;
+    
+    container.innerHTML = html;
+}
+
+// ==================== 每日新闻 ====================
+function loadDailyNews() {
+    const container = document.getElementById('dailyNews');
+    
+    if (!container || !DAILY_NEWS || DAILY_NEWS.length === 0) return;
+    
+    const newsHtml = DAILY_NEWS.map(news => {
+        const impactClass = news.impact === '利好' ? 'positive' : (news.impact === '利空' ? 'negative' : 'neutral');
+        return `
+            <div class="news-item">
+                <div class="news-header">
+                    <span class="news-title">${news.title}</span>
+                    <span class="news-impact ${impactClass}">${news.impact}</span>
+                </div>
+                <div class="news-meta">
+                    <span class="news-source">${news.source}</span>
+                    <span class="news-time">${news.time}</span>
+                </div>
+                <div class="news-summary">${news.summary}</div>
+            </div>
+        `;
+    }).join('');
+    
+    container.innerHTML = newsHtml;
+}
+
+function loadAfternoonReport(date) {
     const report = SAMPLE_DATA.afternoonReport;
     
     // 时间
@@ -484,6 +586,8 @@ function loadCapitalFlow() {
 }
 
 // 打开板块详情
+let sectorKlineChart = null;
+
 function openSectorDetail(sectorName) {
     const sectorData = SECTOR_DATA[sectorName];
     if (!sectorData) return;
@@ -516,6 +620,163 @@ function openSectorDetail(sectorName) {
     
     // 显示模态框
     document.getElementById('sectorDetailModal').classList.add('active');
+    
+    // 绘制K线图
+    setTimeout(() => {
+        drawSectorKlineChart(sectorData);
+    }, 100);
+}
+
+// 绘制板块K线图
+function drawSectorKlineChart(sectorData) {
+    const chartDom = document.getElementById('sectorKlineChart');
+    if (!chartDom || !sectorData.klineData || sectorData.klineData.length === 0) return;
+    
+    if (sectorKlineChart) {
+        sectorKlineChart.dispose();
+    }
+    
+    sectorKlineChart = echarts.init(chartDom);
+    
+    // 准备K线数据
+    const klineData = sectorData.klineData.map(d => [d.open, d.close, d.low, d.high]);
+    const dates = sectorData.klineData.map(d => d.date.slice(5));
+    
+    // 计算均线
+    const closes = sectorData.klineData.map(d => d.close);
+    const ma5 = calculateMA(5, closes);
+    const ma10 = calculateMA(10, closes);
+    const ma20 = calculateMA(20, closes);
+    
+    const option = {
+        tooltip: {
+            trigger: 'axis',
+            axisPointer: { type: 'cross' },
+            formatter: function(params) {
+                let result = params[0].name + '<br/>';
+                params.forEach(param => {
+                    if (param.seriesType === 'candlestick') {
+                        result += '开盘: ' + param.value[0].toFixed(2) + '<br/>';
+                        result += '收盘: ' + param.value[1].toFixed(2) + '<br/>';
+                        result += '最低: ' + param.value[2].toFixed(2) + '<br/>';
+                        result += '最高: ' + param.value[3].toFixed(2);
+                    } else {
+                        result += param.marker + param.seriesName + ': ' + param.value.toFixed(2) + '<br/>';
+                    }
+                });
+                return result;
+            }
+        },
+        legend: {
+            data: ['MA5', 'MA10', 'MA20'],
+            top: 0,
+            textStyle: { fontSize: 11 }
+        },
+        grid: {
+            left: '3%',
+            right: '3%',
+            bottom: '10%',
+            top: '15%',
+            containLabel: true
+        },
+        xAxis: {
+            type: 'category',
+            data: dates,
+            axisLine: { lineStyle: { color: '#e0e0e0' } },
+            axisLabel: {
+                color: '#666',
+                fontSize: 10,
+                interval: 4,
+                rotate: 45
+            }
+        },
+        yAxis: {
+            type: 'value',
+            scale: true,
+            axisLine: { show: false },
+            splitLine: { lineStyle: { color: '#f0f0f0' } },
+            axisLabel: {
+                color: '#666',
+                fontSize: 11
+            }
+        },
+        dataZoom: [
+            {
+                type: 'inside',
+                start: 0,
+                end: 100
+            },
+            {
+                show: true,
+                type: 'slider',
+                start: 0,
+                end: 100,
+                bottom: '2%'
+            }
+        ],
+        series: [
+            {
+                name: 'K线',
+                type: 'candlestick',
+                data: klineData,
+                itemStyle: {
+                    color: '#e64340',     // 涨 - 红色
+                    color0: '#09bb07',    // 跌 - 绿色
+                    borderColor: '#e64340',
+                    borderColor0: '#09bb07'
+                }
+            },
+            {
+                name: 'MA5',
+                type: 'line',
+                data: ma5,
+                smooth: true,
+                lineStyle: { width: 1, color: '#f39c12' },
+                symbol: 'none'
+            },
+            {
+                name: 'MA10',
+                type: 'line',
+                data: ma10,
+                smooth: true,
+                lineStyle: { width: 1, color: '#3498db' },
+                symbol: 'none'
+            },
+            {
+                name: 'MA20',
+                type: 'line',
+                data: ma20,
+                smooth: true,
+                lineStyle: { width: 1, color: '#9b59b6' },
+                symbol: 'none'
+            }
+        ]
+    };
+    
+    sectorKlineChart.setOption(option);
+    
+    window.addEventListener('resize', function() {
+        if (sectorKlineChart) {
+            sectorKlineChart.resize();
+        }
+    });
+}
+
+// 计算均线
+function calculateMA(dayCount, data) {
+    const result = [];
+    for (let i = 0; i < data.length; i++) {
+        if (i < dayCount - 1) {
+            result.push('-');
+        } else {
+            let sum = 0;
+            for (let j = 0; j < dayCount; j++) {
+                sum += data[i - j];
+            }
+            result.push((sum / dayCount).toFixed(2));
+        }
+    }
+    return result;
 }
 
 function updateCapitalCard(type, data) {
@@ -1013,10 +1274,11 @@ function drawNavChart(fund) {
     
     fundDetailChart = echarts.init(chartDom);
     
+    // navHistory数据已经是按日期从旧到新排序的
     const dates = fund.navHistory.map(d => d.date.slice(5));
     const values = fund.navHistory.map(d => d.value);
     
-    // 判断颜色趋势
+    // 判断颜色趋势（首尾比较）
     const startValue = values[0];
     const endValue = values[values.length - 1];
     const isUp = endValue >= startValue;
