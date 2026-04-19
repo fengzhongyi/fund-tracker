@@ -651,25 +651,102 @@ body {
     gap: 12px;
 }
 
-.sector-item {
+/* ==================== 板块卡片样式 ==================== */
+.sector-card {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 14px 16px;
+    padding: 16px 18px;
     background: var(--bg-color);
-    border-radius: 8px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    border: 1px solid transparent;
+    position: relative;
+    overflow: hidden;
 }
 
-.sector-name {
-    font-weight: 500;
+.sector-card::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    transition: all 0.25s ease;
 }
 
-.sector-change {
+.sector-card.up::before {
+    background: var(--success-color);  /* 涨-红色 */
+}
+
+.sector-card.down::before {
+    background: var(--danger-color);   /* 跌-绿色 */
+}
+
+.sector-card:hover {
+    transform: translateX(4px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.sector-card.up:hover {
+    background: linear-gradient(135deg, #fff8f8, #fff0f0);
+    border-color: rgba(230, 67, 64, 0.2);
+}
+
+.sector-card.down:hover {
+    background: linear-gradient(135deg, #f8fff8, #f0fff0);
+    border-color: rgba(9, 187, 7, 0.2);
+}
+
+.sector-card:active {
+    transform: translateX(2px) scale(0.98);
+    transition: all 0.1s ease;
+}
+
+.sector-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.sector-info .sector-name {
     font-weight: 600;
+    font-size: 15px;
+    color: var(--text-primary);
 }
 
-.sector-change.positive { color: var(--success-color); }
-.sector-change.negative { color: var(--danger-color); }
+.sector-info .sector-flow {
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+.sector-indicator {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.sector-indicator .sector-change {
+    font-weight: 700;
+    font-size: 16px;
+}
+
+.sector-indicator .sector-arrow {
+    color: var(--text-secondary);
+    font-size: 12px;
+    opacity: 0;
+    transform: translateX(-5px);
+    transition: all 0.25s ease;
+}
+
+.sector-card:hover .sector-arrow {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.sector-change.positive { color: var(--success-color); }  /* 涨-红色 */
+.sector-change.negative { color: var(--danger-color); }   /* 跌-绿色 */
 
 /* ==================== 自选列表页面 ==================== */
 .add-btn {
@@ -1304,3 +1381,185 @@ body {
 
 .up { color: #e64340; }
 .down { color: #09bb07; }
+
+
+/* ==================== 板块详情模态框 ==================== */
+.sector-detail-modal {
+    max-width: 600px;
+    width: 95%;
+    max-height: 85vh;
+    overflow-y: auto;
+}
+
+.sector-detail-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 20px 24px;
+    border-bottom: 1px solid var(--border-color);
+    background: linear-gradient(135deg, #f8f9fa, #ffffff);
+}
+
+.sector-detail-title {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.sector-detail-title .sector-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.sector-detail-title .sector-subtitle {
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+.sector-detail-stats {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 6px;
+}
+
+.sector-detail-stats .detail-value {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.sector-detail-stats .detail-value.positive { color: var(--success-color); }
+.sector-detail-stats .detail-value.negative { color: var(--danger-color); }
+
+.sector-detail-stats .detail-change {
+    font-size: 14px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 4px;
+}
+
+.sector-detail-stats .detail-change.up {
+    background: rgba(230, 67, 64, 0.1);
+    color: var(--success-color);
+}
+
+.sector-detail-stats .detail-change.down {
+    background: rgba(9, 187, 7, 0.1);
+    color: var(--danger-color);
+}
+
+.sector-detail-body {
+    padding: 20px 24px;
+}
+
+.sector-detail-section {
+    margin-bottom: 24px;
+}
+
+.sector-detail-section:last-child {
+    margin-bottom: 0;
+}
+
+.sector-detail-section h4 {
+    font-size: 15px;
+    color: var(--text-primary);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* 龙头股列表 */
+.leading-stocks {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.leading-stock {
+    background: var(--bg-color);
+    padding: 14px 16px;
+    border-radius: 8px;
+    border-left: 3px solid var(--primary-color);
+}
+
+.leading-stock .stock-main {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+}
+
+.leading-stock .stock-name {
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--text-primary);
+}
+
+.leading-stock .stock-change {
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.leading-stock .stock-change.positive { color: var(--success-color); }
+.leading-stock .stock-change.negative { color: var(--danger-color); }
+
+.leading-stock .stock-reason {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+}
+
+/* 板块描述 */
+.sector-description {
+    background: var(--bg-color);
+    padding: 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    line-height: 1.8;
+    color: var(--text-primary);
+}
+
+/* 操作建议 */
+.sector-advice {
+    margin-top: 8px;
+}
+
+.advice-positive {
+    background: linear-gradient(135deg, #e8f5e9, #f1f8e9);
+    border-left: 4px solid var(--success-color);
+    padding: 16px;
+    border-radius: 0 8px 8px 0;
+    font-size: 14px;
+    line-height: 1.7;
+    color: #2e7d32;
+}
+
+.advice-negative {
+    background: linear-gradient(135deg, #fff3e0, #fff8e1);
+    border-left: 4px solid var(--warning-color);
+    padding: 16px;
+    border-radius: 0 8px 8px 0;
+    font-size: 14px;
+    line-height: 1.7;
+    color: #e65100;
+}
+
+/* 板块详情响应式 */
+@media (max-width: 480px) {
+    .sector-detail-header {
+        flex-direction: column;
+        gap: 16px;
+    }
+    
+    .sector-detail-stats {
+        align-items: flex-start;
+        flex-direction: row;
+        gap: 12px;
+    }
+    
+    .sector-detail-stats .detail-value {
+        font-size: 18px;
+    }
+}

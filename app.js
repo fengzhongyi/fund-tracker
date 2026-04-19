@@ -1,3 +1,25 @@
+// ==================== 格式化工具函数 ====================
+// 格式化数值变化显示
+function formatChange(value) {
+    if (value > 0) return '+' + value.toFixed(2);
+    if (value < 0) return value.toFixed(2);
+    return '0.00';
+}
+
+// 格式化涨跌百分比
+function formatPercent(value) {
+    if (value > 0) return '+' + value.toFixed(2) + '%';
+    if (value < 0) return value.toFixed(2) + '%';
+    return '0.00%';
+}
+
+// 格式化资金金额
+function formatMoney(value) {
+    if (value > 0) return '+' + value.toFixed(2) + '亿';
+    if (value < 0) return value.toFixed(2) + '亿';
+    return '0.00亿';
+}
+
 // ==================== 个人投资看板 主逻辑 ====================
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -153,6 +175,21 @@ function initModals() {
             fundDetailModal.classList.remove('active');
         }
     });
+    
+    // 板块详情模态框
+    const sectorDetailModal = document.getElementById('sectorDetailModal');
+    const closeSectorDetail = document.getElementById('closeSectorDetail');
+    
+    closeSectorDetail.addEventListener('click', () => {
+        sectorDetailModal.classList.remove('active');
+    });
+    
+    // 点击模态框背景关闭
+    sectorDetailModal.addEventListener('click', (e) => {
+        if (e.target === sectorDetailModal) {
+            sectorDetailModal.classList.remove('active');
+        }
+    });
 }
 
 // ==================== 今日看板 ====================
@@ -179,15 +216,15 @@ function loadMorningReport() {
     // 时间
     document.getElementById('morningTime').textContent = report.time;
     
-    // 资金流向摘要
+    // 资金流向摘要 - 修复显示问题
     const fundFlowHtml = `
         <div class="summary-item">
             <div class="label">主力净流入</div>
-            <div class="value positive">+${report.fundFlowSummary.mainInflow.toFixed(2)}亿</div>
+            <div class="value ${report.fundFlowSummary.mainInflow >= 0 ? 'positive' : 'negative'}">${formatMoney(report.fundFlowSummary.mainInflow)}</div>
         </div>
         <div class="summary-item">
             <div class="label">散户净流入</div>
-            <div class="value negative">${report.fundFlowSummary.retailInflow.toFixed(2)}亿</div>
+            <div class="value ${report.fundFlowSummary.retailInflow >= 0 ? 'positive' : 'negative'}">${formatMoney(report.fundFlowSummary.retailInflow)}</div>
         </div>
         <div class="summary-item">
             <div class="label">成交额</div>
@@ -196,7 +233,7 @@ function loadMorningReport() {
         <div class="summary-item">
             <div class="label">环比变化</div>
             <div class="value ${report.fundFlowSummary.transactionChange >= 0 ? 'positive' : 'negative'}">
-                ${report.fundFlowSummary.transactionChange >= 0 ? '+' : ''}${report.fundFlowSummary.transactionChange}%
+                ${formatPercent(report.fundFlowSummary.transactionChange).replace('%', '')}
             </div>
         </div>
     `;
@@ -428,16 +465,57 @@ function loadCapitalFlow() {
     drawMainFundChart(data.mainFundHistory);
     drawNorthFundChart(data.northFundHistory);
     
-    // 板块资金
+    // 板块资金 - 添加点击功能
     const sectorHtml = data.sectorFunds.map(s => `
-        <div class="sector-item">
-            <span class="sector-name">${s.sector}</span>
-            <span class="sector-change ${s.change >= 0 ? 'positive' : 'negative'}">
-                ${s.change >= 0 ? '+' : ''}${s.change}%
-            </span>
+        <div class="sector-card ${s.change >= 0 ? 'up' : 'down'}" onclick="openSectorDetail('${s.sector}')">
+            <div class="sector-info">
+                <span class="sector-name">${s.sector}</span>
+                <span class="sector-flow">${formatMoney(s.change)}</span>
+            </div>
+            <div class="sector-indicator">
+                <span class="sector-change ${s.change >= 0 ? 'positive' : 'negative'}">
+                    ${formatPercent(s.change).replace('%', '')}
+                </span>
+                <span class="sector-arrow">→</span>
+            </div>
         </div>
     `).join('');
     document.getElementById('sectorFundList').innerHTML = sectorHtml;
+}
+
+// 打开板块详情
+function openSectorDetail(sectorName) {
+    const sectorData = SECTOR_DATA[sectorName];
+    if (!sectorData) return;
+    
+    // 填充板块详情数据
+    document.getElementById('detailSectorName').textContent = sectorData.name;
+    document.getElementById('detailSectorInflow').textContent = formatMoney(sectorData.mainInflow);
+    document.getElementById('detailSectorInflow').className = `detail-value ${sectorData.mainInflow >= 0 ? 'positive' : 'negative'}`;
+    document.getElementById('detailSectorChange').textContent = formatPercent(sectorData.change).replace('%', '');
+    document.getElementById('detailSectorChange').className = `detail-change ${sectorData.change >= 0 ? 'up' : 'down'}`;
+    
+    // 板块龙头股
+    const stocksHtml = sectorData.leadingStocks.map(stock => `
+        <div class="leading-stock">
+            <div class="stock-main">
+                <span class="stock-name">${stock.name}</span>
+                <span class="stock-change ${stock.change >= 0 ? 'positive' : 'negative'}">${formatPercent(stock.change).replace('%', '')}</span>
+            </div>
+            <div class="stock-reason">${stock.reason}</div>
+        </div>
+    `).join('');
+    document.getElementById('detailSectorStocks').innerHTML = stocksHtml;
+    
+    // 板块近期走势描述
+    document.getElementById('detailSectorDescription').textContent = sectorData.description;
+    
+    // 操作建议
+    const adviceClass = sectorData.change >= 0 ? 'advice-positive' : 'advice-negative';
+    document.getElementById('detailSectorAdvice').innerHTML = `<div class="${adviceClass}">💡 ${sectorData.advice}</div>`;
+    
+    // 显示模态框
+    document.getElementById('sectorDetailModal').classList.add('active');
 }
 
 function updateCapitalCard(type, data) {

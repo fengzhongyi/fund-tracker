@@ -334,6 +334,46 @@
         </div>
     </div>
 
+    <!-- 板块详情弹窗 -->
+    <div class="modal" id="sectorDetailModal">
+        <div class="modal-content sector-detail-modal">
+            <div class="modal-header">
+                <h3>📊 板块详情</h3>
+                <button class="modal-close" id="closeSectorDetail">&times;</button>
+            </div>
+            <div class="sector-detail-header">
+                <div class="sector-detail-title">
+                    <span class="sector-title" id="detailSectorName">--</span>
+                    <span class="sector-subtitle">板块资金流向分析</span>
+                </div>
+                <div class="sector-detail-stats">
+                    <div class="detail-value" id="detailSectorInflow">--</div>
+                    <div class="detail-change" id="detailSectorChange">--</div>
+                </div>
+            </div>
+            <div class="sector-detail-body">
+                <div class="sector-detail-section">
+                    <h4>🏆 板块龙头股</h4>
+                    <div class="leading-stocks" id="detailSectorStocks">
+                        <!-- 动态填充 -->
+                    </div>
+                </div>
+                <div class="sector-detail-section">
+                    <h4>📈 近期走势分析</h4>
+                    <div class="sector-description" id="detailSectorDescription">
+                        <!-- 动态填充 -->
+                    </div>
+                </div>
+                <div class="sector-detail-section">
+                    <h4>💡 操作建议</h4>
+                    <div class="sector-advice" id="detailSectorAdvice">
+                        <!-- 动态填充 -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- 提示消息 -->
     <div class="toast" id="toast">
         <span class="toast-message"></span>
