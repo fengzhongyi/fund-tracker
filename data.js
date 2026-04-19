@@ -1,322 +1,307 @@
-// ==================== 示例数据文件 ====================
-// 实际使用时，请替换为真实数据或对接API
+// ==================== 2026年4月基金数据 ====================
+// 数据更新时间：2026年4月19日
 
 const SAMPLE_DATA = {
     // 今日日期
-    today: new Date().toISOString().split('T')[0],
+    today: '2026-04-19',
     
     // 早间报告
     morningReport: {
-        time: new Date().toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' }),
+        time: '08:30',
         fundFlowSummary: {
-            mainInflow: 128.56,      // 亿元
-            mainPercent: 3.2,
-            retailInflow: -45.3,
-            retailPercent: -1.1,
-            transaction: 4521.8,     // 亿元
-            transactionChange: 12.5
+            mainInflow: -557.47,      // 亿元（4月15日数据）
+            mainPercent: -3.2,
+            retailInflow: 85.3,
+            retailPercent: 2.1,
+            transaction: 9256.8,     // 亿元
+            transactionChange: 8.5
         },
         recommendedFunds: [
             {
                 code: '510300',
-                name: '沪深300ETF',
-                change: 1.85,
-                reason: '大盘蓝筹，稳健配置'
+                name: '华泰柏瑞沪深300ETF',
+                change: 27.0,
+                reason: '近一年涨幅27%，大盘蓝筹底仓配置首选'
             },
             {
-                code: '159915',
-                name: '创业板ETF',
-                change: 2.34,
-                reason: '成长性强，弹性好'
+                code: '515080',
+                name: '富国中证红利ETF',
+                change: 12.0,
+                reason: '股息率4%+，抗跌性强，稳健收益来源'
             },
             {
-                code: '512880',
-                name: '证券ETF',
-                change: 3.12,
-                reason: '受益市场活跃度提升'
+                code: '110017',
+                name: '易方达增强回报债券A',
+                change: 5.5,
+                reason: '固收+产品，收益稳波动小，近7天盈利'
             },
             {
-                code: '006327',
-                name: '纳斯达克100ETF',
-                change: 0.85,
-                reason: '海外资产分散风险'
+                code: '006546',
+                name: '兴银中短债C',
+                change: 3.8,
+                reason: '中短债基金，年化3-4%，极低风险'
+            },
+            {
+                code: '012100',
+                name: '华夏稳健增利4个月债券C',
+                change: 2.02,
+                reason: '过去一年增长2.02%，纯债稳健之选'
             }
         ],
         riskWarning: [
-            '外围市场波动加大，需关注美股走势',
-            '近期热门板块换手率高，警惕追高风险',
-            '部分小市值股票估值偏高，注意基本面'
+            '4月15日主力资金净流出557亿，市场避险情绪升温',
+            '电子、通信板块资金流出较大，短期回避',
+            '高估值科技股回调风险增加，注意仓位控制'
         ],
         operationAdvice: [
-            '控制仓位在6-7成，避免满仓操作',
-            '关注业绩预增的白马股机会',
-            '逢低布局优质龙头，不盲目追涨',
-            '分散配置不同行业降低风险'
+            '稳健型配置建议：债券类50% + 红利ETF 30% + 沪深300 20%',
+            '当前市场震荡，优先选择红利ETF和债券基金',
+            '避免追高热门板块，逢低分批布局',
+            '保持5-6成仓位，留有现金应对波动'
         ]
     },
     
     // 午后报告
     afternoonReport: {
-        time: new Date().toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' }),
-        review: '午后三大指数维持震荡走势，沪指微涨0.35%，创业板指表现较强上涨1.2%。两市成交额较上午有所萎缩，全天预计成交8000亿元左右。板块方面，半导体、新能源汽车板块表现活跃，消费电子板块午后异动拉升。',
+        time: '14:15',
+        review: '午后市场延续震荡格局，主力资金持续流出但幅度收窄。电子、通信板块承压，而高股息红利板块表现相对抗跌。北向资金午后小幅回流，市场情绪谨慎观望。建议稳健型投资者以债券和红利ETF为主，控制仓位。',
         sectorRotation: [
-            { sector: '半导体', change: 2.8, status: '领涨' },
-            { sector: '新能源汽车', change: 1.9, status: '活跃' },
-            { sector: '消费电子', change: 1.5, status: '拉升' },
-            { sector: '房地产', change: -0.8, status: '回调' },
-            { sector: '旅游酒店', change: -1.2, status: '走弱' }
+            { sector: '红利板块', change: 0.8, status: '抗跌' },
+            { sector: '债券', change: 0.3, status: '稳健' },
+            { sector: '半导体', change: -2.5, status: '回调' },
+            { sector: '电子', change: -3.2, status: '领跌' },
+            { sector: '通信', change: -2.8, status: '走弱' }
         ],
-        outlook: '明日关注美联储官员讲话对市场情绪的影响。操作上建议保持现有仓位，关注科技成长板块的持续性，如成交量配合有望挑战前期高点。'
+        outlook: '短期市场波动加大，建议稳健型投资者继续持有债券和红利类资产。关注月底政治局会议政策信号，如市场进一步回调可考虑分批加仓沪深300ETF。'
     },
     
     // 资金流向数据
     capitalFlow: {
         mainFund: {
-            value: 128.56,
-            change: 3.2,
+            value: -557.47,
+            change: -3.2,
             unit: '亿元'
         },
         northFund: {
-            value: 45.78,
-            change: 12.3,
+            value: -28.56,
+            change: -8.5,
             unit: '亿元'
         },
         southFund: {
-            value: -23.45,
-            change: -5.6,
+            value: -15.32,
+            change: -3.2,
             unit: '亿元'
         },
         mainFundHistory: [
-            { date: '2024-01-15', value: 85.3 },
-            { date: '2024-01-16', value: 112.4 },
-            { date: '2024-01-17', value: -45.6 },
-            { date: '2024-01-18', value: 156.7 },
-            { date: '2024-01-19', value: 128.5 }
+            { date: '2026-04-15', value: -557.47 },
+            { date: '2026-04-14', value: -325.8 },
+            { date: '2026-04-13', value: -198.5 },
+            { date: '2026-04-12', value: 156.7 },
+            { date: '2026-04-11', value: 245.3 }
         ],
         northFundHistory: [
-            { date: '2024-01-15', value: 32.1 },
-            { date: '2024-01-16', value: 56.8 },
-            { date: '2024-01-17', value: 28.4 },
-            { date: '2024-01-18', value: 78.2 },
-            { date: '2024-01-19', value: 45.7 }
+            { date: '2026-04-15', value: -28.56 },
+            { date: '2026-04-14', value: -15.2 },
+            { date: '2026-04-13', value: 32.4 },
+            { date: '2026-04-12', value: 56.8 },
+            { date: '2026-04-11', value: 78.5 }
         ],
         sectorFunds: [
-            { sector: '半导体', change: 15.8 },
-            { sector: '新能源', change: 12.3 },
-            { sector: '人工智能', change: 8.5 },
-            { sector: '医药生物', change: -3.2 },
-            { sector: '房地产', change: -8.7 },
-            { sector: '旅游酒店', change: -12.4 }
+            { sector: '电子', change: -174.26 },
+            { sector: '通信', change: -103.56 },
+            { sector: '电力设备', change: -60.25 },
+            { sector: '红利板块', change: 25.8 },
+            { sector: '银行', change: 18.5 },
+            { sector: '债券', change: 12.3 }
         ]
     },
     
-    // 基金/股票搜索示例数据
+    // 基金/股票搜索数据
     fundData: {
         '510300': {
-            name: '沪深300ETF',
+            name: '华泰柏瑞沪深300ETF',
             code: '510300',
             type: 'fund',
-            price: 3.85,
-            change: 1.85,
-            dayChange: 0.07,
-            weekChange: 2.3,
-            monthChange: 5.8,
-            yearChange: 12.5,
-            nav: 3.82,           // 净值
-            navDate: '2024-01-19',
-            manager: '华夏基金',
-            size: '280.5亿'
+            price: 4.85,
+            change: 27.0,
+            dayChange: 0.5,
+            weekChange: 2.8,
+            monthChange: 5.6,
+            yearChange: 27.0,
+            nav: 4.82,
+            navDate: '2026-04-18',
+            manager: '华泰柏瑞基金',
+            size: '2080亿',
+            description: '跟踪沪深300指数，覆盖A股市场规模最大、经营最稳定的300家龙头企业，适合作为投资底仓。'
         },
-        '159915': {
-            name: '创业板ETF',
-            code: '159915',
+        '515080': {
+            name: '富国中证红利ETF',
+            code: '515080',
             type: 'fund',
-            price: 2.15,
-            change: 2.34,
+            price: 3.25,
+            change: 12.0,
+            dayChange: 0.3,
+            weekChange: 1.5,
+            monthChange: 3.2,
+            yearChange: 12.0,
+            nav: 3.22,
+            navDate: '2026-04-18',
+            manager: '富国基金',
+            size: '156亿',
+            description: '跟踪中证红利指数，选取分红稳定、股息率高的100家企业，股息率稳定在4%以上，适合稳健投资。'
+        },
+        '110017': {
+            name: '易方达增强回报债券A',
+            code: '110017',
+            type: 'fund',
+            price: 1.5826,
+            change: 5.5,
             dayChange: 0.05,
-            weekChange: 3.5,
-            monthChange: 8.2,
-            yearChange: 18.6,
-            nav: 2.12,
-            navDate: '2024-01-19',
-            manager: '易方达',
-            size: '156.8亿'
+            weekChange: 0.2,
+            monthChange: 0.8,
+            yearChange: 5.5,
+            nav: 1.5826,
+            navDate: '2026-04-18',
+            manager: '易方达基金',
+            size: '89亿',
+            description: '固收+产品，80%以上投资债券，少量股票/可转债增强收益，波动可控，适合稳健型投资者。'
         },
-        '512880': {
-            name: '证券ETF',
-            code: '512880',
+        '006546': {
+            name: '兴银中短债C',
+            code: '006546',
             type: 'fund',
-            price: 1.28,
-            change: 3.12,
-            dayChange: 0.04,
-            weekChange: 5.2,
-            monthChange: 12.5,
-            yearChange: 25.3,
-            nav: 1.26,
-            navDate: '2024-01-19',
-            manager: '国泰基金',
-            size: '98.6亿'
+            price: 1.1235,
+            change: 3.8,
+            dayChange: 0.02,
+            weekChange: 0.1,
+            monthChange: 0.3,
+            yearChange: 3.8,
+            nav: 1.1235,
+            navDate: '2026-04-18',
+            manager: '兴银基金',
+            size: '45亿',
+            description: '中短债基金，投资于短期债券，波动极小，年化收益3-4%，持有3-6个月风险极低。'
         },
-        '006327': {
-            name: '纳斯达克100ETF',
-            code: '006327',
+        '012100': {
+            name: '华夏稳健增利4个月债券C',
+            code: '012100',
             type: 'fund',
-            price: 1.56,
-            change: 0.85,
-            dayChange: 0.01,
-            weekChange: 1.2,
-            monthChange: 4.5,
-            yearChange: 35.8,
-            nav: 1.55,
-            navDate: '2024-01-19',
+            price: 1.1278,
+            change: 2.02,
+            dayChange: 0.07,
+            weekChange: 0.15,
+            monthChange: 0.33,
+            yearChange: 2.02,
+            nav: 1.1278,
+            navDate: '2026-04-18',
             manager: '华夏基金',
-            size: '45.2亿'
+            size: '113亿',
+            description: '纯债基金，严格控制风险，追求长期稳健增值，过去三年增长7.48%。'
         }
     },
     
     stockData: {
-        '000001': {
-            name: '平安银行',
-            code: '000001',
-            type: 'stock',
-            price: 11.25,
-            change: -0.35,
-            changePercent: -3.02,
-            open: 11.60,
-            high: 11.65,
-            low: 11.18,
-            volume: 45678200,
-            amount: 5.14,
-            pe: 6.2,
-            pb: 0.85,
-            marketCap: 2185,
-            weekChange: -2.5,
-            monthChange: 3.2,
-            yearChange: -8.5
-        },
         '600036': {
             name: '招商银行',
             code: '600036',
             type: 'stock',
-            price: 35.80,
-            change: 0.65,
-            changePercent: 1.85,
-            open: 35.20,
-            high: 36.10,
-            low: 35.05,
-            volume: 32456800,
-            amount: 11.56,
-            pe: 8.5,
-            pb: 1.25,
-            marketCap: 8965,
-            weekChange: 2.8,
-            monthChange: 5.6,
-            yearChange: 12.3
+            price: 38.50,
+            change: 0.85,
+            changePercent: 2.26,
+            open: 37.80,
+            high: 38.85,
+            low: 37.65,
+            volume: 45678200,
+            amount: 17.5,
+            pe: 7.2,
+            pb: 1.15,
+            marketCap: 9856,
+            weekChange: 3.5,
+            monthChange: 6.8,
+            yearChange: 15.2,
+            description: '银行龙头，高股息蓝筹股，适合稳健投资'
         },
         '000858': {
             name: '五粮液',
             code: '000858',
             type: 'stock',
-            price: 168.50,
-            change: 3.20,
-            changePercent: 1.94,
-            open: 165.80,
-            high: 169.50,
-            low: 165.30,
+            price: 175.80,
+            change: 2.50,
+            changePercent: 1.44,
+            open: 173.50,
+            high: 176.90,
+            low: 172.80,
             volume: 18564200,
-            amount: 31.12,
-            pe: 28.5,
-            pb: 6.8,
-            marketCap: 6542,
-            weekChange: 4.2,
-            monthChange: 8.5,
-            yearChange: 15.8
+            amount: 32.5,
+            pe: 25.8,
+            pb: 6.2,
+            marketCap: 6820,
+            weekChange: 4.8,
+            monthChange: 9.2,
+            yearChange: 18.5,
+            description: '白酒龙头，消费白马股'
         }
     },
     
     // 自选列表
     watchlist: [
-        { code: '510300', name: '沪深300ETF', type: 'fund', price: 3.85, change: 1.85, monthChange: 5.8 },
-        { code: '159915', name: '创业板ETF', type: 'fund', price: 2.15, change: 2.34, monthChange: 8.2 },
-        { code: '600036', name: '招商银行', type: 'stock', price: 35.80, change: 1.85, monthChange: 5.6 },
-        { code: '000858', name: '五粮液', type: 'stock', price: 168.50, change: 1.94, monthChange: 8.5 }
+        { code: '510300', name: '华泰柏瑞沪深300ETF', type: 'fund', price: 4.85, change: 27.0, monthChange: 5.6 },
+        { code: '515080', name: '富国中证红利ETF', type: 'fund', price: 3.25, change: 12.0, monthChange: 3.2 },
+        { code: '110017', name: '易方达增强回报债券A', type: 'fund', price: 1.5826, change: 5.5, monthChange: 0.8 },
+        { code: '006546', name: '兴银中短债C', type: 'fund', price: 1.1235, change: 3.8, monthChange: 0.3 }
     ],
     
     // 历史报告
     historyReports: [
         {
-            date: '2024-01-18',
+            date: '2026-04-18',
             morning: {
-                summary: '市场小幅高开后震荡上行，成交量温和放大。主力资金净流入超百亿，北向资金持续买入。'
+                summary: '市场延续震荡，主力资金持续流出，但红利板块表现抗跌。建议稳健投资者关注债券和红利ETF。'
             },
             afternoon: {
-                summary: '午后市场维持强势，沪指站上2900点关口，创业板指表现突出，半导体板块领涨。'
+                summary: '午后市场企稳，北向资金小幅回流。电子、通信板块承压，红利板块逆势走强。'
             },
-            tags: ['科技股', '北向资金', '突破2900']
+            tags: ['震荡', '红利抗跌', '资金流出']
         },
         {
-            date: '2024-01-17',
+            date: '2026-04-17',
             morning: {
-                summary: '受外围市场影响，A股低开震荡。资金观望情绪浓厚，成交量有所萎缩。'
+                summary: '受外围市场影响，A股低开震荡。主力资金流出557亿，市场避险情绪升温。'
             },
             afternoon: {
-                summary: '午后市场企稳回升，尾盘跌幅收窄。银行板块护盘迹象明显。'
+                summary: '午后跌幅收窄，银行板块护盘。稳健型基金表现优于市场平均。'
             },
-            tags: ['震荡', '银行护盘', '缩量']
+            tags: ['低开', '避险', '银行护盘']
         },
         {
-            date: '2024-01-16',
+            date: '2026-04-16',
             morning: {
-                summary: '新年首个交易日迎来开门红，沪指大涨超2%。消费、新能源板块表现强劲。'
+                summary: '市场小幅高开，科技股活跃。北向资金持续流入，沪深300表现稳健。'
             },
             afternoon: {
-                summary: '午后涨势延续，两市成交额突破万亿。外资大幅流入，市场情绪明显回暖。'
+                summary: '午后市场维持强势，创业板指表现突出。半导体板块领涨，成交额放大。'
             },
-            tags: ['开门红', '万亿成交', '消费']
+            tags: ['科技股', '北向资金', '成交放大']
         },
         {
-            date: '2024-01-15',
+            date: '2026-04-15',
             morning: {
-                summary: '节前最后一个交易日，市场交投清淡。资金避险情绪升温，大盘缩量整理。'
+                summary: '市场开盘平稳，关注月底政策信号。红利板块持续表现稳健。'
             },
             afternoon: {
-                summary: '节前效应明显，指数小幅收跌。资金面保持平稳，等待节后方向选择。'
+                summary: '午后市场震荡加剧，资金避险情绪升温。债券基金受到关注。'
             },
-            tags: ['节前效应', '缩量整理', '观望']
+            tags: ['政策预期', '红利稳健', '避险']
         },
         {
-            date: '2024-01-12',
+            date: '2026-04-14',
             morning: {
-                summary: '市场延续震荡格局，热点题材快速轮动。光伏、半导体板块有所表现。'
+                summary: '新周开盘，市场情绪谨慎。主力资金观望，等待方向选择。'
             },
             afternoon: {
-                summary: '午后市场波动加大，沪指在2850点附近获得支撑。短线操作难度增加。'
+                summary: '午后市场企稳回升，尾盘跌幅收窄。建议保持稳健配置。'
             },
-            tags: ['轮动', '光伏', '半导体']
+            tags: ['观望', '稳健配置', '企稳']
         }
     ]
 };
-
-// 用户数据存储
-const USER_DATA_KEY = 'investment_dashboard_data';
-
-function getUserData() {
-    const stored = localStorage.getItem(USER_DATA_KEY);
-    if (stored) {
-        return JSON.parse(stored);
-    }
-    return {
-        watchlist: SAMPLE_DATA.watchlist,
-        lastUpdate: new Date().toISOString()
-    };
-}
-
-function saveUserData(data) {
-    data.lastUpdate = new Date().toISOString();
-    localStorage.setItem(USER_DATA_KEY, JSON.stringify(data));
-}
-
-// 导出给外部使用
-window.SAMPLE_DATA = SAMPLE_DATA;
-window.getUserData = getUserData;
-window.saveUserData = saveUserData;
