@@ -23,7 +23,6 @@ function formatMoney(value) {
 // ==================== 个人投资看板 主逻辑 ====================
 
 document.addEventListener('DOMContentLoaded', function() {
-    // 初始化应用
     initApp();
 });
 
@@ -116,7 +115,18 @@ function initDateInputs() {
     historyStartDate.value = thirtyDaysAgo.toISOString().split('T')[0];
     
     // 日期选择事件
-    reportDate.addEventListener('change', loadDashboard);
+    reportDate.addEventListener('change', function() {
+        loadDashboard(this.value);
+    });
+    
+    // "今天"按钮点击事件
+    const todayBtn = document.getElementById('todayBtn');
+    if (todayBtn) {
+        todayBtn.addEventListener('click', function() {
+            reportDate.value = today;
+            loadDashboard(today);
+        });
+    }
 }
 
 // ==================== 模态框 ====================
@@ -127,16 +137,20 @@ function initModals() {
     const confirmAdd = document.getElementById('confirmAdd');
     const modal = document.getElementById('addWatchModal');
     
-    addWatchBtn.addEventListener('click', () => {
-        modal.classList.add('active');
-        document.getElementById('addCode').value = '';
-        document.getElementById('addName').value = '';
-    });
+    if (addWatchBtn) {
+        addWatchBtn.addEventListener('click', () => {
+            modal.classList.add('active');
+            document.getElementById('addCode').value = '';
+            document.getElementById('addName').value = '';
+        });
+    }
     
     [closeModal, cancelAdd].forEach(btn => {
-        btn.addEventListener('click', () => {
-            modal.classList.remove('active');
-        });
+        if (btn) {
+            btn.addEventListener('click', () => {
+                modal.classList.remove('active');
+            });
+        }
     });
     
     confirmAdd.addEventListener('click', handleAddWatch);
@@ -146,6 +160,7 @@ function initModals() {
         if (e.key === 'Escape') {
             modal.classList.remove('active');
             document.getElementById('fundDetailModal').classList.remove('active');
+            document.getElementById('sectorDetailModal').classList.remove('active');
         }
     });
     
@@ -153,21 +168,30 @@ function initModals() {
     const searchBtn = document.getElementById('searchBtn');
     const searchInput = document.getElementById('searchInput');
     
-    searchBtn.addEventListener('click', handleSearch);
-    searchInput.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') handleSearch();
-    });
+    if (searchBtn) {
+        searchBtn.addEventListener('click', handleSearch);
+    }
+    if (searchInput) {
+        searchInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') handleSearch();
+        });
+    }
     
     // 历史筛选
-    document.getElementById('filterHistoryBtn').addEventListener('click', loadHistory);
+    const filterHistoryBtn = document.getElementById('filterHistoryBtn');
+    if (filterHistoryBtn) {
+        filterHistoryBtn.addEventListener('click', loadHistory);
+    }
     
     // 基金详情模态框
     const fundDetailModal = document.getElementById('fundDetailModal');
     const closeFundDetail = document.getElementById('closeFundDetail');
     
-    closeFundDetail.addEventListener('click', () => {
-        fundDetailModal.classList.remove('active');
-    });
+    if (closeFundDetail) {
+        closeFundDetail.addEventListener('click', () => {
+            fundDetailModal.classList.remove('active');
+        });
+    }
     
     // 点击模态框背景关闭
     fundDetailModal.addEventListener('click', (e) => {
@@ -180,9 +204,11 @@ function initModals() {
     const sectorDetailModal = document.getElementById('sectorDetailModal');
     const closeSectorDetail = document.getElementById('closeSectorDetail');
     
-    closeSectorDetail.addEventListener('click', () => {
-        sectorDetailModal.classList.remove('active');
-    });
+    if (closeSectorDetail) {
+        closeSectorDetail.addEventListener('click', () => {
+            sectorDetailModal.classList.remove('active');
+        });
+    }
     
     // 点击模态框背景关闭
     sectorDetailModal.addEventListener('click', (e) => {
@@ -197,6 +223,12 @@ function loadDashboard(date) {
     // 如果没有传入日期，使用输入框的日期
     if (!date) {
         date = document.getElementById('reportDate').value;
+    }
+    
+    // 更新页面标题显示当前日期
+    const dateDisplay = document.getElementById('dateDisplay');
+    if (dateDisplay) {
+        dateDisplay.textContent = date;
     }
     
     // 加载早间报告
@@ -220,61 +252,78 @@ function loadMorningReport(date) {
     const report = SAMPLE_DATA.morningReport;
     
     // 时间
-    document.getElementById('morningTime').textContent = report.time;
+    const morningTimeEl = document.getElementById('morningTime');
+    if (morningTimeEl) {
+        morningTimeEl.textContent = report.time;
+    }
     
     // 资金流向摘要 - 修复显示问题
-    const fundFlowHtml = `
-        <div class="summary-item">
-            <div class="label">主力净流入</div>
-            <div class="value ${report.fundFlowSummary.mainInflow >= 0 ? 'positive' : 'negative'}">${formatMoney(report.fundFlowSummary.mainInflow)}</div>
-        </div>
-        <div class="summary-item">
-            <div class="label">散户净流入</div>
-            <div class="value ${report.fundFlowSummary.retailInflow >= 0 ? 'positive' : 'negative'}">${formatMoney(report.fundFlowSummary.retailInflow)}</div>
-        </div>
-        <div class="summary-item">
-            <div class="label">成交额</div>
-            <div class="value">${report.fundFlowSummary.transaction.toFixed(1)}亿</div>
-        </div>
-        <div class="summary-item">
-            <div class="label">环比变化</div>
-            <div class="value ${report.fundFlowSummary.transactionChange >= 0 ? 'positive' : 'negative'}">
-                ${formatPercent(report.fundFlowSummary.transactionChange).replace('%', '')}
+    const fundFlowSummaryEl = document.getElementById('fundFlowSummary');
+    if (fundFlowSummaryEl) {
+        const fundFlowHtml = `
+            <div class="summary-item">
+                <div class="label">主力净流入</div>
+                <div class="value ${report.fundFlowSummary.mainInflow >= 0 ? 'positive' : 'negative'}">${formatMoney(report.fundFlowSummary.mainInflow)}</div>
+                <div class="data-source"><a href="${DATA_SOURCES.mainFund.url}" target="_blank" class="source-link">📊 数据来源</a></div>
             </div>
-        </div>
-    `;
-    document.getElementById('fundFlowSummary').innerHTML = fundFlowHtml;
+            <div class="summary-item">
+                <div class="label">散户净流入</div>
+                <div class="value ${report.fundFlowSummary.retailInflow >= 0 ? 'positive' : 'negative'}">${formatMoney(report.fundFlowSummary.retailInflow)}</div>
+            </div>
+            <div class="summary-item">
+                <div class="label">成交额</div>
+                <div class="value">${report.fundFlowSummary.transaction.toFixed(1)}亿</div>
+            </div>
+            <div class="summary-item">
+                <div class="label">环比变化</div>
+                <div class="value ${report.fundFlowSummary.transactionChange >= 0 ? 'positive' : 'negative'}">
+                    ${formatPercent(report.fundFlowSummary.transactionChange).replace('%', '')}
+                </div>
+            </div>
+        `;
+        fundFlowSummaryEl.innerHTML = fundFlowHtml;
+    }
     
     // 添加资金流向分析
     loadFundFlowAnalysis();
     
     // 推荐基金
-    const fundsHtml = report.recommendedFunds.map(fund => `
-        <div class="fund-card" onclick="openFundDetail('${fund.code}')">
-            <div class="fund-info">
-                <h4>${fund.name}</h4>
-                <span class="code">${fund.code}</span>
-            </div>
-            <div class="fund-change">
-                <div class="percent ${fund.change >= 0 ? 'positive' : 'negative'}">
-                    ${fund.change >= 0 ? '+' : ''}${fund.change}%
+    const recommendedFundsEl = document.getElementById('recommendedFunds');
+    if (recommendedFundsEl) {
+        const fundsHtml = report.recommendedFunds.map(fund => `
+            <div class="fund-card" onclick="openFundDetail('${fund.code}')">
+                <div class="fund-info">
+                    <h4>${fund.name}</h4>
+                    <span class="code">${fund.code}</span>
+                    <span class="source-link-inline"><a href="${fund.sourceUrl}" target="_blank">查看详情</a></span>
                 </div>
-                <div class="reason">${fund.reason}</div>
+                <div class="fund-change">
+                    <div class="percent ${fund.change >= 0 ? 'positive' : 'negative'}">
+                        ${fund.change >= 0 ? '+' : ''}${fund.change}%
+                    </div>
+                    <div class="reason">${fund.reason}</div>
+                </div>
             </div>
-        </div>
-    `).join('');
-    document.getElementById('recommendedFunds').innerHTML = fundsHtml;
+        `).join('');
+        recommendedFundsEl.innerHTML = fundsHtml;
+    }
     
     // 激进型基金推荐
     loadAggressiveFunds();
     
     // 风险提示
-    const warningHtml = report.riskWarning.map(w => `<li>${w}</li>`).join('');
-    document.getElementById('riskWarning').innerHTML = `<ul>${warningHtml}</ul>`;
+    const riskWarningEl = document.getElementById('riskWarning');
+    if (riskWarningEl) {
+        const warningHtml = report.riskWarning.map(w => `<li>${w}</li>`).join('');
+        riskWarningEl.innerHTML = `<ul>${warningHtml}</ul>`;
+    }
     
     // 操作建议
-    const adviceHtml = report.operationAdvice.map(a => `<li>${a}</li>`).join('');
-    document.getElementById('operationAdvice').innerHTML = `<ul>${adviceHtml}</ul>`;
+    const operationAdviceEl = document.getElementById('operationAdvice');
+    if (operationAdviceEl) {
+        const adviceHtml = report.operationAdvice.map(a => `<li>${a}</li>`).join('');
+        operationAdviceEl.innerHTML = `<ul>${adviceHtml}</ul>`;
+    }
 }
 
 // ==================== 资金流向分析 ====================
@@ -289,9 +338,11 @@ function loadFundFlowAnalysis() {
             <div class="analysis-header">
                 <span class="analysis-icon">📊</span>
                 <span class="analysis-title">主力资金分析</span>
+                <a href="${DATA_SOURCES.mainFund.url}" target="_blank" class="source-badge">来源</a>
             </div>
             <div class="analysis-trend">${analysis.mainFundAnalysis.trend}</div>
             <div class="analysis-details">${analysis.mainFundAnalysis.details}</div>
+            <div class="analysis-judgment">📌 判断：${analysis.mainFundAnalysis.judgment}</div>
             <div class="analysis-sentiment ${analysis.mainFundAnalysis.sentiment === '谨慎' ? 'negative' : 'positive'}">
                 市场情绪：${analysis.mainFundAnalysis.sentiment}
             </div>
@@ -301,9 +352,11 @@ function loadFundFlowAnalysis() {
             <div class="analysis-header">
                 <span class="analysis-icon">🌐</span>
                 <span class="analysis-title">北向资金分析</span>
+                <a href="${DATA_SOURCES.northFund.url}" target="_blank" class="source-badge">来源</a>
             </div>
             <div class="analysis-trend">${analysis.northFundAnalysis.trend}</div>
             <div class="analysis-details">${analysis.northFundAnalysis.details}</div>
+            <div class="analysis-judgment">📌 判断：${analysis.northFundAnalysis.judgment}</div>
             <div class="analysis-sentiment ${analysis.northFundAnalysis.sentiment === '观望' ? 'neutral' : ''}">
                 外资态度：${analysis.northFundAnalysis.sentiment}
             </div>
@@ -313,9 +366,37 @@ function loadFundFlowAnalysis() {
             <div class="analysis-header">
                 <span class="analysis-icon">🔄</span>
                 <span class="analysis-title">板块轮动分析</span>
+                <a href="${DATA_SOURCES.sector.url}" target="_blank" class="source-badge">来源</a>
             </div>
             <div class="analysis-trend">${analysis.sectorRotation.trend}</div>
             <div class="analysis-details">${analysis.sectorRotation.details}</div>
+            
+            <div class="sector-flow-section">
+                <div class="sector-flow-label">📈 资金流入板块：</div>
+                <div class="sector-flow-list">
+                    ${analysis.sectorRotation.inflowSectors.map(s => `
+                        <div class="sector-flow-item inflow">
+                            <span class="sector-name">${s.name}</span>
+                            <span class="sector-amount">${s.amount}</span>
+                            <span class="sector-reason">${s.reason}</span>
+                        </div>
+                    `).join('')}
+                </div>
+            </div>
+            
+            <div class="sector-flow-section">
+                <div class="sector-flow-label">📉 资金流出板块：</div>
+                <div class="sector-flow-list">
+                    ${analysis.sectorRotation.outflowSectors.map(s => `
+                        <div class="sector-flow-item outflow">
+                            <span class="sector-name">${s.name}</span>
+                            <span class="sector-amount">${s.amount}</span>
+                            <span class="sector-reason">${s.reason}</span>
+                        </div>
+                    `).join('')}
+                </div>
+            </div>
+            
             <div class="analysis-conclusion">${analysis.sectorRotation.conclusion}</div>
         </div>
         
@@ -355,11 +436,15 @@ function loadDailyNews() {
         return `
             <div class="news-item">
                 <div class="news-header">
-                    <span class="news-title">${news.title}</span>
+                    <span class="news-title">
+                        ${news.sourceUrl ? `<a href="${news.sourceUrl}" target="_blank" class="news-title-link">${news.title}</a>` : news.title}
+                    </span>
                     <span class="news-impact ${impactClass}">${news.impact}</span>
                 </div>
                 <div class="news-meta">
-                    <span class="news-source">${news.source}</span>
+                    <span class="news-source">
+                        ${news.sourceUrl ? `<a href="${news.sourceUrl}" target="_blank" class="source-link">${news.source}</a>` : news.source}
+                    </span>
                     <span class="news-time">${news.time}</span>
                 </div>
                 <div class="news-summary">${news.summary}</div>
@@ -367,38 +452,59 @@ function loadDailyNews() {
         `;
     }).join('');
     
-    container.innerHTML = newsHtml;
+    // 添加新闻数据来源
+    const sourceInfo = `
+        <div class="data-source-footer">
+            <span class="source-label">新闻来源：</span>
+            <a href="${DATA_SOURCES.news.cctv.url}" target="_blank" class="source-link">新闻联播</a>
+            <span class="separator">|</span>
+            <a href="${DATA_SOURCES.news.finance.url}" target="_blank" class="source-link">财经新闻</a>
+        </div>
+    `;
+    
+    container.innerHTML = newsHtml + sourceInfo;
 }
 
 function loadAfternoonReport(date) {
     const report = SAMPLE_DATA.afternoonReport;
     
-    // 时间
-    document.getElementById('afternoonTime').textContent = report.time;
+    const afternoonTimeEl = document.getElementById('afternoonTime');
+    if (afternoonTimeEl) {
+        afternoonTimeEl.textContent = report.time;
+    }
     
-    // 午后回顾
-    document.getElementById('afternoonReview').innerHTML = `<p>${report.review}</p>`;
+    const afternoonReviewEl = document.getElementById('afternoonReview');
+    if (afternoonReviewEl) {
+        afternoonReviewEl.innerHTML = `<p>${report.review}</p>`;
+    }
     
-    // 板块轮动
-    const sectorHtml = report.sectorRotation.map(s => `
-        <div class="sector-item">
-            <span class="sector-name">${s.sector}</span>
-            <span class="sector-change ${s.change >= 0 ? 'positive' : 'negative'}">
-                ${s.change >= 0 ? '+' : ''}${s.change}%
-            </span>
-        </div>
-    `).join('');
-    document.getElementById('sectorRotation').innerHTML = sectorHtml;
+    const sectorRotationEl = document.getElementById('sectorRotation');
+    if (sectorRotationEl) {
+        const sectorHtml = report.sectorRotation.map(s => `
+            <div class="sector-item">
+                <span class="sector-name">${s.sector}</span>
+                <span class="sector-change ${s.change >= 0 ? 'positive' : 'negative'}">
+                    ${s.change >= 0 ? '+' : ''}${s.change}%
+                </span>
+            </div>
+        `).join('');
+        sectorRotationEl.innerHTML = sectorHtml;
+    }
     
-    // 明日展望
-    document.getElementById('tomorrowOutlook').innerHTML = `<p>${report.outlook}</p>`;
+    const tomorrowOutlookEl = document.getElementById('tomorrowOutlook');
+    if (tomorrowOutlookEl) {
+        tomorrowOutlookEl.innerHTML = `<p>${report.outlook}</p>`;
+    }
 }
 
 function loadQuickWatchlist() {
     const watchlist = userData.watchlist.slice(0, 4);
+    const container = document.getElementById('quickWatchlist');
+    
+    if (!container) return;
     
     if (watchlist.length === 0) {
-        document.getElementById('quickWatchlist').innerHTML = `
+        container.innerHTML = `
             <div class="empty-state" style="grid-column: 1/-1;">
                 <p>暂无自选内容</p>
             </div>
@@ -417,7 +523,46 @@ function loadQuickWatchlist() {
         </div>
     `).join('');
     
-    document.getElementById('quickWatchlist').innerHTML = html;
+    container.innerHTML = html;
+}
+
+// ==================== 激进型基金推荐 ====================
+function loadAggressiveFunds() {
+    const container = document.getElementById('aggressiveFunds');
+    if (!container) return;
+    
+    const funds = SAMPLE_DATA.aggressiveFunds;
+    
+    const html = `
+        <div class="report-card aggressive-funds">
+            <div class="report-header">
+                <span class="report-badge aggressive">🚀 激进型基金推荐</span>
+                <span class="report-subtitle">高弹性高波动，适合风险承受能力较强的投资者</span>
+            </div>
+            <div class="aggressive-funds-grid">
+                ${funds.map(fund => `
+                    <div class="aggressive-fund-card" onclick="openFundDetail('${fund.code}')">
+                        <div class="fund-header">
+                            <div class="fund-name">${fund.name}</div>
+                            <a href="${fund.sourceUrl}" target="_blank" class="source-link-inline" onclick="event.stopPropagation()">查看详情</a>
+                        </div>
+                        <div class="fund-code">${fund.code}</div>
+                        <div class="fund-change ${fund.change >= 0 ? 'positive' : 'negative'}">
+                            ${fund.change >= 0 ? '+' : ''}${fund.change}%
+                        </div>
+                        <div class="fund-reason">${fund.reason}</div>
+                        <div class="fund-min">最低投资：${fund.minInvestment}</div>
+                    </div>
+                `).join('')}
+            </div>
+            <div class="risk-reminder">
+                <span class="warning-icon">⚠️</span>
+                <span>激进型基金波动较大，请在充分了解产品风险后谨慎投资，建议配置比例不超过资产的20%。</span>
+            </div>
+        </div>
+    `;
+    
+    container.innerHTML = html;
 }
 
 // ==================== 基金/股票查询 ====================
@@ -448,46 +593,47 @@ function handleSearch() {
         return;
     }
     
-    renderSearchResult(data);
+    renderSearchResult(data, type);
 }
 
-function renderSearchResult(data) {
+function renderSearchResult(data, type) {
     const changeClass = data.change >= 0 ? 'positive' : 'negative';
     const changeSign = data.change >= 0 ? '+' : '';
+    const sourceUrl = data.sourceUrl || (type === 'fund' ? `https://fund.eastmoney.com/${data.code}.html` : `https://quote.eastmoney.com/${data.code}.html`);
     
     let detailsHtml = '';
     
-    if (data.type === 'fund') {
+    if (data.type === 'fund' || type === 'fund') {
         detailsHtml = `
             <div class="detail-item">
                 <div class="label">单位净值</div>
-                <div class="value">${data.nav.toFixed(3)}</div>
+                <div class="value">${data.nav ? data.nav.toFixed(3) : data.price.toFixed(3)}</div>
             </div>
             <div class="detail-item">
                 <div class="label">日涨跌</div>
-                <div class="value ${changeClass}">${changeSign}${data.change}%</div>
+                <div class="value ${changeClass}">${changeSign}${data.dayChange || 0}%</div>
             </div>
             <div class="detail-item">
                 <div class="label">近1周</div>
                 <div class="value ${data.weekChange >= 0 ? 'positive' : 'negative'}">
-                    ${data.weekChange >= 0 ? '+' : ''}${data.weekChange}%
+                    ${data.weekChange >= 0 ? '+' : ''}${data.weekChange || 0}%
                 </div>
             </div>
             <div class="detail-item">
                 <div class="label">近1月</div>
                 <div class="value ${data.monthChange >= 0 ? 'positive' : 'negative'}">
-                    ${data.monthChange >= 0 ? '+' : ''}${data.monthChange}%
+                    ${data.monthChange >= 0 ? '+' : ''}${data.monthChange || 0}%
                 </div>
             </div>
             <div class="detail-item">
                 <div class="label">近1年</div>
                 <div class="value ${data.yearChange >= 0 ? 'positive' : 'negative'}">
-                    ${data.yearChange >= 0 ? '+' : ''}${data.yearChange}%
+                    ${data.yearChange >= 0 ? '+' : ''}${data.yearChange || 0}%
                 </div>
             </div>
             <div class="detail-item">
                 <div class="label">基金规模</div>
-                <div class="value">${data.size}</div>
+                <div class="value">${data.size || '--'}</div>
             </div>
         `;
     } else {
@@ -510,21 +656,15 @@ function renderSearchResult(data) {
             </div>
             <div class="detail-item">
                 <div class="label">市盈率(PE)</div>
-                <div class="value">${data.pe}</div>
+                <div class="value">${data.pe || '--'}</div>
             </div>
             <div class="detail-item">
                 <div class="label">市净率(PB)</div>
-                <div class="value">${data.pb}</div>
+                <div class="value">${data.pb || '--'}</div>
             </div>
             <div class="detail-item">
                 <div class="label">流通市值</div>
-                <div class="value">${data.marketCap}亿</div>
-            </div>
-            <div class="detail-item">
-                <div class="label">近1月</div>
-                <div class="value ${data.monthChange >= 0 ? 'positive' : 'negative'}">
-                    ${data.monthChange >= 0 ? '+' : ''}${data.monthChange}%
-                </div>
+                <div class="value">${data.marketCap || '--'}亿</div>
             </div>
         `;
     }
@@ -538,20 +678,166 @@ function renderSearchResult(data) {
             <div class="result-price">
                 <div class="price">${data.price.toFixed(3)}</div>
                 <div class="change ${changeClass}">
-                    ${changeSign}${data.change}% ${changeSign}${(data.dayChange || data.changePercent).toFixed(2)}
+                    ${changeSign}${data.change || 0}% ${changeSign}${(data.dayChange || data.changePercent || 0).toFixed(2)}
                 </div>
             </div>
         </div>
         <div class="result-details">
             ${detailsHtml}
         </div>
-        <button class="add-btn" onclick="addToWatchlist('${data.code}', '${data.name}', '${data.type}')" 
-                style="width:100%;">
-            ⭐ 添加到自选
-        </button>
+        <div class="result-actions">
+            <a href="${sourceUrl}" target="_blank" class="btn-source">📊 查看详细数据</a>
+            <button class="add-btn" onclick="addToWatchlist('${data.code}', '${data.name}', '${data.type || type}')">
+                ⭐ 添加到自选
+            </button>
+        </div>
     `;
     
     document.getElementById('searchResult').innerHTML = html;
+}
+
+// ==================== 基金详情弹窗 ====================
+let navChart = null;
+
+function openFundDetail(fundCode) {
+    const fundData = SAMPLE_DATA.fundData[fundCode];
+    if (!fundData) return;
+    
+    document.getElementById('detailFundName').textContent = fundData.name;
+    document.getElementById('detailFundCode').textContent = fundData.code;
+    document.getElementById('detailFundNav').textContent = `净值：${fundData.nav ? fundData.nav.toFixed(3) : fundData.price.toFixed(3)}`;
+    
+    const changeClass = (fundData.dayChange || fundData.change) >= 0 ? 'up' : 'down';
+    const changeSign = (fundData.dayChange || fundData.change) >= 0 ? '+' : '';
+    document.getElementById('detailFundChange').textContent = `${changeSign}${fundData.dayChange || fundData.change}%`;
+    document.getElementById('detailFundChange').className = `fund-detail-change ${changeClass}`;
+    
+    document.getElementById('detailDayChange').textContent = `${changeSign}${fundData.dayChange || 0}%`;
+    document.getElementById('detailDayChange').className = `${(fundData.dayChange || 0) >= 0 ? 'positive' : 'negative'}`;
+    
+    const weekChange = fundData.weekChange || 0;
+    document.getElementById('detailWeekChange').textContent = `${weekChange >= 0 ? '+' : ''}${weekChange}%`;
+    document.getElementById('detailWeekChange').className = `${weekChange >= 0 ? 'positive' : 'negative'}`;
+    
+    const monthChange = fundData.monthChange || 0;
+    document.getElementById('detailMonthChange').textContent = `${monthChange >= 0 ? '+' : ''}${monthChange}%`;
+    document.getElementById('detailMonthChange').className = `${monthChange >= 0 ? 'positive' : 'negative'}`;
+    
+    const yearChange = fundData.yearChange || 0;
+    document.getElementById('detailYearChange').textContent = `${yearChange >= 0 ? '+' : ''}${yearChange}%`;
+    document.getElementById('detailYearChange').className = `${yearChange >= 0 ? 'positive' : 'negative'}`;
+    
+    document.getElementById('detailManager').textContent = fundData.manager || '--';
+    document.getElementById('detailSize').textContent = fundData.size || '--';
+    document.getElementById('detailNavDate').textContent = fundData.navDate || '--';
+    document.getElementById('detailType').textContent = fundData.type === 'fund' ? '基金' : '股票';
+    document.getElementById('detailDescription').textContent = fundData.description || '--';
+    
+    // 添加数据来源链接
+    const sourceContainer = document.getElementById('fundDetailSource');
+    if (sourceContainer) {
+        sourceContainer.innerHTML = `
+            <div class="detail-source">
+                <span class="source-label">数据来源：</span>
+                <a href="${fundData.sourceUrl || `https://fund.eastmoney.com/${fundCode}.html`}" target="_blank" class="source-link">
+                    天天基金网 - ${fundData.name}
+                </a>
+            </div>
+        `;
+    }
+    
+    document.getElementById('fundDetailModal').classList.add('active');
+    
+    // 绘制净值走势图
+    setTimeout(() => {
+        if (fundData.navHistory && fundData.navHistory.length > 0) {
+            drawNavChart(fundData.navHistory, fundData.code);
+        }
+    }, 100);
+}
+
+// 绘制净值走势图
+function drawNavChart(navHistory, fundCode) {
+    const chartDom = document.getElementById('navChart');
+    if (!chartDom || !navHistory || navHistory.length === 0) return;
+    
+    if (navChart) {
+        navChart.dispose();
+    }
+    
+    navChart = echarts.init(chartDom);
+    
+    // 日期从左到右递增（已有数据已按日期排序）
+    const dates = navHistory.map(d => d.date.slice(5)); // 格式：MM-DD
+    const values = navHistory.map(d => d.value);
+    
+    const option = {
+        tooltip: {
+            trigger: 'axis',
+            formatter: function(params) {
+                const idx = params[0].dataIndex;
+                const date = navHistory[idx].date;
+                return `${date}<br/>净值: ${params[0].value.toFixed(4)}`;
+            }
+        },
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            top: '10px',
+            containLabel: true
+        },
+        xAxis: {
+            type: 'category',
+            data: dates,
+            axisLine: { lineStyle: { color: '#e0e0e0' } },
+            axisLabel: {
+                color: '#666',
+                fontSize: 10,
+                interval: 4,
+                rotate: 45
+            }
+        },
+        yAxis: {
+            type: 'value',
+            scale: true,
+            axisLine: { show: false },
+            splitLine: { lineStyle: { color: '#f0f0f0' } },
+            axisLabel: {
+                color: '#666',
+                fontSize: 11
+            }
+        },
+        series: [{
+            name: '净值',
+            type: 'line',
+            data: values,
+            smooth: true,
+            lineStyle: {
+                color: '#1a73e8',
+                width: 2
+            },
+            areaStyle: {
+                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                    { offset: 0, color: 'rgba(26, 115, 232, 0.3)' },
+                    { offset: 1, color: 'rgba(26, 115, 232, 0.05)' }
+                ])
+            },
+            itemStyle: {
+                color: '#1a73e8'
+            },
+            symbol: 'circle',
+            symbolSize: 4
+        }]
+    };
+    
+    navChart.setOption(option);
+    
+    window.addEventListener('resize', function() {
+        if (navChart) {
+            navChart.resize();
+        }
+    });
 }
 
 // ==================== 资金流向 ====================
@@ -583,6 +869,21 @@ function loadCapitalFlow() {
         </div>
     `).join('');
     document.getElementById('sectorFundList').innerHTML = sectorHtml;
+    
+    // 添加数据来源链接
+    const capitalSources = document.getElementById('capitalSources');
+    if (capitalSources) {
+        capitalSources.innerHTML = `
+            <div class="capital-data-sources">
+                <span class="source-label">数据来源：</span>
+                <a href="${DATA_SOURCES.mainFund.url}" target="_blank" class="source-link">主力资金流向</a>
+                <span class="separator">|</span>
+                <a href="${DATA_SOURCES.northFund.url}" target="_blank" class="source-link">北向资金</a>
+                <span class="separator">|</span>
+                <a href="${DATA_SOURCES.sector.url}" target="_blank" class="source-link">板块资金</a>
+            </div>
+        `;
+    }
 }
 
 // 打开板块详情
@@ -592,7 +893,6 @@ function openSectorDetail(sectorName) {
     const sectorData = SECTOR_DATA[sectorName];
     if (!sectorData) return;
     
-    // 填充板块详情数据
     document.getElementById('detailSectorName').textContent = sectorData.name;
     document.getElementById('detailSectorInflow').textContent = formatMoney(sectorData.mainInflow);
     document.getElementById('detailSectorInflow').className = `detail-value ${sectorData.mainInflow >= 0 ? 'positive' : 'negative'}`;
@@ -618,6 +918,17 @@ function openSectorDetail(sectorName) {
     const adviceClass = sectorData.change >= 0 ? 'advice-positive' : 'advice-negative';
     document.getElementById('detailSectorAdvice').innerHTML = `<div class="${adviceClass}">💡 ${sectorData.advice}</div>`;
     
+    // 添加数据来源链接
+    const sectorSourceContainer = document.getElementById('sectorDetailSource');
+    if (sectorSourceContainer) {
+        sectorSourceContainer.innerHTML = `
+            <div class="sector-source">
+                <span class="source-label">K线数据来源：</span>
+                <a href="${DATA_SOURCES.sector.url}" target="_blank" class="source-link">东方财富板块中心</a>
+            </div>
+        `;
+    }
+    
     // 显示模态框
     document.getElementById('sectorDetailModal').classList.add('active');
     
@@ -638,8 +949,9 @@ function drawSectorKlineChart(sectorData) {
     
     sectorKlineChart = echarts.init(chartDom);
     
-    // 准备K线数据
+    // 准备K线数据 - 日期从左到右递增
     const klineData = sectorData.klineData.map(d => [d.open, d.close, d.low, d.high]);
+    // 日期格式：MM-DD，确保X轴从左到右递增
     const dates = sectorData.klineData.map(d => d.date.slice(5));
     
     // 计算均线
@@ -675,7 +987,7 @@ function drawSectorKlineChart(sectorData) {
         grid: {
             left: '3%',
             right: '3%',
-            bottom: '10%',
+            bottom: '15%',
             top: '15%',
             containLabel: true
         },
@@ -801,6 +1113,7 @@ function drawMainFundChart(historyData) {
     const chart = echarts.init(chartDom);
     charts.mainFund = chart;
     
+    // 日期从左到右递增
     const dates = historyData.map(d => d.date.slice(5));
     const values = historyData.map(d => d.value);
     
@@ -830,7 +1143,7 @@ function drawMainFundChart(historyData) {
             data: values,
             itemStyle: {
                 color: function(params) {
-                    return params.value >= 0 ? '#e64340' : '#09bb07';  /* 红涨绿跌 */
+                    return params.value >= 0 ? '#e64340' : '#09bb07';
                 }
             },
             barWidth: '50%'
@@ -862,6 +1175,7 @@ function drawNorthFundChart(historyData) {
     const chart = echarts.init(chartDom);
     charts.northFund = chart;
     
+    // 日期从左到右递增
     const dates = historyData.map(d => d.date.slice(5));
     const values = historyData.map(d => d.value);
     
@@ -925,6 +1239,8 @@ function loadWatchlist() {
     const watchlist = userData.watchlist;
     const container = document.getElementById('watchlistBody');
     
+    if (!container) return;
+    
     if (watchlist.length === 0) {
         container.innerHTML = `
             <div class="empty-state">
@@ -935,20 +1251,28 @@ function loadWatchlist() {
         return;
     }
     
-    const html = watchlist.map((item, index) => `
-        <div class="watchlist-row">
-            <div>
-                <div class="name">${item.name}</div>
-                <div class="code">${item.code}</div>
+    const html = watchlist.map((item, index) => {
+        const sourceUrl = item.type === 'fund' 
+            ? `https://fund.eastmoney.com/${item.code}.html`
+            : `https://quote.eastmoney.com/${item.code}.html`;
+        return `
+            <div class="watchlist-row">
+                <div>
+                    <div class="name">${item.name}</div>
+                    <div class="code">${item.code}</div>
+                </div>
+                <div class="price">${item.price.toFixed(3)}</div>
+                <div class="change ${item.change >= 0 ? 'positive' : 'negative'}">
+                    ${item.change >= 0 ? '+' : ''}${item.change}%
+                </div>
+                <div class="month-change">${item.monthChange >= 0 ? '+' : ''}${item.monthChange}%</div>
+                <div class="row-actions">
+                    <a href="${sourceUrl}" target="_blank" class="action-link" title="查看详情">🔗</a>
+                    <button class="delete-btn" onclick="deleteFromWatchlist(${index})" title="删除">🗑️</button>
+                </div>
             </div>
-            <div class="price">${item.price.toFixed(3)}</div>
-            <div class="change ${item.change >= 0 ? 'positive' : 'negative'}">
-                ${item.change >= 0 ? '+' : ''}${item.change}%
-            </div>
-            <div class="month-change">${item.monthChange >= 0 ? '+' : ''}${item.monthChange}%</div>
-            <button class="delete-btn" onclick="deleteFromWatchlist(${index})" title="删除">🗑️</button>
-        </div>
-    `).join('');
+        `;
+    }).join('');
     
     container.innerHTML = html;
 }
@@ -998,13 +1322,14 @@ function handleAddWatch() {
         });
     }
     
-    saveUserData(userData);
-    document.getElementById('addWatchModal').classList.remove('active');
+    saveUserData();
     loadWatchlist();
     showToast('添加成功', 'success');
+    document.getElementById('addWatchModal').classList.remove('active');
 }
 
 function addToWatchlist(code, name, type) {
+    // 检查是否已存在
     if (userData.watchlist.some(item => item.code === code)) {
         showToast('该自选已存在', 'error');
         return;
@@ -1026,326 +1351,106 @@ function addToWatchlist(code, name, type) {
             change: data.change || data.changePercent,
             monthChange: data.monthChange
         });
-        saveUserData(userData);
-        showToast('已添加到自选', 'success');
+    } else {
+        userData.watchlist.push({
+            code: code,
+            name: name,
+            type: type,
+            price: 0,
+            change: 0,
+            monthChange: 0
+        });
     }
+    
+    saveUserData();
+    loadWatchlist();
+    showToast('添加成功', 'success');
 }
 
 function deleteFromWatchlist(index) {
     userData.watchlist.splice(index, 1);
-    saveUserData(userData);
+    saveUserData();
     loadWatchlist();
-    showToast('已删除', 'success');
+    showToast('删除成功', 'success');
 }
 
 // ==================== 历史报告 ====================
 function loadHistory() {
     const startDate = document.getElementById('historyStartDate').value;
     const endDate = document.getElementById('historyEndDate').value;
-    
-    let reports = SAMPLE_DATA.historyReports;
-    
-    // 日期筛选
-    if (startDate && endDate) {
-        reports = reports.filter(r => r.date >= startDate && r.date <= endDate);
-    }
-    
     const container = document.getElementById('historyList');
     
-    if (reports.length === 0) {
-        container.innerHTML = `
-            <div class="empty-state">
-                <p>暂无符合条件的报告</p>
-            </div>
-        `;
-        return;
+    if (!container) return;
+    
+    // 生成模拟历史报告数据
+    const reports = [];
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+    
+    for (let d = new Date(start); d <= end; d.setDate(d.getDate() + 1)) {
+        const dateStr = d.toISOString().split('T')[0];
+        reports.push({
+            date: dateStr,
+            mainInflow: Math.random() > 0.5 ? -Math.random() * 500 : Math.random() * 200,
+            marketClose: 3000 + Math.random() * 200,
+            marketChange: (Math.random() - 0.5) * 4
+        });
     }
     
-    const html = reports.map(report => `
-        <div class="history-item" onclick="viewHistoryDetail('${report.date}')">
-            <div class="history-date">${formatDate(report.date)}</div>
-            <div class="history-summary">
-                <strong>早间：</strong>${report.morning.summary}<br>
-                <strong>午后：</strong>${report.afternoon.summary}
+    // 日期从左到右递增（最旧→最新）
+    const html = reports.map(r => `
+        <div class="history-item">
+            <div class="history-date">${r.date}</div>
+            <div class="history-market">
+                <span class="market-close">上证 ${r.marketClose.toFixed(2)}</span>
+                <span class="market-change ${r.marketChange >= 0 ? 'positive' : 'negative'}">
+                    ${r.marketChange >= 0 ? '+' : ''}${r.marketChange.toFixed(2)}%
+                </span>
             </div>
-            <div class="history-tags">
-                ${report.tags.map(tag => `<span class="history-tag">${tag}</span>`).join('')}
+            <div class="history-flow ${r.mainInflow >= 0 ? 'positive' : 'negative'}">
+                主力净流入：${formatMoney(r.mainInflow)}
             </div>
         </div>
     `).join('');
     
-    container.innerHTML = html;
+    container.innerHTML = html || '<div class="empty-state"><p>暂无历史数据</p></div>';
 }
 
-function viewHistoryDetail(date) {
-    const report = SAMPLE_DATA.historyReports.find(r => r.date === date);
-    if (!report) return;
-    
-    const html = `
-        <div class="report-card" style="margin-top: 16px;">
-            <div class="report-header">
-                <span class="report-badge morning">🌅 早间分析</span>
-            </div>
-            <div class="report-content">
-                <p>${report.morning.summary}</p>
-            </div>
-        </div>
-        <div class="report-card">
-            <div class="report-header">
-                <span class="report-badge afternoon">🌇 午后分析</span>
-            </div>
-            <div class="report-content">
-                <p>${report.afternoon.summary}</p>
-            </div>
-        </div>
-    `;
-    
-    // 在模态框中显示
-    const modal = document.getElementById('addWatchModal');
-    modal.querySelector('.modal-header h3').textContent = formatDate(date);
-    modal.querySelector('.modal-body').innerHTML = html;
-    modal.querySelector('.modal-footer').innerHTML = `
-        <button class="btn-primary" onclick="closeDetailModal()">关闭</button>
-    `;
-    modal.classList.add('active');
+// ==================== 本地存储 ====================
+function getUserData() {
+    const data = localStorage.getItem('investmentUserData');
+    return data ? JSON.parse(data) : { watchlist: [] };
 }
 
-function closeDetailModal() {
-    const modal = document.getElementById('addWatchModal');
-    modal.classList.remove('active');
-    // 恢复添加自选弹窗的内容
-    modal.querySelector('.modal-header h3').textContent = '添加自选';
-    modal.querySelector('.modal-body').innerHTML = `
-        <div class="form-group">
-            <label>类型</label>
-            <select id="addType" class="form-input">
-                <option value="fund">基金</option>
-                <option value="stock">股票</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label>代码</label>
-            <input type="text" id="addCode" class="form-input" placeholder="请输入基金/股票代码">
-        </div>
-        <div class="form-group">
-            <label>名称</label>
-            <input type="text" id="addName" class="form-input" placeholder="请输入名称">
-        </div>
-    `;
-    modal.querySelector('.modal-footer').innerHTML = `
-        <button class="btn-secondary" id="cancelAdd">取消</button>
-        <button class="btn-primary" id="confirmAdd">添加</button>
-    `;
-    
-    // 重新绑定事件
-    document.getElementById('cancelAdd').addEventListener('click', () => {
-        modal.classList.remove('active');
-    });
-    document.getElementById('confirmAdd').addEventListener('click', handleAddWatch);
+function saveUserData() {
+    localStorage.setItem('investmentUserData', JSON.stringify(userData));
 }
 
-// ==================== 工具函数 ====================
+// ==================== 时间更新 ====================
 function updateTime() {
     const now = new Date();
-    const timeStr = now.toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' });
+    const timeStr = now.toLocaleString('zh-CN');
+    
+    const updateTimeEl = document.getElementById('updateTime');
+    if (updateTimeEl) {
+        updateTimeEl.textContent = `数据更新时间：${timeStr}`;
+    }
+    
     const mobileTimeEl = document.getElementById('mobileTime');
     if (mobileTimeEl) {
-        mobileTimeEl.textContent = timeStr;
+        mobileTimeEl.textContent = timeStr.split(' ')[1];
     }
 }
 
-function formatDate(dateStr) {
-    const date = new Date(dateStr);
-    return `${date.getFullYear()}年${date.getMonth() + 1}月${date.getDate()}日`;
-}
-
-function showToast(message, type = 'info') {
+// ==================== 提示消息 ====================
+function showToast(message, type) {
     const toast = document.getElementById('toast');
-    toast.querySelector('.toast-message').textContent = message;
+    const messageEl = toast.querySelector('.toast-message');
+    
+    messageEl.textContent = message;
     toast.className = `toast ${type} show`;
     
     setTimeout(() => {
         toast.classList.remove('show');
-    }, 2500);
-}
-
-// ==================== 激进型基金推荐 ====================
-function loadAggressiveFunds() {
-    const container = document.getElementById('aggressiveFunds');
-    if (!container) return;
-    
-    const funds = SAMPLE_DATA.aggressiveFunds;
-    
-    const fundsHtml = `
-        <div class="aggressive-funds-section" style="margin-top: 32px;">
-            <h2>🚀 激进型推荐 <span class="aggressive-badge">高波动·高收益</span></h2>
-            <div class="recommended-funds">
-                ${funds.map(fund => `
-                    <div class="fund-card aggressive" onclick="openFundDetail('${fund.code}')">
-                        <div class="fund-info">
-                            <h4>${fund.name}</h4>
-                            <span class="code">${fund.code}</span>
-                        </div>
-                        <div class="fund-change">
-                            <div class="percent positive">
-                                ${fund.change >= 0 ? '+' : ''}${fund.change}%
-                            </div>
-                            <div class="reason">${fund.reason}</div>
-                        </div>
-                    </div>
-                `).join('')}
-            </div>
-        </div>
-    `;
-    
-    container.innerHTML = fundsHtml;
-}
-
-// ==================== 基金详情页 ====================
-let fundDetailChart = null;
-
-function openFundDetail(code) {
-    const fund = SAMPLE_DATA.fundData[code];
-    if (!fund) {
-        showToast('未找到该基金信息', 'error');
-        return;
-    }
-    
-    const modal = document.getElementById('fundDetailModal');
-    
-    // 填充基本信息
-    document.getElementById('detailFundName').textContent = fund.name;
-    document.getElementById('detailFundCode').textContent = fund.code;
-    document.getElementById('detailFundNav').textContent = `净值：${fund.nav}（${fund.navDate}）`;
-    
-    const changeClass = fund.change >= 0 ? 'up' : 'down';
-    const changeSign = fund.change >= 0 ? '+' : '';
-    const changeEl = document.getElementById('detailFundChange');
-    changeEl.className = `fund-detail-change ${changeClass}`;
-    changeEl.textContent = `${changeSign}${fund.change}%`;
-    
-    // 填充收益数据
-    fillChangeValue('detailDayChange', fund.dayChange);
-    fillChangeValue('detailWeekChange', fund.weekChange);
-    fillChangeValue('detailMonthChange', fund.monthChange);
-    fillChangeValue('detailYearChange', fund.yearChange);
-    
-    // 填充基金信息
-    document.getElementById('detailManager').textContent = fund.manager;
-    document.getElementById('detailSize').textContent = fund.size;
-    document.getElementById('detailNavDate').textContent = fund.navDate;
-    document.getElementById('detailType').textContent = getFundTypeName(fund.type);
-    
-    // 填充基金描述
-    document.getElementById('detailDescription').textContent = fund.description;
-    
-    // 显示模态框
-    modal.classList.add('active');
-    
-    // 绘制净值走势图
-    setTimeout(() => {
-        drawNavChart(fund);
-    }, 100);
-}
-
-function fillChangeValue(elementId, value) {
-    const el = document.getElementById(elementId);
-    const isUp = value >= 0;
-    el.className = `value ${isUp ? 'up' : 'down'}`;
-    el.textContent = `${isUp ? '+' : ''}${value}%`;
-}
-
-function getFundTypeName(type) {
-    const typeMap = {
-        'fund': '基金',
-        'stock': '股票'
-    };
-    return typeMap[type] || type;
-}
-
-// 绘制净值走势图
-function drawNavChart(fund) {
-    const chartDom = document.getElementById('navChart');
-    if (!chartDom || !fund.navHistory || fund.navHistory.length === 0) return;
-    
-    if (fundDetailChart) {
-        fundDetailChart.dispose();
-    }
-    
-    fundDetailChart = echarts.init(chartDom);
-    
-    // navHistory数据已经是按日期从旧到新排序的
-    const dates = fund.navHistory.map(d => d.date.slice(5));
-    const values = fund.navHistory.map(d => d.value);
-    
-    // 判断颜色趋势（首尾比较）
-    const startValue = values[0];
-    const endValue = values[values.length - 1];
-    const isUp = endValue >= startValue;
-    const lineColor = isUp ? '#e64340' : '#09bb07';
-    const areaColor = isUp ? 'rgba(230, 67, 64, 0.1)' : 'rgba(9, 187, 7, 0.1)';
-    
-    const option = {
-        tooltip: {
-            trigger: 'axis',
-            formatter: function(params) {
-                const data = params[0];
-                return `${data.name}<br/>净值: ${data.value.toFixed(4)}`;
-            }
-        },
-        grid: {
-            left: '3%',
-            right: '4%',
-            bottom: '3%',
-            top: '10px',
-            containLabel: true
-        },
-        xAxis: {
-            type: 'category',
-            data: dates,
-            boundaryGap: false,
-            axisLine: { lineStyle: { color: '#e0e0e0' } },
-            axisLabel: { 
-                color: '#666',
-                fontSize: 11,
-                rotate: 45
-            }
-        },
-        yAxis: {
-            type: 'value',
-            scale: true,
-            axisLine: { show: false },
-            splitLine: { lineStyle: { color: '#f0f0f0' } },
-            axisLabel: { color: '#666' }
-        },
-        series: [{
-            name: '净值',
-            type: 'line',
-            data: values,
-            smooth: true,
-            symbol: 'circle',
-            symbolSize: 4,
-            lineStyle: {
-                color: lineColor,
-                width: 2
-            },
-            itemStyle: {
-                color: lineColor
-            },
-            areaStyle: {
-                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-                    { offset: 0, color: areaColor },
-                    { offset: 1, color: 'rgba(255, 255, 255, 0.05)' }
-                ])
-            }
-        }]
-    };
-    
-    fundDetailChart.setOption(option);
-    
-    window.addEventListener('resize', function() {
-        if (fundDetailChart) {
-            fundDetailChart.resize();
-        }
-    });
+    }, 3000);
 }

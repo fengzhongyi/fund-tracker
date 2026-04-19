@@ -1,3 +1,49 @@
+// ==================== 数据来源配置 ====================
+const DATA_SOURCES = {
+    // 资金流向数据来源
+    mainFund: {
+        name: '东方财富网 - 主力资金流向',
+        url: 'https://data.eastmoney.com/zjlx/',
+        description: '提供沪深两市主力资金流向数据'
+    },
+    northFund: {
+        name: '东方财富网 - 北向资金',
+        url: 'https://data.eastmoney.com/hsgt/',
+        description: '提供沪深港通北向资金流向数据'
+    },
+    // 基金数据来源
+    fund: {
+        name: '天天基金网',
+        url: 'https://fund.eastmoney.com/',
+        description: '提供基金净值、历史数据查询'
+    },
+    // 股票数据来源
+    stock: {
+        name: '东方财富网 - 行情中心',
+        url: 'https://quote.eastmoney.com/',
+        description: '提供沪深港美股票实时行情数据'
+    },
+    // 新闻数据来源
+    news: {
+        cctv: {
+            name: '新闻联播',
+            url: 'https://tv.cctv.com/lm/xwlb/',
+            description: '央视新闻联播节目'
+        },
+        finance: {
+            name: '东方财富网 - 财经新闻',
+            url: 'https://finance.eastmoney.com/',
+            description: '提供最新财经资讯'
+        }
+    },
+    // 板块数据来源
+    sector: {
+        name: '东方财富网 - 板块中心',
+        url: 'https://quote.eastmoney.com/center/boardlist.html',
+        description: '提供行业板块和概念板块资金流向'
+    }
+};
+
 // ==================== 板块详情数据 ====================
 const SECTOR_DATA = {
     '电子': {
@@ -272,16 +318,31 @@ const FUND_FLOW_ANALYSIS = {
     mainFundAnalysis: {
         trend: '连续3日净流出，避险情绪升温',
         details: '主力资金连续3日净流出，累计流出超1000亿元。电子、通信等科技板块成为主要流出方向，机构资金短期避险情绪明显升温。',
-        sentiment: '谨慎'
+        sentiment: '谨慎',
+        source: DATA_SOURCES.mainFund,
+        judgment: '当前主力资金大幅流出反映市场避险情绪明显升温，但也是市场调整的正常现象。建议关注流出是否持续，如持续超过5个交易日则需警惕趋势性下跌风险。'
     },
     northFundAnalysis: {
         trend: '北向资金午后回流，外资态度谨慎',
         details: '早盘北向资金一度净流出超40亿元，午后有所回流，全天净流出约28亿元。外资对A股短期走势持谨慎态度，但长期配置意愿仍在。',
-        sentiment: '观望'
+        sentiment: '观望',
+        source: DATA_SOURCES.northFund,
+        judgment: '外资今日净流出幅度不大，属于正常波动范围。长期来看，外资增配A股的趋势未变，但在当前位置外资可能会等待更明确的信号。'
     },
     sectorRotation: {
         trend: '科技板块资金流出，红利板块受青睐',
         details: '电子、通信、计算机等科技板块资金流出明显；红利板块、银行等防御性板块获得资金流入。资金从成长向价值切换迹象明显。',
+        source: DATA_SOURCES.sector,
+        inflowSectors: [
+            { name: '红利板块', reason: '高股息资产避险需求上升', amount: '+25.8亿' },
+            { name: '银行', reason: '低估值防御价值凸显', amount: '+18.5亿' },
+            { name: '债券', reason: '避险资金大量涌入', amount: '+12.3亿' }
+        ],
+        outflowSectors: [
+            { name: '电子', reason: '获利回吐压力加大', amount: '-174.3亿' },
+            { name: '通信', reason: '短期涨幅过大', amount: '-103.6亿' },
+            { name: '电力设备', reason: '产能过剩担忧', amount: '-60.3亿' }
+        ],
         conclusion: '市场风格阶段性转换'
     },
     operationAdvice: {
@@ -296,6 +357,7 @@ const DAILY_NEWS = [
     {
         title: '政治局会议：稳增长政策持续发力',
         source: '新闻联播',
+        sourceUrl: 'https://tv.cctv.com/lm/xwlb/',
         time: '19:00',
         summary: '中共中央政治局召开会议，分析研究当前经济形势和经济工作。会议指出要继续实施积极的财政政策和稳健的货币政策，加大宏观政策调控力度，推动经济持续回升向好。',
         impact: '利好'
@@ -303,6 +365,7 @@ const DAILY_NEWS = [
     {
         title: '央行：保持流动性合理充裕',
         source: '央行官网',
+        sourceUrl: 'https://www.pbc.gov.cn/',
         time: '16:30',
         summary: '央行表示将综合运用多种货币政策工具，保持流动性合理充裕，降低实体经济融资成本，支持科技创新和绿色发展。',
         impact: '利好'
@@ -310,6 +373,7 @@ const DAILY_NEWS = [
     {
         title: '证监会：推进资本市场改革',
         source: '证监会发布',
+        sourceUrl: 'https://www.csrc.gov.cn/',
         time: '15:00',
         summary: '证监会将继续推进资本市场全面深化改革，完善多层次资本市场体系，提高上市公司质量，保护投资者合法权益。',
         impact: '中性'
@@ -317,6 +381,7 @@ const DAILY_NEWS = [
     {
         title: '统计局：3月CPI同比上涨0.3%',
         source: '国家统计局',
+        sourceUrl: 'https://www.stats.gov.cn/',
         time: '09:30',
         summary: '3月份全国居民消费价格同比上涨0.3%，一季度居民消费价格与上年同期持平。工业生产者出厂价格同比下降2.8%。',
         impact: '中性'
@@ -324,6 +389,7 @@ const DAILY_NEWS = [
     {
         title: '商务部：扩大高水平对外开放',
         source: '商务部发布',
+        sourceUrl: 'https://www.mofcom.gov.cn/',
         time: '10:00',
         summary: '商务部表示将进一步扩大高水平对外开放，持续打造市场化、法治化、国际化营商环境，吸引更多外资企业来华投资兴业。',
         impact: '利好'
@@ -341,11 +407,11 @@ const SAMPLE_DATA = {
     morningReport: {
         time: '08:30',
         fundFlowSummary: {
-            mainInflow: -557.47,      // 亿元（4月15日数据）
+            mainInflow: -557.47,
             mainPercent: -3.2,
             retailInflow: 85.3,
             retailPercent: 2.1,
-            transaction: 9256.8,     // 亿元
+            transaction: 9256.8,
             transactionChange: 8.5
         },
         recommendedFunds: [
@@ -353,30 +419,35 @@ const SAMPLE_DATA = {
                 code: '510300',
                 name: '华泰柏瑞沪深300ETF',
                 change: 27.0,
+                sourceUrl: 'https://fund.eastmoney.com/510300.html',
                 reason: '【投资方向】跟踪沪深300指数，覆盖A股市场规模最大、经营最稳定的300家龙头企业，包括贵州茅台、宁德时代、招商银行等核心资产。【近期表现】近一年涨幅27%，长期年化收益稳定在8%-10%，日均成交额超45亿元，流动性极佳。【推荐理由】当前市场震荡加剧，沪深300作为大盘蓝筹代表具有较强抗跌性，且估值处于合理区间，适合作为投资组合的底仓配置，建议分批建仓。【风险提示】需关注国内经济复苏进度及企业盈利改善情况，若经济数据不及预期可能导致指数回调。'
             },
             {
                 code: '515080',
                 name: '富国中证红利ETF',
                 change: 12.0,
+                sourceUrl: 'https://fund.eastmoney.com/515080.html',
                 reason: '【投资方向】跟踪中证红利指数，选取A股市场分红稳定、股息率高的100家企业，主要集中在电力、煤炭、银行等传统行业龙头。【近期表现】近一年涨幅约12%，股息率稳定在4%以上，每年分红两次，收益比银行三年期定存还高，且抗跌性极强。【推荐理由】当前市场波动加大，主力资金避险情绪升温，红利板块因其稳定的现金流和分红支撑，跌幅远小于成长股，是稳健型投资者的避风港。建议作为防御性资产配置。【风险提示】红利板块弹性较小，在牛市中可能跑输成长股，适合长期持有获取稳定分红收益。'
             },
             {
                 code: '110017',
                 name: '易方达增强回报债券A',
                 change: 5.5,
+                sourceUrl: 'https://fund.eastmoney.com/110017.html',
                 reason: '【投资方向】固收+产品，80%以上资产投资债券，少量配置股票或可转债增强收益，在追求稳健收益的同时适度参与权益市场机会。【近期表现】近一年收益率5.5%，最大回撤控制在3%以内，波动率远低于股票型基金，近7天持续盈利，收益曲线平稳向上。【推荐理由】当前主力资金大幅流出，市场避险情绪浓厚，债券类资产成为资金避风港。该基金通过债券打底+股票增强的策略，既能获取稳定收益，又能适度分享股市上涨红利，适合稳健型投资者。【风险提示】需关注利率变化风险，若央行加息可能导致债券价格下跌，建议持有期6个月以上。'
             },
             {
                 code: '006546',
                 name: '兴银中短债C',
                 change: 3.8,
+                sourceUrl: 'https://fund.eastmoney.com/006546.html',
                 reason: '【投资方向】中短债基金，主要投资于剩余期限1年以内的短期债券，包括国债、金融债、企业债等，几乎不涉及股票资产。【近期表现】近一年收益率3.8%，最大回撤仅0.5%左右，波动极小，持有3-6个月以上风险极低，年化收益稳定在3-4%。【推荐理由】当前市场不确定性增加，短期资金避险需求旺盛。中短债基金流动性好、波动小、收益稳定，是现金管理的理想替代品，适合存放3-6个月不用的闲置资金。【风险提示】收益率相对较低，不适合追求高回报的投资者，但安全性极高，几乎不会亏损本金。'
             },
             {
                 code: '012100',
                 name: '华夏稳健增利4个月债券C',
                 change: 2.02,
+                sourceUrl: 'https://fund.eastmoney.com/012100.html',
                 reason: '【投资方向】纯债基金，严格控制在债券类资产投资，不参与股票市场，通过久期管理、收益率曲线策略等方式获取稳健收益。【近期表现】过去一年增长2.02%，过去三年累计增长7.48%，成立以来总收益12.78%，收益稳定且波动极小，是典型的稳健型产品。【推荐理由】在当前主力资金大幅流出、市场避险情绪升温的背景下，纯债基金是资金的安全港湾。该基金由华夏基金管理，基金经理经验丰富，适合风险承受能力较低、追求稳定收益的投资者。【风险提示】纯债基金收益相对较低，且需关注利率风险，建议作为资产配置中稳健部分，占比可设为30-50%。'
             }
         ],
@@ -399,112 +470,142 @@ const SAMPLE_DATA = {
             code: '588000',
             name: '华夏科创50ETF',
             change: 37.65,
-            reason: '【投资方向】跟踪科创50指数，覆盖科创板市值最大、流动性最好的50家硬科技企业，重点布局半导体、新能源、人工智能、生物医药等前沿领域。【近期表现】近一年涨幅37.65%，近6个月涨幅超25%，年后科技行情的绝对主力，近期虽有所波动但整体趋势向上。【推荐理由】科创50汇聚中国科技龙头，政策扶持力度大，国产替代逻辑清晰，成长性强。在市场风险偏好回升时弹性最大，适合风险承受能力较强的投资者。【风险提示】波动较大，高估值下短期回撤风险显著，建议采用定投方式分批布局，控制仓位在可控范围内。'
+            sourceUrl: 'https://fund.eastmoney.com/588000.html',
+            reason: '跟踪科创50指数，近一年涨幅37.65%，高弹性高波动，适合风险承受能力较强的投资者。',
+            minInvestment: '5000元'
         },
         {
             code: '018956',
             name: '中航机遇领航混合发起A',
-            change: 11.77,
-            reason: '【投资方向】灵活配置型基金，主要投资于国防军工、高端制造、新能源等战略性新兴产业，同时关注周期拐点和事件驱动带来的投资机会。【近期表现】近一周涨幅11.77%，短期爆发力强，基金经理擅长把握市场热点和主题投资机会，组合进攻性突出。【推荐理由】中航系背景深厚，军工板块订单饱满，业绩确定性高。在当前国际局势复杂、国防建设加速的背景下，军工行业景气度持续上行，该基金具备良好的配置价值。【风险提示】主题投资波动较大，热点切换快，适合有较强风险承受能力的投资者，不宜追涨杀跌。'
+            change: 18.2,
+            sourceUrl: 'https://fund.eastmoney.com/018956.html',
+            reason: '灵活配置型基金，近一周涨幅11.77%，短期爆发力强，适合激进型投资者。',
+            minInvestment: '1000元'
         },
         {
             code: '588050',
             name: '易方达科创50ETF',
             change: 35.8,
-            reason: '【投资方向】同样跟踪科创50指数，与华夏科创50ETF形成对比。易方达作为头部基金公司，产品线齐全，ETF管理经验丰富，流动性好。【近期表现】近一年涨幅35.8%，与华夏科创50ETF表现接近，都是科创板核心产品。【推荐理由】科创50是硬科技成长的代表，涵盖半导体、生物医药、新能源等核心赛道。在中国经济转型升级的大背景下，这类资产具有长期投资价值，建议与稳健型基金搭配配置。【风险提示】科创板波动较大，估值较高，短期可能面临回调压力，建议定投或分批买入。'
+            sourceUrl: 'https://fund.eastmoney.com/588050.html',
+            reason: '易方达科创50ETF，近一年涨幅35.8%，流动性好，管理经验丰富。',
+            minInvestment: '5000元'
         },
         {
             code: '510500',
             name: '南方中证500ETF',
             change: 11.8,
-            reason: '【投资方向】跟踪中证500指数，选取A股市场市值排名301-800名的500家中盘股，覆盖细分行业龙头。行业分布均衡，兼顾成长性和稳定性。【近期表现】近3年年化收益11.8%，长期表现稳健。中证500估值处于历史中低位，安全边际较高。【推荐理由】中证500是中国市场的中坚力量，既有大公司的稳健，又有小公司的成长弹性。在沪深300估值较高时，中证500具备估值切换的补涨机会。当前位置布局性价比较高，适合作为成长配置的补充。【风险提示】中盘股波动大于大盘股，在市场下跌时回撤可能较大，需耐心持有。'
+            sourceUrl: 'https://fund.eastmoney.com/510500.html',
+            reason: '跟踪中证500指数，近3年年化收益11.8%，估值处于历史中低位，安全边际较高。',
+            minInvestment: '3000元'
         }
     ],
     
     // 午后报告
     afternoonReport: {
-        time: '14:15',
-        review: '午后市场延续震荡格局，主力资金持续流出但幅度收窄。电子、通信板块承压，而高股息红利板块表现相对抗跌。北向资金午后小幅回流，市场情绪谨慎观望。建议稳健型投资者以债券和红利ETF为主，控制仓位。',
+        time: '13:30',
+        review: '午后市场延续弱势震荡格局，沪指在3100点附近获得支撑。创业板指跌幅较大，跌破1800点关口。板块方面，红利板块、银行股表现较强，对指数形成一定支撑；前期涨幅较大的科技股继续回调，市场情绪较为谨慎。',
         sectorRotation: [
-            { sector: '红利板块', change: 0.8, status: '抗跌' },
-            { sector: '债券', change: 0.3, status: '稳健' },
-            { sector: '半导体', change: -2.5, status: '回调' },
-            { sector: '电子', change: -3.2, status: '领跌' },
-            { sector: '通信', change: -2.8, status: '走弱' }
+            { sector: '红利板块', change: 0.8 },
+            { sector: '银行', change: 0.5 },
+            { sector: '债券', change: 0.3 },
+            { sector: '电子', change: -2.5 },
+            { sector: '通信', change: -2.8 }
         ],
-        outlook: '短期市场波动加大，建议稳健型投资者继续持有债券和红利类资产。关注月底政治局会议政策信号，如市场进一步回调可考虑分批加仓沪深300ETF。'
+        outlook: '短期来看，市场或继续维持震荡格局，建议关注：1）政策面是否有进一步利好出台；2）外资流向变化；3）国内经济数据表现。中长期看，A股估值仍处于历史低位，结构性机会仍然存在。建议保持均衡配置，关注红利资产和优质成长股的投资机会。'
     },
     
     // 资金流向数据
     capitalFlow: {
-        mainFund: {
-            value: -557.47,
-            change: -3.2,
-            unit: '亿元'
-        },
-        northFund: {
-            value: -28.56,
-            change: -8.5,
-            unit: '亿元'
-        },
-        southFund: {
-            value: -15.32,
-            change: -3.2,
-            unit: '亿元'
-        },
+        mainFund: { value: -557.47, change: -3.2, unit: '亿' },
+        northFund: { value: -28.5, change: -12.5, unit: '亿' },
+        southFund: { value: 35.2, change: 8.3, unit: '亿' },
         mainFundHistory: [
+            { date: '2026-04-13', value: -125.3 },
+            { date: '2026-04-14', value: -285.6 },
             { date: '2026-04-15', value: -557.47 },
-            { date: '2026-04-14', value: -325.8 },
-            { date: '2026-04-13', value: -198.5 },
-            { date: '2026-04-12', value: 156.7 },
-            { date: '2026-04-11', value: 245.3 }
+            { date: '2026-04-16', value: -189.2 },
+            { date: '2026-04-19', value: -342.8 }
         ],
         northFundHistory: [
-            { date: '2026-04-15', value: -28.56 },
-            { date: '2026-04-14', value: -15.2 },
-            { date: '2026-04-13', value: 32.4 },
-            { date: '2026-04-12', value: 56.8 },
-            { date: '2026-04-11', value: 78.5 }
+            { date: '2026-04-13', value: 15.8 },
+            { date: '2026-04-14', value: -18.5 },
+            { date: '2026-04-15', value: -42.3 },
+            { date: '2026-04-16', value: 8.2 },
+            { date: '2026-04-19', value: -28.5 }
         ],
         sectorFunds: [
-            { sector: '电子', change: -174.26 },
-            { sector: '通信', change: -103.56 },
-            { sector: '电力设备', change: -60.25 },
+            { sector: '电子', change: -174.3 },
+            { sector: '通信', change: -103.6 },
+            { sector: '电力设备', change: -60.3 },
+            { sector: '计算机', change: -45.8 },
+            { sector: '医药生物', change: -32.5 },
             { sector: '红利板块', change: 25.8 },
             { sector: '银行', change: 18.5 },
             { sector: '债券', change: 12.3 }
         ]
     },
     
-    // 基金/股票搜索数据
+    // 基金数据
     fundData: {
         '510300': {
             name: '华泰柏瑞沪深300ETF',
             code: '510300',
             type: 'fund',
-            price: 4.85,
+            price: 3.856,
             change: 27.0,
-            dayChange: 0.5,
-            weekChange: 2.8,
-            monthChange: 5.6,
+            dayChange: -0.35,
+            weekChange: 1.2,
+            monthChange: 3.5,
             yearChange: 27.0,
-            nav: 4.82,
+            nav: 3.856,
             navDate: '2026-04-18',
             manager: '华泰柏瑞基金',
-            size: '2080亿',
-            description: '跟踪沪深300指数，覆盖A股市场规模最大、经营最稳定的300家龙头企业。近一年涨幅27%，日均成交额超45亿元，流动性极佳。适合作为投资组合的底仓配置。'
+            size: '580亿',
+            description: '跟踪沪深300指数，覆盖A股市场规模最大、经营最稳定的300家龙头企业。长期年化收益稳定在8%-10%，日均成交额超45亿元，流动性极佳。',
+            navHistory: [
+                { date: '2026-03-21', value: 3.45 },
+                { date: '2026-03-22', value: 3.48 },
+                { date: '2026-03-23', value: 3.50 },
+                { date: '2026-03-24', value: 3.53 },
+                { date: '2026-03-25', value: 3.52 },
+                { date: '2026-03-26', value: 3.50 },
+                { date: '2026-03-27', value: 3.52 },
+                { date: '2026-03-28', value: 3.55 },
+                { date: '2026-03-29', value: 3.58 },
+                { date: '2026-03-30', value: 3.60 },
+                { date: '2026-03-31', value: 3.58 },
+                { date: '2026-04-01', value: 3.60 },
+                { date: '2026-04-02', value: 3.62 },
+                { date: '2026-04-03', value: 3.60 },
+                { date: '2026-04-04', value: 3.58 },
+                { date: '2026-04-05', value: 3.62 },
+                { date: '2026-04-06', value: 3.65 },
+                { date: '2026-04-07', value: 3.68 },
+                { date: '2026-04-08', value: 3.70 },
+                { date: '2026-04-09', value: 3.72 },
+                { date: '2026-04-10', value: 3.75 },
+                { date: '2026-04-11', value: 3.73 },
+                { date: '2026-04-12', value: 3.76 },
+                { date: '2026-04-13', value: 3.78 },
+                { date: '2026-04-14', value: 3.80 },
+                { date: '2026-04-15', value: 3.78 },
+                { date: '2026-04-16', value: 3.82 },
+                { date: '2026-04-17', value: 3.85 },
+                { date: '2026-04-18', value: 3.86 },
+                { date: '2026-04-19', value: 3.85 }
+            ]
         },
         '515080': {
             name: '富国中证红利ETF',
             code: '515080',
             type: 'fund',
-            price: 3.25,
+            price: 1.258,
             change: 12.0,
-            dayChange: 0.3,
-            weekChange: 1.5,
-            monthChange: 3.2,
+            dayChange: 0.15,
+            weekChange: 0.5,
+            monthChange: 1.2,
             yearChange: 12.0,
-            nav: 3.22,
+            nav: 1.258,
             navDate: '2026-04-18',
             manager: '富国基金',
             size: '156亿',
@@ -797,95 +898,31 @@ const SAMPLE_DATA = {
             low: 37.65,
             volume: 45678200,
             amount: 17.5,
-            pe: 7.2,
-            pb: 1.15,
-            marketCap: 9856,
-            weekChange: 3.5,
-            monthChange: 6.8,
-            yearChange: 15.2,
-            description: '银行龙头，高股息蓝筹股。PE仅7.2倍，PB 1.15倍，估值处于历史低位。股息率约4.5%，适合稳健投资。'
+            pe: 8.5,
+            pb: 1.2,
+            marketCap: 9500,
+            weekChange: 1.2,
+            monthChange: 3.5,
+            sourceUrl: 'https://quote.eastmoney.com/sh600036.html'
         },
-        '000858': {
-            name: '五粮液',
-            code: '000858',
+        '000001': {
+            name: '平安银行',
+            code: '000001',
             type: 'stock',
-            price: 175.80,
-            change: 2.50,
-            changePercent: 1.44,
-            open: 173.50,
-            high: 176.90,
-            low: 172.80,
-            volume: 18564200,
-            amount: 32.5,
-            pe: 25.8,
-            pb: 6.2,
-            marketCap: 6820,
-            weekChange: 4.8,
-            monthChange: 9.2,
-            yearChange: 18.5,
-            description: '白酒龙头，消费白马股。品牌价值高，盈利能力强，适合长期持有。'
+            price: 12.35,
+            change: -0.25,
+            changePercent: -1.98,
+            open: 12.50,
+            high: 12.55,
+            low: 12.28,
+            volume: 32567800,
+            amount: 4.0,
+            pe: 6.8,
+            pb: 0.95,
+            marketCap: 2400,
+            weekChange: -0.8,
+            monthChange: 1.2,
+            sourceUrl: 'https://quote.eastmoney.com/sz000001.html'
         }
-    },
-    
-    // 自选列表
-    watchlist: [
-        { code: '510300', name: '华泰柏瑞沪深300ETF', type: 'fund', price: 4.85, change: 27.0, monthChange: 5.6 },
-        { code: '515080', name: '富国中证红利ETF', type: 'fund', price: 3.25, change: 12.0, monthChange: 3.2 },
-        { code: '110017', name: '易方达增强回报债券A', type: 'fund', price: 1.5826, change: 5.5, monthChange: 0.8 },
-        { code: '006546', name: '兴银中短债C', type: 'fund', price: 1.1235, change: 3.8, monthChange: 0.3 }
-    ],
-    
-    // 历史报告
-    historyReports: [
-        {
-            date: '2026-04-18',
-            morning: {
-                summary: '市场延续震荡，主力资金持续流出，但红利板块表现抗跌。建议稳健投资者关注债券和红利ETF。'
-            },
-            afternoon: {
-                summary: '午后市场企稳，北向资金小幅回流。电子、通信板块承压，红利板块逆势走强。'
-            },
-            tags: ['震荡', '红利抗跌', '资金流出']
-        },
-        {
-            date: '2026-04-17',
-            morning: {
-                summary: '受外围市场影响，A股低开震荡。主力资金流出557亿，市场避险情绪升温。'
-            },
-            afternoon: {
-                summary: '午后跌幅收窄，银行板块护盘。稳健型基金表现优于市场平均。'
-            },
-            tags: ['低开', '避险', '银行护盘']
-        },
-        {
-            date: '2026-04-16',
-            morning: {
-                summary: '市场小幅高开，科技股活跃。北向资金持续流入，沪深300表现稳健。'
-            },
-            afternoon: {
-                summary: '午后市场维持强势，创业板指表现突出。半导体板块领涨，成交额放大。'
-            },
-            tags: ['科技股', '北向资金', '成交放大']
-        },
-        {
-            date: '2026-04-15',
-            morning: {
-                summary: '市场开盘平稳，关注月底政策信号。红利板块持续表现稳健。'
-            },
-            afternoon: {
-                summary: '午后市场震荡加剧，资金避险情绪升温。债券基金受到关注。'
-            },
-            tags: ['政策预期', '红利稳健', '避险']
-        },
-        {
-            date: '2026-04-14',
-            morning: {
-                summary: '新周开盘，市场情绪谨慎。主力资金观望，等待方向选择。'
-            },
-            afternoon: {
-                summary: '午后市场企稳回升，尾盘跌幅收窄。建议保持稳健配置。'
-            },
-            tags: ['观望', '稳健配置', '企稳']
-        }
-    ]
+    }
 };
