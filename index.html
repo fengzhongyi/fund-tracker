@@ -38,7 +38,9 @@
                 </li>
             </ul>
             <div class="nav-footer">
+                <div class="market-status-badge" id="marketStatus">🔴 检查中...</div>
                 <div class="update-time" id="updateTime">数据更新时间：--</div>
+                <button class="refresh-data-btn" id="refreshDataBtn" onclick="refreshData()">🔄 手动刷新</button>
             </div>
         </nav>
 
@@ -314,6 +316,11 @@
                 <div class="fund-detail-section">
                     <h4>📈 净值走势（近30日）</h4>
                     <div id="navChart" class="nav-chart-container"></div>
+                </div>
+                <!-- 日K线图 -->
+                <div class="fund-detail-section">
+                    <h4>📊 日K线图（MA5/MA10/MA20）</h4>
+                    <div id="fundKlineChart" class="fund-kline-container"></div>
                 </div>
                 <!-- 基金信息 -->
                 <div class="fund-detail-section">
