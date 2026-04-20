@@ -734,14 +734,15 @@ body {
     white-space: nowrap;
 }
 
+/* A股标准：利好（positive）用红色，利空（negative）用绿色 */
 .news-impact.positive {
-    background: rgba(9, 187, 7, 0.1);
-    color: var(--danger-color);
+    background: rgba(230, 67, 64, 0.1);
+    color: var(--success-color);  /* 中国红 */
 }
 
 .news-impact.negative {
-    background: rgba(230, 67, 64, 0.1);
-    color: var(--success-color);
+    background: rgba(9, 187, 7, 0.1);
+    color: var(--danger-color);  /* 微信绿 */
 }
 
 .news-impact.neutral {
