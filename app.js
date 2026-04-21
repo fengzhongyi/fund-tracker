@@ -1,7 +1,83 @@
 // ==================== 应用初始化 ====================
 document.addEventListener('DOMContentLoaded', function() {
     initApp();
+    initAutoRefresh();
 });
+
+// ==================== 自动刷新功能 ====================
+let refreshTimer = null;
+
+function initAutoRefresh() {
+    const toggleEl = document.getElementById('auto-refresh-toggle');
+    const intervalEl = document.getElementById('refresh-interval');
+    
+    // 从localStorage读取设置
+    const savedEnabled = localStorage.getItem('autoRefreshEnabled');
+    const savedInterval = localStorage.getItem('autoRefreshInterval');
+    
+    if (savedEnabled !== null) {
+        toggleEl.checked = savedEnabled === 'true';
+    }
+    if (savedInterval) {
+        intervalEl.value = savedInterval;
+    }
+    
+    // 设置自动刷新
+    setupAutoRefresh();
+    
+    // 监听设置变化
+    toggleEl.addEventListener('change', () => {
+        localStorage.setItem('autoRefreshEnabled', toggleEl.checked);
+        setupAutoRefresh();
+    });
+    
+    intervalEl.addEventListener('change', () => {
+        localStorage.setItem('autoRefreshInterval', intervalEl.value);
+        setupAutoRefresh();
+    });
+}
+
+function setupAutoRefresh() {
+    const toggleEl = document.getElementById('auto-refresh-toggle');
+    const intervalEl = document.getElementById('refresh-interval');
+    
+    // 清除现有定时器
+    if (refreshTimer) {
+        clearInterval(refreshTimer);
+        refreshTimer = null;
+    }
+    
+    // 如果启用自动刷新
+    if (toggleEl.checked) {
+        const interval = parseInt(intervalEl.value) * 1000;
+        refreshTimer = setInterval(() => {
+            checkForUpdates();
+        }, interval);
+    }
+}
+
+// 检查数据更新（通过比较更新时间）
+let lastUpdateTime = DATA_UPDATE_TIME;
+
+function checkForUpdates() {
+    // 重新加载页面以获取最新数据
+    // 使用fetch检查data.js是否有更新
+    fetch('data.js?t=' + Date.now())
+        .then(response => response.text())
+        .then(text => {
+            const match = text.match(/DATA_UPDATE_TIME\s*=\s*'([^']+)'/);
+            if (match) {
+                const newTime = match[1];
+                if (newTime && newTime !== lastUpdateTime && newTime !== '') {
+                    // 数据有更新，刷新页面
+                    location.reload();
+                }
+            }
+        })
+        .catch(() => {
+            // 忽略错误
+        });
+}
 
 function initApp() {
     // 更新时间显示
