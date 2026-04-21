@@ -1,6 +1,6 @@
 // ==================== 数据更新时间 ====================
 // 由日程任务填充
-const DATA_UPDATE_TIME = '2026-04-20 14:20:00';
+const DATA_UPDATE_TIME = '2026-04-21 14:15:00';
 
 // ==================== 数据来源配置 ====================
 const DATA_SOURCES = {
@@ -69,18 +69,18 @@ const HOLIDAYS_2026 = [
 // ==================== 板块数据模板 ====================
 // 由日程任务从真实来源获取并填充
 const SECTOR_DATA = {
-    // 2026-04-20 午间数据
+    // 2026-04-21 午间数据
     inflowSectors: [
-        { name: '电子', flow: '主力净流入', amount: '65亿+' },
-        { name: '国防军工', flow: '主力净流入', amount: '30亿+' },
-        { name: '计算机', flow: '主力净流入', amount: '20亿+' },
-        { name: '通信', flow: '主力净流入', amount: '15亿+' }
+        { name: '集成电路制造', flow: '主力净流入', amount: '25亿+' },
+        { name: '电池', flow: '主力净流入', amount: '21亿+' },
+        { name: '锂电池', flow: '主力净流入', amount: '9.5亿' },
+        { name: '煤炭', flow: '主力净流入', amount: '4.1亿' }
     ],
     outflowSectors: [
-        { name: '医药生物', flow: '主力净流出', amount: '-24亿' },
-        { name: '房地产', flow: '主力净流出', amount: '-10亿-' },
-        { name: '农林牧渔', flow: '主力净流出', amount: '-5亿' },
-        { name: '基础化工', flow: '主力净流出', amount: '-8亿' }
+        { name: '消费电子', flow: '主力净流出', amount: '-32亿-' },
+        { name: '通信设备', flow: '主力净流出', amount: '-25亿-' },
+        { name: '计算机设备', flow: '主力净流出', amount: '-20亿-' },
+        { name: '液冷服务器', flow: '主力净流出', amount: '-15亿' }
     ]
 };
 
@@ -88,22 +88,22 @@ const SECTOR_DATA = {
 // 由日程任务填充
 const FUND_FLOW_ANALYSIS = {
     mainFundAnalysis: {
-        summary: '4月20日午盘，主力资金整体呈大幅净流入态势，主要流向电子通信、国防军工、半导体等板块。资金高低切换特征显著，从防御板块向高弹性成长赛道集中。',
-        trend: 'CPO/光模块概念获主力资金持续净流入，商业航天板块受政策催化资金流入明显。',
-        highlight: '立讯精密、浪潮信息、航天发展等标的获大额净流入超10亿元；电子板块半日净流入超65亿元。'
+        summary: '4月21日午盘，主力资金大幅净流出超500亿元，主要从AI算力、半导体、消费电子等高位科技板块撤离。集成电路制造、电池等新能源产业链获逆势加仓，半日净流入超45亿元。',
+        trend: '资金风格切换明显，从高位成长向低位防御转移。煤炭、电力、工业气体等板块成为资金避风港。',
+        highlight: '宁德时代获大额净流入超20亿元，兆易创新、佰维存储等半导体标的获主力抢筹；立讯精密、浪潮信息、新易盛等高位科技股遭大幅抛售。'
     },
     northFundAnalysis: {
-        summary: '北向资金半日净流入超42亿元，由上周净流出转为净流入，显示外资对A股科技板块信心回升。',
-        trend: '外资持续看好A股核心资产，偏好科技成长与核心蓝筹。',
-        highlight: '深股通净买入为主，主攻科技成长方向。'
+        summary: '北向资金半日小幅净流出约12-28亿元，结束连续净流入态势。外资对高位科技股转为谨慎，但整体流出幅度有限。',
+        trend: '外资偏好转向低估值高股息板块，对新能源、半导体等业绩确定性方向保持关注。',
+        highlight: '深股通净流出为主，沪股通相对抗跌，显示外资调仓换股动作。'
     },
     sectorRotation: {
-        rising: ['商业航天', '卫星导航', '光模块/CPO', '液冷服务器', '半导体', '国防军工', '超硬材料'],
-        falling: ['医药生物', '基础化工', '电力设备', '房地产开发', '锂电池']
+        rising: ['煤炭开采', '工业气体', '绿色电力', '影视院线', '电池', '集成电路'],
+        falling: ['液冷服务器', 'AI算力', 'CPO光模块', '消费电子', '国资云', '东数西算']
     },
     operationAdvice: {
-        aggressive: '关注AI算力/CPO/光模块核心标的，逢低布局科技成长主线，注意控制仓位不盲目追高。',
-        conservative: '配置高股息蓝筹作为防御底仓，等待医药、地产等弱势板块止跌信号。'
+        aggressive: '关注新能源（锂电、储能）回调后的布局机会，6G大会召开或催化科技板块反弹，但需严格控制仓位不盲目追高。',
+        conservative: '配置高股息红利资产作为防御底仓，如煤炭、电力等低估值防御板块，等待市场情绪企稳。'
     }
 };
 
@@ -112,20 +112,36 @@ const FUND_FLOW_ANALYSIS = {
 // 格式: { title, source, sourceUrl, time, summary, impact }
 const DAILY_NEWS = [
     {
-        title: '4月20日午间点评：全线普涨，科技与航天领涨，北向资金回流',
+        title: '4月21日午盘点评：科创50暴跌2.37%，防御板块逆势走强',
         source: '股长红',
-        sourceUrl: 'http://m.toutiao.com/group/7630691262912987688/',
-        time: '12:21',
-        summary: 'A股三大指数集体放量上涨，上证涨0.67%突破4070点，深证涨0.60%，科创50涨1.82%领涨。北向资金半日净流入超42亿元，主力资金大幅流入电子通信、国防军工、半导体等板块，商业航天概念爆发。',
-        impact: '利好'
+        sourceUrl: 'http://m.toutiao.com/group/7631054056957428266/',
+        time: '11:47',
+        summary: 'A股今日早盘画风突变，三大指数集体走弱，科创50重挫2.37%领跌全场，全市场近3900只个股下跌。资金极致抱团煤炭、氦气、工业气体三大防御主线，成为盘面唯一赚钱方向。',
+        impact: '利空科技'
     },
     {
-        title: '国家航天局发布重大任务，商业航天概念爆发',
+        title: '主力板块资金流入排行：集成电路制造流入24.91亿元、电池流入20.56亿元',
+        source: '金融界',
+        sourceUrl: 'http://m.163.com/dy/article/KR1MMQ610519QIKK.html',
+        time: '11:46',
+        summary: '据交易所数据显示，截至4月21日午间收盘，大盘主力资金净流出574.63亿元。主力资金流入前十大板块分别为：集成电路制造（24.91亿元）、电池（20.56亿元）、锂电池（9.50亿元）、电池化学品（9.15亿元）等。',
+        impact: '利好新能源'
+    },
+    {
+        title: '6G技术与产业生态大会在南京召开',
         source: '央视新闻',
-        sourceUrl: 'http://m.toutiao.com/group/7630691262912987688/',
-        time: '11:30',
-        summary: '国家航天局在"中国航天日"新闻发布会宣布天问二号将接近目标小行星，载人航天工程实施神舟二十三号等任务，商业航天概念爆发，中国卫星涨停。',
-        impact: '利好'
+        sourceUrl: 'http://m.toutiao.com/group/7631076697957270025/',
+        time: '09:00',
+        summary: '4月21日至23日，2026全球6G技术与产业生态大会在南京召开，来自全球50多个国家的2000多位专家、行业人士参会。大会更聚焦产业落地与生态构建，明确6G将与AI、低空经济、智能驾驶等领域深度融合。',
+        impact: '利好通信'
+    },
+    {
+        title: '宁德时代举办2026年"超级科技日"',
+        source: '证券日报',
+        sourceUrl: 'http://m.toutiao.com/group/7631083357417308718/',
+        time: '09:30',
+        summary: '宁德时代将于4月21日举办2026年"超级科技日"，主题为"极域之约"。这将是公司成立以来技术密度最高的一场发布会，公司届时推出的全新技术、产品和生态，都将直击行业最关注的痛点。',
+        impact: '利好新能源'
     },
     {
         title: '4月LPR报价出炉：1年期3.0%、5年期以上3.5%',
@@ -136,28 +152,12 @@ const DAILY_NEWS = [
         impact: '中性'
     },
     {
-        title: '国家发改委下达第二批"两重"建设项目清单，安排超长期特别国债资金2168亿元',
+        title: '发改委下达2168亿特别国债，投向新质生产力',
         source: '时政要闻',
         sourceUrl: 'http://m.toutiao.com/group/7630627709316399651/',
         time: '08:00',
         summary: '国家发展改革委会同有关部门组织下达2026年第二批"两重"建设项目清单，安排超长期特别国债资金2168亿元，涉及人工智能、城市地下管网建设改造、长江经济带交通基础设施等领域。',
-        impact: '利好'
-    },
-    {
-        title: '证监会发布再融资新规，万亿长线资金入市通道打开',
-        source: '财经要闻',
-        sourceUrl: 'http://m.toutiao.com/group/7630459741873717775/',
-        time: '21:30',
-        summary: '证监会深夜发布《证券期货法律适用意见第18号》，将社保、养老金、保险资金、公募基金等正式纳入战略投资者范围，打开万亿级增量资金入市通道。险资权益投资上限从30%提至35%释放约5000亿增量资金。',
-        impact: '利好'
-    },
-    {
-        title: '一季度GDP同比增长5.0%，高技术制造业增加值增9.8%',
-        source: '宏观分析',
-        sourceUrl: 'http://m.toutiao.com/group/7630671690409722408/',
-        time: '11:00',
-        summary: '一季度经济数据"质效双升"：GDP同比增长5.0%(超预期0.2pct)，高技术制造业增加值增9.8%，新能源汽车/太阳能电池产量增35%/42%，新质生产力成为核心引擎。',
-        impact: '利好'
+        impact: '利好基建'
     }
 ];
 
@@ -165,7 +165,7 @@ const DAILY_NEWS = [
 // 由日程任务填充所有数据
 const SAMPLE_DATA = {
     // 今日日期 - 由日程任务设置
-    today: '2026-04-20',
+    today: '2026-04-21',
     
     // 是否交易日
     isTradingDay: true,
@@ -177,52 +177,44 @@ const SAMPLE_DATA = {
     morningReport: {
         time: '09:30',
         indexPerformance: {
-            shangzhi: { value: 4053.37, change: '+0.05%' },
-            shengzheng: { value: 14900.45, change: '-0.10%' },
-            chuangye: { value: 3679.88, change: '-0.57%' },
-            zhuanke50: { value: 1445.67, change: '+1.64%' }
+            shangzhi: { value: 4072.39, change: '-0.24%' },
+            shengzheng: { value: 14854.08, change: '-0.75%' },
+            chuangye: { value: 3642.83, change: '-0.94%' },
+            zhuanke50: { value: 1416.17, change: '-2.37%' }
         },
         fundFlowSummary: {
-            mainInflow: '85亿+',
-            northInflow: '42亿+',
-            marketSentiment: '谨慎偏多',
-            tradingVolume: '较昨日同期放量'
+            mainInflow: '超500亿净流出',
+            northInflow: '约-12亿（小幅净流出）',
+            marketSentiment: '谨慎偏空',
+            tradingVolume: '较昨日缩量但仍处高位'
         },
         recommendedFunds: [
-            {
-                code: '588000',
-                name: '科创50ETF华夏',
-                type: '激进型',
-                change: '+1.64%',
-                reason: '科创50今日大涨1.64%领跑，科技成长板块受政策催化和技术突破双重驱动。存储芯片行业供不应求格局将持续至2027年，CPO/光模块赛道资金流入持续较强，业绩高增确定性高。AI算力需求爆发支撑科技板块估值，半导体国产替代加速推进，建议关注回调后的布局机会。'
-            },
             {
                 code: '515080',
                 name: '中证红利ETF招商',
                 type: '稳健型',
-                change: '-0.66%',
-                reason: '红利策略在震荡市中提供稳健收益，高股息资产具备防御价值。虽然今日微跌，但近一年涨幅10.87%，成立以来涨幅109.51%，年化分红稳定，适合作为组合的压舱石配置。银行净息差低位运行下降空间有限，红利策略超额收益有望延续。'
+                change: '+0.94%',
+                reason: '红利策略在震荡市中提供稳健收益，高股息资产具备防御价值。今日煤炭、银行等红利板块逆势走强，机构资金持续流入，近5日累计吸金超3亿元。低利率环境下，中证红利股息率约5%，相较于不足2%的10年期国债收益率具备显著吸引力，适合作为组合的压舱石配置。'
             },
             {
                 code: '510300',
                 name: '沪深300ETF华泰柏瑞',
                 type: '配置型',
-                change: '+0.44%',
-                reason: '今日午盘涨0.44%，沪指站上60日均线，技术面中期趋势转强。沪深300代表A股核心资产，险资权益投资上限从30%提至35%释放约5000亿增量资金，长期资金入市利好大盘蓝筹。一季度经济数据超预期，基本面支撑A股震荡上行。'
+                change: '-0.35%（估值）',
+                reason: '今日大盘震荡调整，沪深300代表A股核心资产，低估值大盘蓝筹受资金青睐。4月20日险资权益投资上限从30%提至35%释放约5000亿增量资金，长期资金入市利好大盘蓝筹。一季度经济数据超预期，基本面支撑A股震荡上行，回调或是布局机会。'
             }
         ],
         hotSectors: {
             rising: [
-                { name: '超硬材料', reason: '液冷散热方案革新，金刚石铜导热材料规模化应用，系统导热率提升80%' },
-                { name: 'BC电池', reason: '光伏技术迭代代表，宁德时代一季度业绩超预期，北京车展临近提振板块情绪' },
-                { name: '云计算/液冷服务器', reason: '阿里云、腾讯云算力服务涨价，算力需求旺盛推动，液冷散热成必然趋势' },
-                { name: '特高压', reason: '"十五五"电网建设加速，攀西特高压、藏粤直流等项目落地，中国西电首批中标73.88亿' },
-                { name: '商业航天', reason: '国家航天局发布重大任务，天问二号接近目标小行星，载人航天工程神舟二十三号等任务推进' }
+                { name: '煤炭开采', reason: '进口煤价上涨+地缘风险+低估值高股息，板块逆势暴涨4%+' },
+                { name: '工业气体', reason: '地缘冲突加剧氦气供给扰动，下游半导体、光伏需求旺盛，行业量价齐升' },
+                { name: '绿色电力', reason: '低估值高股息+避险属性，算电协同政策催化，板块同步活跃' },
+                { name: '电池/锂电', reason: '宁德时代科技日催化，一季报业绩集体预增，资金逆势抢筹22亿+' }
             ],
             falling: [
-                { name: '锂电池', reason: '前期涨幅较快，获利盘兑现压力上升，部分企业一季报业绩不及预期' },
-                { name: '医药生物', reason: '半日净流出超24亿元，板块领跌，年报一季报业绩不及预期，资金避险撤离' },
-                { name: 'AI应用', reason: '短期涨幅透支估值，资金高低切换，部分高位题材股回调压力较大' }
+                { name: '液冷服务器', reason: '前期涨幅过大，英维克跌停，主力资金大幅出逃超15亿元' },
+                { name: 'AI算力/CPO', reason: '高位科技股集体回调，主力净流出超百亿，一季报业绩压力释放' },
+                { name: '消费电子', reason: '立讯精密等龙头遭大幅抛售，资金持续净流出32亿元+' }
             ]
         }
     },
@@ -232,14 +224,14 @@ const SAMPLE_DATA = {
         {
             code: '588000',
             name: '科创50ETF华夏',
-            change: '+1.64%',
-            nav: 1.4997,
-            weekChange: '+5.16%',
-            monthChange: '+5.16%',
-            yearChange: '+40.59%',
-            reason: '科创50今日大涨1.64%领跑，科技成长板块受政策催化和技术突破双重驱动。存储芯片行业供不应求格局将持续至2027年，CPO/光模块赛道资金流入持续较强。AI算力需求爆发支撑科技板块估值，半导体国产替代加速推进。',
+            change: '-2.37%',
+            nav: 1.4082,
+            weekChange: '-1.82%',
+            monthChange: '-5.16%',
+            yearChange: '+35.28%',
+            reason: '科创50今日领跌全场-2.37%，科技成长板块短期承压。但6G大会召开、宁德时代科技日等催化不断，半导体设备方向获主力逆势加仓。建议等待回调到位后再关注，中长期AI算力需求爆发仍支撑科技板块估值。',
             riskLevel: '高',
-            recommendedWeight: '20-30%'
+            recommendedWeight: '10-15%'
         }
     ],
     
@@ -247,35 +239,36 @@ const SAMPLE_DATA = {
     afternoonReport: {
         time: '14:15',
         indexPerformance: {
-            shangzhi: { value: 4078.39, change: '+0.67%' },
-            shengzheng: { value: 14974.78, change: '+0.60%' },
-            chuangye: { value: 3679.88, change: '+0.04%' },
-            zhuanke50: { value: 1460.82, change: '+1.82%' }
+            shangzhi: { value: 4081.53, change: '-0.02%' },
+            shengzheng: { value: 14949.67, change: '-0.11%' },
+            chuangye: { value: 3670.24, change: '-0.94%' },
+            zhuanke50: { value: 1408.22, change: '-2.37%' }
         },
         marketAnalysis: {
-            volume: '1.7万亿（半日）',
-            stockRatio: '3299:1988（涨:跌）',
-            sentiment: '赚钱效应扩散，市场情绪显著回暖',
-            涨停: '68家',
-            跌停: '3家'
+            volume: '2.6万亿（较昨日缩量1000亿）',
+            stockRatio: '1862:2943（涨:跌）',
+            sentiment: '赚钱效应降温，防御板块走强',
+            涨停: '38家',
+            跌停: '17家'
         },
         fundFlowUpdate: {
-            northFund: '半日净流入超42亿元',
-            mainFund: '大幅净流入电子通信、国防军工',
-            trend: '北向资金由净流出转为净流入，科技成长与国防军工获逆势加仓'
+            northFund: '全天净流出约28亿元',
+            mainFund: '全天净流出超420亿元',
+            trend: '资金从高位科技向煤炭、电力等防御板块迁移'
         },
         afternoonOutlook: {
-            prediction: '大概率维持强势震荡、主线轮动格局',
+            prediction: '维持震荡分化格局，防御主线延续',
             keyPoints: [
-                '关注量能能否维持1.7万亿以上',
-                '北向资金净流入能否延续至收盘',
-                'CPO/光模块与国防军工板块资金承接力度',
-                '个股涨跌比能否维持在3000:2000以上'
+                '关注沪指4050-4080点区间支撑有效性',
+                '北向资金能否重新净流入',
+                '新能源板块持续性',
+                '成交量能否维持在1.5万亿以上'
             ],
             riskPoints: [
-                '沪指逼近4100点压力位，冲高空间有限',
-                '早盘情绪一致，缩量后尾盘或有获利盘兑现',
-                '科技高位股谨慎接力，关注医药止跌信号'
+                '科创50、创业板持续调整压力',
+                '高位科技股获利了结压力',
+                '一季报业绩不及预期风险',
+                '外围市场波动影响'
             ]
         }
     },
@@ -283,43 +276,45 @@ const SAMPLE_DATA = {
     // 资金流向数据
     capitalFlow: {
         mainFund: {
-            value: -89.02,
+            value: -420,
             unit: '亿元',
             direction: '净流出',
-            shangzheng: -62.06,
-            shengzheng: -26.96,
-            trend: '科技成长与国防军工获逆势加仓'
+            shangzheng: -218,
+            shengzheng: -202,
+            trend: '高位科技板块集体出逃，防御板块获承接'
         },
         northFund: {
-            value: 143,
+            value: -28,
             unit: '亿元',
-            direction: '净流入',
-            shengutong: 115,
-            hushenutong: 28,
-            trend: '主攻科技成长，外资回流明显'
+            direction: '净流出',
+            shengutong: -3,
+            hushenutong: -25,
+            trend: '外资结束连续净流入，转为谨慎观望'
         },
         sectorFunds: [
-            { name: 'CPO/光模块', flow: 65, direction: '净流入', note: '延续高景气' },
-            { name: '电子', flow: 30, direction: '净流入', note: '立讯精密、浪潮信息获大单扫货' },
-            { name: '国防军工', flow: 28, direction: '净流入', note: '中国卫星涨停' },
-            { name: '计算机', flow: 20, direction: '净流入', note: 'AI算力概念持续' },
-            { name: '通信', flow: 15, direction: '净流入', note: '光通信/算力驱动' },
-            { name: '医药生物', flow: -24, direction: '净流出', note: '资金避险撤离' },
-            { name: '房地产', flow: -10, direction: '净流出', note: '持续承压' },
-            { name: '农林牧渔', flow: -5, direction: '净流出', note: '弱势板块' }
+            { name: '集成电路制造', flow: 25, direction: '净流入', note: '半导体设备获主力抢筹' },
+            { name: '电池', flow: 21, direction: '净流入', note: '宁德时代科技日催化' },
+            { name: '锂电池', flow: 9, direction: '净流入', note: '新能源产业链反弹' },
+            { name: '煤炭', flow: 4, direction: '净流入', note: '高股息防御属性' },
+            { name: '液冷服务器', flow: -15, direction: '净流出', note: '英维克跌停' },
+            { name: 'AI算力/CPO', flow: -100, direction: '净流出', note: '高位科技集体回调' },
+            { name: '消费电子', flow: -32, direction: '净流出', note: '立讯精密等遭抛售' },
+            { name: '计算机设备', flow: -20, direction: '净流出', note: '科技主线失血' }
         ],
         topStocks: {
             inflow: [
-                { name: '立讯精密', amount: '22.19亿' },
-                { name: '中国卫星', amount: '14.09亿' },
-                { name: '中天科技', amount: '13.60亿' },
-                { name: '浪潮信息', amount: '12.39亿' },
-                { name: '英维克', amount: '11.13亿' }
+                { name: '宁德时代', amount: '20亿+' },
+                { name: '兆易创新', amount: '15亿+' },
+                { name: '佰维存储', amount: '10亿+' },
+                { name: '中国神华', amount: '8亿+' },
+                { name: '凯美特气', amount: '5亿+' }
             ],
             outflow: [
-                { name: '新易盛', amount: '-8.87亿' },
-                { name: '长光华芯', amount: '-6.43亿' },
-                { name: '太辰光', amount: '-5.58亿' }
+                { name: '立讯精密', amount: '-15亿-' },
+                { name: '新易盛', amount: '-12亿-' },
+                { name: '浪潮信息', amount: '-10亿-' },
+                { name: '中际旭创', amount: '-8亿-' },
+                { name: '英维克', amount: '-5.5亿' }
             ]
         }
     },
@@ -328,76 +323,58 @@ const SAMPLE_DATA = {
     fundData: {
         '510300': {
             name: '华泰柏瑞沪深300ETF',
-            price: 4.76,
-            change: '+0.44%',
-            changeValue: 0.02,
-            nav: 4.7393,
-            navDate: '2026-04-17',
-            volume: '3178695手',
-            amount: '15.12亿',
+            price: 4.7513,
+            change: '-0.35%',
+            changeValue: -0.0167,
+            nav: 4.7681,
+            navDate: '2026-04-20',
+            volume: '3627万手',
+            amount: '36.28亿',
             manager: '柳军',
-            scale: '4222.58亿',
+            scale: '2041.73亿',
             established: '2012-05-04',
             tracking: '沪深300指数',
             klineData: [
-                { date: '2026-04-14', open: 4.65, close: 4.71, high: 4.72, low: 4.64 },
-                { date: '2026-04-13', open: 4.61, close: 4.65, high: 4.66, low: 4.61 },
-                { date: '2026-04-10', open: 4.59, close: 4.64, high: 4.65, low: 4.58 },
-                { date: '2026-04-09', open: 4.58, close: 4.57, high: 4.59, low: 4.56 },
-                { date: '2026-04-08', open: 4.52, close: 4.60, high: 4.60, low: 4.52 },
-                { date: '2026-04-07', open: 4.45, close: 4.45, high: 4.47, low: 4.44 },
-                { date: '2026-04-03', open: 4.45, close: 4.45, high: 4.46, low: 4.44 },
-                { date: '2026-04-01', open: 4.53, close: 4.53, high: 4.54, low: 4.52 },
-                { date: '2026-03-31', open: 4.46, close: 4.46, high: 4.47, low: 4.45 },
-                { date: '2026-03-30', open: 4.50, close: 4.50, high: 4.51, low: 4.49 },
-                { date: '2026-03-27', open: 4.51, close: 4.51, high: 4.52, low: 4.50 },
-                { date: '2026-03-26', open: 4.49, close: 4.49, high: 4.50, low: 4.48 },
-                { date: '2026-03-25', open: 4.54, close: 4.54, high: 4.55, low: 4.53 },
-                { date: '2026-03-24', open: 4.48, close: 4.48, high: 4.49, low: 4.47 },
-                { date: '2026-03-23', open: 4.43, close: 4.43, high: 4.44, low: 4.42 },
-                { date: '2026-03-20', open: 4.58, close: 4.58, high: 4.59, low: 4.57 },
-                { date: '2026-03-19', open: 4.60, close: 4.60, high: 4.61, low: 4.59 },
-                { date: '2026-03-18', open: 4.60, close: 4.60, high: 4.61, low: 4.59 },
-                { date: '2026-03-17', open: 4.57, close: 4.57, high: 4.58, low: 4.56 },
-                { date: '2026-03-16', open: 4.68, close: 4.68, high: 4.69, low: 4.67 },
-                { date: '2026-03-13', open: 4.71, close: 4.71, high: 4.72, low: 4.70 },
-                { date: '2026-03-11', open: 4.73, close: 4.73, high: 4.74, low: 4.72 },
-                { date: '2026-03-10', open: 4.68, close: 4.68, high: 4.69, low: 4.67 },
-                { date: '2026-03-09', open: 4.67, close: 4.67, high: 4.68, low: 4.66 },
-                { date: '2026-03-06', open: 4.68, close: 4.68, high: 4.69, low: 4.67 },
-                { date: '2026-03-05', open: 4.70, close: 4.70, high: 4.71, low: 4.69 },
-                { date: '2026-03-04', open: 4.69, close: 4.69, high: 4.70, low: 4.68 },
-                { date: '2026-03-03', open: 4.66, close: 4.66, high: 4.67, low: 4.65 },
-                { date: '2026-03-02', open: 4.60, close: 4.60, high: 4.61, low: 4.59 },
-                { date: '2026-02-27', open: 4.58, close: 4.58, high: 4.59, low: 4.57 }
+                { date: '2026-04-20', open: 4.74, close: 4.765, high: 4.78, low: 4.73 },
+                { date: '2026-04-17', open: 4.65, close: 4.71, high: 4.72, low: 4.64 },
+                { date: '2026-04-16', open: 4.61, close: 4.65, high: 4.66, low: 4.61 },
+                { date: '2026-04-15', open: 4.59, close: 4.64, high: 4.65, low: 4.58 },
+                { date: '2026-04-14', open: 4.58, close: 4.57, high: 4.59, low: 4.56 },
+                { date: '2026-04-13', open: 4.52, close: 4.60, high: 4.60, low: 4.52 },
+                { date: '2026-04-10', open: 4.52, close: 4.60, high: 4.60, low: 4.52 },
+                { date: '2026-04-09', open: 4.45, close: 4.45, high: 4.47, low: 4.44 },
+                { date: '2026-04-08', open: 4.45, close: 4.45, high: 4.46, low: 4.44 },
+                { date: '2026-04-07', open: 4.53, close: 4.53, high: 4.54, low: 4.52 }
             ],
             navHistory: [
+                { date: '2026-04-20', value: 4.7681 },
                 { date: '2026-04-17', value: 4.7393 },
+                { date: '2026-04-16', value: 4.7472 },
+                { date: '2026-04-15', value: 4.6957 },
                 { date: '2026-04-14', value: 4.7111 },
                 { date: '2026-04-13', value: 4.6560 },
                 { date: '2026-04-10', value: 4.6466 },
                 { date: '2026-04-09', value: 4.5758 },
                 { date: '2026-04-08', value: 4.6054 },
-                { date: '2026-04-07', value: 4.4498 },
-                { date: '2026-04-03', value: 4.4499 },
-                { date: '2026-04-01', value: 4.5355 },
-                { date: '2026-03-31', value: 4.4595 }
+                { date: '2026-04-07', value: 4.4498 }
             ]
         },
         '588000': {
             name: '华夏科创50ETF',
-            price: 1.499,
-            change: '+0.07%',
-            changeValue: 0.001,
-            nav: 1.4997,
-            navDate: '2026-04-17',
-            volume: '197万手',
-            amount: '约39亿（日均）',
+            price: 1.4082,
+            change: '-2.37%',
+            changeValue: -0.0342,
+            nav: 1.4082,
+            navDate: '2026-04-21',
+            volume: '210万手',
+            amount: '约40亿（日均）',
             manager: '荣膺',
             scale: '760.22亿',
             established: '2020-09-28',
             tracking: '上证科创板50成份指数',
             klineData: [
+                { date: '2026-04-21', open: 1.44, close: 1.408, high: 1.44, low: 1.40 },
+                { date: '2026-04-20', open: 1.45, close: 1.442, high: 1.45, low: 1.43 },
                 { date: '2026-04-17', open: 1.492, close: 1.499, high: 1.510, low: 1.489 },
                 { date: '2026-04-16', open: 1.485, close: 1.498, high: 1.501, low: 1.477 },
                 { date: '2026-04-15', open: 1.491, close: 1.482, high: 1.509, low: 1.474 },
@@ -405,61 +382,42 @@ const SAMPLE_DATA = {
                 { date: '2026-04-13', open: 1.428, close: 1.448, high: 1.470, low: 1.424 },
                 { date: '2026-04-10', open: 1.434, close: 1.437, high: 1.457, low: 1.434 },
                 { date: '2026-04-09', open: 1.408, close: 1.415, high: 1.435, low: 1.403 },
-                { date: '2026-04-08', open: 1.385, close: 1.425, high: 1.425, low: 1.385 },
-                { date: '2026-04-07', open: 1.34, close: 1.34, high: 1.35, low: 1.33 },
-                { date: '2026-04-01', open: 1.354, close: 1.369, high: 1.372, low: 1.350 },
-                { date: '2026-03-31', open: 1.356, close: 1.324, high: 1.366, low: 1.322 },
-                { date: '2026-03-30', open: 1.347, close: 1.359, high: 1.364, low: 1.342 },
-                { date: '2026-03-27', open: 1.38, close: 1.37, high: 1.38, low: 1.37 },
-                { date: '2026-03-26', open: 1.383, close: 1.357, high: 1.386, low: 1.353 },
-                { date: '2026-03-25', open: 1.363, close: 1.385, high: 1.397, low: 1.362 },
-                { date: '2026-03-24', open: 1.345, close: 1.359, high: 1.360, low: 1.316 },
-                { date: '2026-03-23', open: 1.33, close: 1.329, high: 1.34, low: 1.32 },
-                { date: '2026-03-20', open: 1.39, close: 1.388, high: 1.39, low: 1.38 },
-                { date: '2026-03-19', open: 1.41, close: 1.411, high: 1.42, low: 1.40 },
-                { date: '2026-03-18', open: 1.45, close: 1.445, high: 1.46, low: 1.44 },
-                { date: '2026-03-17', open: 1.43, close: 1.428, high: 1.44, low: 1.42 },
-                { date: '2026-03-16', open: 1.46, close: 1.458, high: 1.47, low: 1.45 },
-                { date: '2026-03-13', open: 1.45, close: 1.450, high: 1.46, low: 1.44 },
-                { date: '2026-03-11', open: 1.48, close: 1.477, high: 1.49, low: 1.47 },
-                { date: '2026-03-09', open: 1.47, close: 1.465, high: 1.48, low: 1.46 },
-                { date: '2026-03-06', open: 1.49, close: 1.49, high: 1.50, low: 1.48 },
-                { date: '2026-03-05', open: 1.50, close: 1.50, high: 1.51, low: 1.49 },
-                { date: '2026-03-04', open: 1.49, close: 1.49, high: 1.50, low: 1.48 },
-                { date: '2026-03-03', open: 1.48, close: 1.48, high: 1.49, low: 1.47 },
-                { date: '2026-03-02', open: 1.54, close: 1.544, high: 1.55, low: 1.53 }
+                { date: '2026-04-08', open: 1.385, close: 1.425, high: 1.425, low: 1.385 }
             ],
             navHistory: [
+                { date: '2026-04-21', value: 1.4082 },
+                { date: '2026-04-20', value: 1.4418 },
                 { date: '2026-04-17', value: 1.4997 },
+                { date: '2026-04-16', value: 1.4983 },
+                { date: '2026-04-15', value: 1.4816 },
                 { date: '2026-04-14', value: 1.4787 },
                 { date: '2026-04-13', value: 1.4476 },
                 { date: '2026-04-10', value: 1.4365 },
                 { date: '2026-04-09', value: 1.4151 },
                 { date: '2026-04-08', value: 1.4251 },
-                { date: '2026-04-07', value: 1.3392 },
-                { date: '2026-04-03', value: 1.3361 },
-                { date: '2026-04-01', value: 1.3676 },
-                { date: '2026-03-31', value: 1.3236 }
+                { date: '2026-04-07', value: 1.3392 }
             ]
         },
         '515080': {
             name: '招商中证红利ETF',
-            price: 1.59,
-            change: '-0.19%',
-            changeValue: 0.00,
-            nav: 1.5902,
-            navDate: '2026-04-17',
-            volume: '474200手',
-            amount: '7545.28万',
+            price: 1.5977,
+            change: '+0.94%',
+            changeValue: 0.0149,
+            nav: 1.5921,
+            navDate: '2026-04-20',
+            volume: '520000手',
+            amount: '8300万',
             manager: '王平、刘重杰',
-            scale: '86.81亿',
+            scale: '93.70亿',
             established: '2019-11-28',
             tracking: '中证红利指数',
-            weekChange: '-2.91%',
-            monthChange: '-2.91%',
-            yearChange: '+10.87%',
-            threeYearChange: '+21.90%',
+            weekChange: '-1.19%',
+            monthChange: '-1.19%',
+            yearChange: '+10.92%',
+            threeYearChange: '+21.51%',
             klineData: [
+                { date: '2026-04-21', open: 1.58, close: 1.598, high: 1.60, low: 1.57 },
+                { date: '2026-04-20', open: 1.58, close: 1.583, high: 1.59, low: 1.57 },
                 { date: '2026-04-17', open: 1.60, close: 1.59, high: 1.60, low: 1.59 },
                 { date: '2026-04-16', open: 1.60, close: 1.60, high: 1.61, low: 1.59 },
                 { date: '2026-04-15', open: 1.59, close: 1.60, high: 1.60, low: 1.58 },
@@ -467,11 +425,10 @@ const SAMPLE_DATA = {
                 { date: '2026-04-13', open: 1.59, close: 1.58, high: 1.59, low: 1.57 },
                 { date: '2026-04-10', open: 1.59, close: 1.59, high: 1.60, low: 1.58 },
                 { date: '2026-04-09', open: 1.60, close: 1.59, high: 1.61, low: 1.59 },
-                { date: '2026-04-08', open: 1.59, close: 1.60, high: 1.61, low: 1.59 },
-                { date: '2026-04-07', open: 1.58, close: 1.59, high: 1.59, low: 1.58 },
-                { date: '2026-04-03', open: 1.60, close: 1.58, high: 1.60, low: 1.58 }
+                { date: '2026-04-08', open: 1.59, close: 1.60, high: 1.61, low: 1.59 }
             ],
             navHistory: [
+                { date: '2026-04-20', value: 1.5921 },
                 { date: '2026-04-17', value: 1.5902 },
                 { date: '2026-04-16', value: 1.6008 },
                 { date: '2026-04-15', value: 1.5744 },
@@ -480,19 +437,18 @@ const SAMPLE_DATA = {
                 { date: '2026-04-10', value: 1.5588 },
                 { date: '2026-04-09', value: 1.5450 },
                 { date: '2026-04-08', value: 1.5545 },
-                { date: '2026-04-07', value: 1.4807 },
-                { date: '2026-04-03', value: 1.4739 }
+                { date: '2026-04-07', value: 1.4807 }
             ]
         },
         '510500': {
             name: '南方中证500ETF',
-            price: 8.31,
-            change: '+0.22%',
-            changeValue: 0.02,
-            nav: 8.2884,
-            navDate: '2026-04-17',
-            volume: '329689手',
-            amount: '2.73亿',
+            price: 8.25,
+            change: '-0.48%',
+            changeValue: -0.04,
+            nav: 8.245,
+            navDate: '2026-04-20',
+            volume: '320000手',
+            amount: '2.64亿',
             manager: '罗文杰',
             scale: '1446.90亿',
             established: '2013-02-06',
@@ -502,6 +458,8 @@ const SAMPLE_DATA = {
             yearChange: '+50.39%',
             threeYearChange: '+33.09%',
             klineData: [
+                { date: '2026-04-21', open: 8.30, close: 8.25, high: 8.31, low: 8.20 },
+                { date: '2026-04-20', open: 8.25, close: 8.29, high: 8.32, low: 8.25 },
                 { date: '2026-04-17', open: 8.25, close: 8.29, high: 8.32, low: 8.25 },
                 { date: '2026-04-16', open: 8.12, close: 8.25, high: 8.29, low: 8.12 },
                 { date: '2026-04-15', open: 8.17, close: 8.12, high: 8.18, low: 8.11 },
@@ -509,11 +467,10 @@ const SAMPLE_DATA = {
                 { date: '2026-04-13', open: 8.04, close: 8.04, high: 8.07, low: 8.02 },
                 { date: '2026-04-10', open: 8.02, close: 8.04, high: 8.05, low: 8.00 },
                 { date: '2026-04-09', open: 7.96, close: 7.96, high: 8.01, low: 7.91 },
-                { date: '2026-04-08', open: 7.82, close: 8.03, high: 8.03, low: 7.82 },
-                { date: '2026-04-07', open: 7.64, close: 7.63, high: 7.70, low: 7.60 },
-                { date: '2026-04-03', open: 7.70, close: 7.60, high: 7.71, low: 7.58 }
+                { date: '2026-04-08', open: 7.82, close: 8.03, high: 8.03, low: 7.82 }
             ],
             navHistory: [
+                { date: '2026-04-20', value: 8.2884 },
                 { date: '2026-04-17', value: 8.2884 },
                 { date: '2026-04-16', value: 8.2543 },
                 { date: '2026-04-15', value: 8.1162 },
@@ -522,8 +479,7 @@ const SAMPLE_DATA = {
                 { date: '2026-04-10', value: 8.0401 },
                 { date: '2026-04-09', value: 7.9677 },
                 { date: '2026-04-08', value: 8.0148 },
-                { date: '2026-04-07', value: 7.6351 },
-                { date: '2026-04-03', value: 7.5987 }
+                { date: '2026-04-07', value: 7.6351 }
             ]
         },
         '006546': {
@@ -532,7 +488,7 @@ const SAMPLE_DATA = {
             change: '+0.02%',
             changeValue: 0.0002,
             nav: 1.2434,
-            navDate: '2026-04-17',
+            navDate: '2026-04-20',
             manager: '王深',
             scale: '11.74亿',
             established: '2018-12-07',
@@ -544,6 +500,7 @@ const SAMPLE_DATA = {
             yearChange: '+1.06%',
             threeYearChange: '+7.93%',
             navHistory: [
+                { date: '2026-04-20', value: 1.2434 },
                 { date: '2026-04-17', value: 1.2434 },
                 { date: '2026-04-16', value: 1.2432 },
                 { date: '2026-04-15', value: 1.2430 },
@@ -552,17 +509,16 @@ const SAMPLE_DATA = {
                 { date: '2026-04-10', value: 1.2422 },
                 { date: '2026-04-09', value: 1.2420 },
                 { date: '2026-04-08', value: 1.2418 },
-                { date: '2026-04-07', value: 1.2416 },
-                { date: '2026-04-03', value: 1.2413 }
+                { date: '2026-04-07', value: 1.2416 }
             ]
         },
         '110017': {
             name: '易方达增强回报债券A',
-            price: 1.394,
+            price: 1.395,
             change: '0.00%',
             changeValue: 0,
-            nav: 1.394,
-            navDate: '2026-04-17',
+            nav: 1.395,
+            navDate: '2026-04-08',
             manager: '王晓晨',
             scale: '316.96亿',
             established: '2008-03-19',
@@ -575,16 +531,16 @@ const SAMPLE_DATA = {
             yearChange: '+5.32%',
             threeYearChange: '+15.71%',
             navHistory: [
-                { date: '2026-04-17', value: 1.394 },
-                { date: '2026-04-16', value: 1.394 },
-                { date: '2026-04-15', value: 1.394 },
-                { date: '2026-04-14', value: 1.393 },
-                { date: '2026-04-13', value: 1.392 },
-                { date: '2026-04-10', value: 1.393 },
-                { date: '2026-04-09', value: 1.393 },
                 { date: '2026-04-08', value: 1.395 },
-                { date: '2026-04-07', value: 1.392 },
-                { date: '2026-04-03', value: 1.391 }
+                { date: '2026-04-07', value: 1.395 },
+                { date: '2026-04-03', value: 1.391 },
+                { date: '2026-04-01', value: 1.393 },
+                { date: '2026-03-31', value: 1.392 },
+                { date: '2026-03-30', value: 1.394 },
+                { date: '2026-03-29', value: 1.393 },
+                { date: '2026-03-28', value: 1.394 },
+                { date: '2026-03-27', value: 1.394 },
+                { date: '2026-03-26', value: 1.395 }
             ]
         }
     },
