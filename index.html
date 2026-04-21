@@ -15,138 +15,170 @@
             <div class="update-info">
                 <span id="update-time">数据加载中...</span>
                 <span class="source-link">
-                    <a href="#" id="main-source-link" target="_blank">数据来源</a>
+                    <a href="https://data.eastmoney.com/zjlx/" target="_blank" id="main-source-link">数据来源</a>
                 </span>
             </div>
         </header>
 
-        <!-- 休市提示 -->
-        <div id="market-closed-notice" class="market-notice" style="display: none;">
-            <div class="notice-content">
-                <h2>🌙 今日休市</h2>
-                <p id="closed-reason">今日为非交易日，市场暂停交易</p>
-                <div class="next-trading">
-                    <p>下一交易日：<span id="next-trading-day">--</span></p>
-                </div>
-            </div>
-        </div>
-
         <!-- 主内容 -->
         <main id="main-content">
-            <!-- 大盘指数 -->
+            <!-- 1. 实时大盘指数 -->
             <section class="card index-section">
-                <h2>📈 大盘指数</h2>
+                <h2>📈 实时大盘指数</h2>
+                <div class="source-badge">
+                    <a href="https://quote.eastmoney.com/" target="_blank">数据来源：东方财富</a>
+                </div>
                 <div class="index-grid">
                     <div class="index-item" data-index="shangzhi">
                         <div class="index-name">上证指数</div>
-                        <div class="index-value positive" id="shangzhi-value">--</div>
+                        <div class="index-value neutral" id="shangzhi-value">--</div>
                         <div class="index-change" id="shangzhi-change">--</div>
+                        <div class="index-volume" id="shangzhi-volume">--</div>
                     </div>
                     <div class="index-item" data-index="shengzheng">
                         <div class="index-name">深证成指</div>
-                        <div class="index-value positive" id="shengzheng-value">--</div>
+                        <div class="index-value neutral" id="shengzheng-value">--</div>
                         <div class="index-change" id="shengzheng-change">--</div>
+                        <div class="index-volume" id="shengzheng-volume">--</div>
                     </div>
                     <div class="index-item" data-index="chuangye">
                         <div class="index-name">创业板指</div>
-                        <div class="index-value positive" id="chuangye-value">--</div>
+                        <div class="index-value neutral" id="chuangye-value">--</div>
                         <div class="index-change" id="chuangye-change">--</div>
+                        <div class="index-volume" id="chuangye-volume">--</div>
                     </div>
                     <div class="index-item" data-index="zhuanke50">
                         <div class="index-name">科创50</div>
-                        <div class="index-value positive" id="zhuanke50-value">--</div>
+                        <div class="index-value neutral" id="zhuanke50-value">--</div>
                         <div class="index-change" id="zhuanke50-change">--</div>
+                        <div class="index-volume" id="zhuanke50-volume">--</div>
                     </div>
                 </div>
             </section>
 
-            <!-- 资金流向 -->
-            <section class="card fund-flow-section">
-                <h2>💰 资金流向</h2>
+            <!-- 4. 大盘和基金流入流出量 -->
+            <section class="card capital-section">
+                <h2>💰 资金流入流出</h2>
                 <div class="source-badge">
                     <a href="https://data.eastmoney.com/zjlx/" target="_blank">数据来源：东方财富</a>
                 </div>
-                <div class="fund-flow-grid">
-                    <div class="fund-flow-item">
-                        <div class="flow-label">主力资金</div>
-                        <div class="flow-value" id="main-fund-value">--</div>
-                        <div class="flow-trend" id="main-fund-trend">--</div>
-                    </div>
-                    <div class="fund-flow-item">
-                        <div class="flow-label">北向资金</div>
-                        <div class="flow-value" id="north-fund-value">--</div>
-                        <div class="flow-trend" id="north-fund-trend">--</div>
+                
+                <!-- 大盘资金 -->
+                <div class="capital-main">
+                    <h3>大盘资金流向</h3>
+                    <div class="capital-grid">
+                        <div class="capital-item">
+                            <div class="capital-label">主力资金</div>
+                            <div class="capital-value" id="main-fund-value">--</div>
+                            <div class="capital-analysis" id="main-fund-analysis">--</div>
+                        </div>
+                        <div class="capital-item">
+                            <div class="capital-label">北向资金</div>
+                            <div class="capital-value" id="north-fund-value">--</div>
+                            <div class="capital-analysis" id="north-fund-analysis">--</div>
+                        </div>
                     </div>
                 </div>
-                <div class="fund-flow-detail">
-                    <h3>板块资金流向</h3>
+                
+                <!-- 板块资金流向 -->
+                <div class="sector-capital">
+                    <h3>板块资金流向 TOP10</h3>
                     <div class="sector-flow-container">
                         <div class="sector-flow inflow">
-                            <h4 class="positive">🔴 资金流入</h4>
+                            <h4 class="positive">🔴 流入榜</h4>
                             <ul id="inflow-sectors" class="sector-list"></ul>
                         </div>
                         <div class="sector-flow outflow">
-                            <h4 class="negative">🟢 资金流出</h4>
+                            <h4 class="negative">🟢 流出榜</h4>
                             <ul id="outflow-sectors" class="sector-list"></ul>
                         </div>
                     </div>
                 </div>
-                <div class="fund-analysis">
-                    <h3>资金流向分析</h3>
-                    <div id="fund-analysis-content">
-                        <p class="analysis-item"><strong>主力资金：</strong><span id="main-analysis">--</span></p>
-                        <p class="analysis-item"><strong>北向资金：</strong><span id="north-analysis">--</span></p>
-                        <p class="analysis-item"><strong>板块轮动：</strong><span id="sector-rotation">--</span></p>
-                    </div>
+                
+                <!-- 基金资金流向 -->
+                <div class="fund-capital">
+                    <h3>关注基金资金流向</h3>
+                    <div class="fund-flow-grid" id="fund-flow-list"></div>
                 </div>
             </section>
 
-            <!-- 稳健型基金推荐 -->
-            <section class="card fund-section">
-                <h2>🛡️ 稳健型基金推荐</h2>
-                <div class="source-badge">
-                    <a href="https://fund.eastmoney.com/" target="_blank">数据来源：天天基金</a>
-                </div>
-                <div class="fund-list" id="stable-funds"></div>
-            </section>
-
-            <!-- 激进型基金推荐 -->
-            <section class="card fund-section">
-                <h2>🚀 激进型基金推荐</h2>
-                <div class="source-badge">
-                    <a href="https://fund.eastmoney.com/" target="_blank">数据来源：天天基金</a>
-                </div>
-                <div class="fund-list" id="aggressive-funds"></div>
-            </section>
-
-            <!-- 热门板块 -->
-            <section class="card hot-sector-section">
-                <h2>🔥 热门板块</h2>
+            <!-- 5. 现在和未来利好板块 -->
+            <section class="card sector-section">
+                <h2>🎯 利好板块</h2>
                 <div class="source-badge">
                     <a href="https://quote.eastmoney.com/center/boardlist.html" target="_blank">数据来源：东方财富</a>
                 </div>
-                <div class="sector-grid">
-                    <div class="sector-col rising">
-                        <h3 class="positive">🔴 领涨板块</h3>
-                        <ul id="hot-rising-sectors" class="sector-hot-list"></ul>
-                    </div>
-                    <div class="sector-col falling">
-                        <h3 class="negative">🟢 领跌板块</h3>
-                        <ul id="hot-falling-sectors" class="sector-hot-list"></ul>
+                
+                <!-- 当前利好板块 -->
+                <div class="current-favorable">
+                    <h3>🔥 当前利好板块</h3>
+                    <div class="favorable-grid" id="current-favorable-list"></div>
+                </div>
+                
+                <!-- 未来利好板块 -->
+                <div class="future-favorable">
+                    <h3>🔮 未来利好板块（预期）</h3>
+                    <div class="favorable-grid" id="future-favorable-list"></div>
+                </div>
+                
+                <!-- 板块轮动预测 -->
+                <div class="rotation-prediction">
+                    <h3>📊 板块轮动预测</h3>
+                    <div class="rotation-content">
+                        <div class="rotation-from">
+                            <span class="rotation-label">资金流出：</span>
+                            <span id="rotation-from" class="negative">--</span>
+                        </div>
+                        <div class="rotation-to">
+                            <span class="rotation-label">资金流入：</span>
+                            <span id="rotation-to" class="positive">--</span>
+                        </div>
+                        <div class="rotation-analysis" id="rotation-analysis">--</div>
                     </div>
                 </div>
             </section>
 
-            <!-- 每日重大新闻 -->
-            <section class="card news-section">
-                <h2>📰 每日重大新闻</h2>
+            <!-- 2. 推荐基金（买卖建议） -->
+            <section class="card recommend-section">
+                <h2>💡 基金买卖建议</h2>
                 <div class="source-badge">
-                    <a href="https://tv.cctv.com/lm/xwlb/" target="_blank">数据来源：新闻联播</a>
+                    <a href="https://fund.eastmoney.com/" target="_blank">数据来源：天天基金</a>
                 </div>
-                <div class="news-list" id="daily-news"></div>
+                
+                <!-- 建议买入 -->
+                <div class="recommend-group buy-group">
+                    <h3 class="positive">🔴 建议买入</h3>
+                    <div class="recommend-list" id="buy-list"></div>
+                </div>
+                
+                <!-- 建议卖出 -->
+                <div class="recommend-group sell-group">
+                    <h3 class="negative">🟢 建议卖出</h3>
+                    <div class="recommend-list" id="sell-list"></div>
+                </div>
+                
+                <!-- 持有观望 -->
+                <div class="recommend-group hold-group">
+                    <h3>⏸️ 持有观望</h3>
+                    <div class="recommend-list" id="hold-list"></div>
+                </div>
             </section>
 
-            <!-- 关注基金列表 -->
+            <!-- 3. 实时新闻（利好利空） -->
+            <section class="card news-section">
+                <h2>📰 实时新闻</h2>
+                <div class="source-badge">
+                    <a href="https://finance.eastmoney.com/" target="_blank">数据来源：东方财富</a>
+                </div>
+                <div class="news-filter">
+                    <button class="filter-btn active" data-filter="all">全部</button>
+                    <button class="filter-btn" data-filter="positive">利好</button>
+                    <button class="filter-btn" data-filter="negative">利空</button>
+                </div>
+                <div class="news-list" id="realtime-news"></div>
+            </section>
+
+            <!-- 我的关注基金 -->
             <section class="card my-funds-section">
                 <h2>📋 我的关注基金</h2>
                 <div class="source-badge">
@@ -182,16 +214,16 @@
                             <span class="info-value" id="modal-fund-change">--</span>
                         </div>
                         <div class="info-item">
+                            <span class="info-label">资金净流入</span>
+                            <span class="info-value" id="modal-fund-flow">--</span>
+                        </div>
+                        <div class="info-item">
                             <span class="info-label">基金规模</span>
                             <span class="info-value" id="modal-fund-scale">--</span>
                         </div>
                         <div class="info-item">
                             <span class="info-label">基金经理</span>
                             <span class="info-value" id="modal-fund-manager">--</span>
-                        </div>
-                        <div class="info-item">
-                            <span class="info-label">成立日期</span>
-                            <span class="info-value" id="modal-established">--</span>
                         </div>
                         <div class="info-item">
                             <span class="info-label">跟踪指数</span>
@@ -206,10 +238,6 @@
                         <h3>日K线图</h3>
                         <div id="kline-chart" class="chart-container"></div>
                     </div>
-                    <div class="performance-section">
-                        <h3>收益表现</h3>
-                        <div class="performance-grid" id="performance-grid"></div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -221,7 +249,7 @@
                 <a href="https://data.eastmoney.com/zjlx/" target="_blank">东方财富-主力资金</a> |
                 <a href="https://data.eastmoney.com/hsgt/" target="_blank">北向资金</a> |
                 <a href="https://fund.eastmoney.com/" target="_blank">天天基金</a> |
-                <a href="https://tv.cctv.com/lm/xwlb/" target="_blank">新闻联播</a>
+                <a href="https://finance.eastmoney.com/" target="_blank">财经新闻</a>
             </p>
         </footer>
     </div>

@@ -1,5 +1,4 @@
 // ==================== 数据更新时间 ====================
-// 由日程任务填充
 const DATA_UPDATE_TIME = '';
 
 // ==================== 数据来源配置 ====================
@@ -43,113 +42,79 @@ const DATA_SOURCES = {
     }
 };
 
-// ==================== 2026年法定节假日 ====================
-const HOLIDAYS_2026 = [
-    '2026-01-01', '2026-01-02', '2026-01-03',
-    '2026-02-17', '2026-02-18', '2026-02-19', '2026-02-20', '2026-02-21', '2026-02-22', '2026-02-23', '2026-02-24',
-    '2026-04-04', '2026-04-05', '2026-04-06',
-    '2026-05-01', '2026-05-02', '2026-05-03',
-    '2026-06-20', '2026-06-21', '2026-06-22',
-    '2026-09-27', '2026-09-28',
-    '2026-10-01', '2026-10-02', '2026-10-03', '2026-10-04', '2026-10-05', '2026-10-06', '2026-10-07', '2026-10-08', '2026-10-09',
-    '2026-10-10'
-];
-
-// ==================== 板块数据 ====================
-const SECTOR_DATA = {
-    inflowSectors: [],
-    outflowSectors: []
-};
-
-// ==================== 资金流向分析数据 ====================
-const FUND_FLOW_ANALYSIS = {
-    mainFundAnalysis: {
-        summary: '',
-        trend: '',
-        highlight: ''
-    },
-    northFundAnalysis: {
-        summary: '',
-        trend: '',
-        highlight: ''
-    },
-    sectorRotation: {
-        rising: [],
-        falling: []
-    },
-    operationAdvice: {
-        aggressive: '',
-        conservative: ''
-    }
-};
-
-// ==================== 每日重大新闻 ====================
-const DAILY_NEWS = [];
-
 // ==================== 主数据 ====================
 const SAMPLE_DATA = {
     today: '',
-    isTradingDay: false,
+    isTradingDay: true,
     loadingStatus: 'loading',
     
-    morningReport: {
-        time: '',
-        indexPerformance: {
-            shangzhi: { value: 0, change: '' },
-            shengzheng: { value: 0, change: '' },
-            chuangye: { value: 0, change: '' },
-            zhuanke50: { value: 0, change: '' }
-        },
-        fundFlowSummary: {
-            mainInflow: '',
-            northInflow: '',
-            marketSentiment: '',
-            tradingVolume: ''
-        },
-        recommendedFunds: [],
-        hotSectors: {
-            rising: [],
-            falling: []
-        }
+    // ===== 1. 实时大盘数据 =====
+    realtimeIndex: {
+        shangzhi: { value: 0, change: '', volume: '', turnover: '' },
+        shengzheng: { value: 0, change: '', volume: '', turnover: '' },
+        chuangye: { value: 0, change: '', volume: '', turnover: '' },
+        zhuanke50: { value: 0, change: '', volume: '', turnover: '' }
     },
     
-    aggressiveFunds: [],
-    
-    afternoonReport: {
-        time: '',
-        indexPerformance: {
-            shangzhi: { value: 0, change: '' },
-            shengzheng: { value: 0, change: '' },
-            chuangye: { value: 0, change: '' },
-            zhuanke50: { value: 0, change: '' }
-        },
-        marketAnalysis: {
-            volume: '',
-            stockRatio: '',
-            sentiment: '',
-            涨停: '',
-            跌停: ''
-        },
-        fundFlowUpdate: {
-            northFund: '',
-            mainFund: '',
-            trend: ''
-        },
-        afternoonOutlook: {
-            prediction: '',
-            keyPoints: [],
-            riskPoints: []
-        }
+    // ===== 2. 推荐基金（含买卖建议） =====
+    recommendedFunds: {
+        // 建议买入
+        buyList: [
+            // {
+            //     code: '510300',
+            //     name: '华泰柏瑞沪深300ETF',
+            //     price: 0,
+            //     change: '',
+            //     nav: 0,
+            //     reason: '推荐理由',
+            //     buyPrice: '建议买入价',
+            //     targetPrice: '目标价',
+            //     stopLoss: '止损价',
+            //     riskLevel: '中',
+            //     expectedReturn: '预期收益'
+            // }
+        ],
+        // 建议卖出
+        sellList: [
+            // {
+            //     code: '',
+            //     name: '',
+            //     price: 0,
+            //     change: '',
+            //     holdDays: 0,
+            //     profit: '',
+            //     reason: '卖出理由'
+            // }
+        ],
+        // 持有观望
+        holdList: []
     },
     
+    // ===== 3. 实时新闻（利好利空辨别） =====
+    realtimeNews: [
+        // {
+        //     title: '',
+        //     source: '',
+        //     sourceUrl: '',
+        //     time: '',
+        //     summary: '',
+        //     impact: '利好/利空/中性',
+        //     relatedSectors: ['板块1', '板块2'],
+        //     importance: '高/中/低'
+        // }
+    ],
+    
+    // ===== 4. 大盘和基金流入流出量 =====
     capitalFlow: {
+        // 大盘资金流向
         mainFund: {
             value: 0,
             unit: '亿元',
             direction: '',
             shangzheng: 0,
             shengzheng: 0,
-            trend: ''
+            trend: '',
+            analysis: ''
         },
         northFund: {
             value: 0,
@@ -157,15 +122,61 @@ const SAMPLE_DATA = {
             direction: '',
             shengutong: 0,
             hushenutong: 0,
-            trend: ''
+            trend: '',
+            analysis: ''
         },
+        // 板块资金流向
         sectorFunds: [],
-        topStocks: {
+        // 个股资金流向TOP10
+        stockFunds: {
             inflow: [],
             outflow: []
+        },
+        // 基金资金流向
+        fundFlows: [
+            // {
+            //     code: '510300',
+            //     name: '',
+            //     inflow: 0,
+            //     outflow: 0,
+            //     netFlow: 0,
+            //     trend: ''
+            // }
+        ]
+    },
+    
+    // ===== 5. 现在和未来利好板块 =====
+    favorableSectors: {
+        // 当前利好板块
+        current: [
+            // {
+            //     name: '',
+            //     reason: '',
+            //     inflow: 0,
+            //     hotStocks: [],
+            //     sustainability: '强/中/弱',
+            //     riskTip: ''
+            // }
+        ],
+        // 未来利好板块（预期）
+        future: [
+            // {
+            //     name: '',
+            //     catalyst: '催化事件',
+            //     expectedTime: '预期时间',
+            //     relatedNews: '',
+            //     potential: '高/中/低'
+            // }
+        ],
+        // 板块轮动预测
+        rotation: {
+            from: [],  // 资金流出板块
+            to: [],    // 资金流入板块
+            analysis: ''
         }
     },
     
+    // 基金详情数据
     fundData: {
         '510300': {
             name: '华泰柏瑞沪深300ETF',
@@ -180,6 +191,7 @@ const SAMPLE_DATA = {
             scale: '2041.73亿',
             established: '2012-05-04',
             tracking: '沪深300指数',
+            netFlow: 0,
             klineData: [],
             navHistory: []
         },
@@ -196,6 +208,7 @@ const SAMPLE_DATA = {
             scale: '760.22亿',
             established: '2020-09-28',
             tracking: '上证科创板50成份指数',
+            netFlow: 0,
             klineData: [],
             navHistory: []
         },
@@ -212,10 +225,7 @@ const SAMPLE_DATA = {
             scale: '93.70亿',
             established: '2019-11-28',
             tracking: '中证红利指数',
-            weekChange: '',
-            monthChange: '',
-            yearChange: '',
-            threeYearChange: '',
+            netFlow: 0,
             klineData: [],
             navHistory: []
         },
@@ -232,10 +242,7 @@ const SAMPLE_DATA = {
             scale: '1446.90亿',
             established: '2013-02-06',
             tracking: '中证500指数',
-            weekChange: '',
-            monthChange: '',
-            yearChange: '',
-            threeYearChange: '',
+            netFlow: 0,
             klineData: [],
             navHistory: []
         },
@@ -251,11 +258,7 @@ const SAMPLE_DATA = {
             established: '2018-12-07',
             type: '债券型',
             riskLevel: 'R2中低风险',
-            weekChange: '',
-            monthChange: '',
-            threeMonthChange: '',
-            yearChange: '',
-            threeYearChange: '',
+            netFlow: 0,
             navHistory: []
         },
         '110017': {
@@ -270,12 +273,7 @@ const SAMPLE_DATA = {
             established: '2008-03-19',
             type: '债券型-混合一级',
             riskLevel: '中低风险',
-            rating: '★★★★',
-            weekChange: '',
-            monthChange: '',
-            threeMonthChange: '',
-            yearChange: '',
-            threeYearChange: '',
+            netFlow: 0,
             navHistory: []
         }
     },
@@ -283,5 +281,3 @@ const SAMPLE_DATA = {
     stockData: {},
     historyReports: []
 };
-
-const KLINE_DATA = {};

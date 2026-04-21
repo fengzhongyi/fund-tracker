@@ -80,9 +80,16 @@ body {
     border-bottom: 2px solid var(--card-border);
 }
 
+.card h3 {
+    font-size: 1.1rem;
+    margin: 16px 0 12px;
+    color: #fff;
+}
+
 .source-badge {
     text-align: right;
     margin-bottom: 12px;
+    margin-top: -8px;
 }
 
 .source-badge a {
@@ -97,37 +104,23 @@ body {
     text-decoration: underline;
 }
 
-/* ==================== 休市提示 ==================== */
-.market-notice {
-    background: linear-gradient(135deg, rgba(70, 130, 180, 0.3), rgba(100, 149, 237, 0.2));
-    border: 2px solid rgba(100, 149, 237, 0.5);
-    border-radius: 16px;
-    padding: 40px;
-    text-align: center;
-    margin-bottom: 24px;
+/* ==================== 颜色类 - 红涨绿跌 ==================== */
+.positive {
+    color: var(--positive) !important;
 }
 
-.market-notice h2 {
-    font-size: 2rem;
-    margin-bottom: 16px;
-    color: #87ceeb;
+.negative {
+    color: var(--negative) !important;
 }
 
-.market-notice p {
-    font-size: 1.1rem;
-    color: var(--text-secondary);
-    margin-bottom: 20px;
-}
-
-.next-trading {
-    font-size: 1rem;
-    color: #4a9eff;
+.neutral {
+    color: var(--neutral) !important;
 }
 
 /* ==================== 大盘指数 ==================== */
 .index-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 16px;
 }
 
@@ -159,62 +152,48 @@ body {
 
 .index-change {
     font-size: 1rem;
+    margin-bottom: 4px;
 }
 
-/* ==================== 颜色类 - 红涨绿跌 ==================== */
-.positive {
-    color: var(--positive) !important;
-}
-
-.negative {
-    color: var(--negative) !important;
-}
-
-.neutral {
-    color: var(--neutral) !important;
+.index-volume {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
 }
 
 /* ==================== 资金流向 ==================== */
-.fund-flow-grid {
+.capital-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 16px;
     margin-bottom: 24px;
 }
 
-.fund-flow-item {
+.capital-item {
     background: rgba(255, 255, 255, 0.03);
     border-radius: 12px;
     padding: 20px;
     text-align: center;
 }
 
-.flow-label {
+.capital-label {
     font-size: 0.9rem;
     color: var(--text-secondary);
     margin-bottom: 8px;
 }
 
-.flow-value {
-    font-size: 1.6rem;
+.capital-value {
+    font-size: 1.8rem;
     font-weight: bold;
+    margin-bottom: 8px;
 }
 
-.flow-trend {
+.capital-analysis {
     font-size: 0.85rem;
     color: var(--text-secondary);
-    margin-top: 4px;
+    line-height: 1.5;
 }
 
-.fund-flow-detail {
-    margin-top: 20px;
-}
-
-.fund-flow-detail h3 {
-    font-size: 1.1rem;
-    margin-bottom: 12px;
-}
-
+/* 板块资金流向 */
 .sector-flow-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -261,171 +240,260 @@ body {
     font-weight: bold;
 }
 
-.fund-analysis {
-    margin-top: 20px;
-    padding-top: 16px;
-    border-top: 1px solid var(--card-border);
-}
-
-.fund-analysis h3 {
-    font-size: 1.1rem;
-    margin-bottom: 12px;
-}
-
-.analysis-item {
-    margin-bottom: 10px;
-    font-size: 0.9rem;
-    line-height: 1.6;
-}
-
-.analysis-item strong {
-    color: #4a9eff;
-}
-
-/* ==================== 基金推荐 ==================== */
-.fund-list {
+/* 基金资金流向 */
+.fund-flow-grid {
     display: grid;
-    gap: 16px;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 12px;
 }
 
-.fund-card {
-    background: rgba(255, 255, 255, 0.03);
-    border-radius: 12px;
-    padding: 20px;
-    cursor: pointer;
-    transition: transform 0.3s, box-shadow 0.3s;
-}
-
-.fund-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
-}
-
-.fund-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 12px;
-}
-
-.fund-name {
-    font-size: 1.1rem;
-    font-weight: bold;
-}
-
-.fund-code {
-    font-size: 0.85rem;
-    color: var(--text-secondary);
-    background: rgba(255, 255, 255, 0.1);
-    padding: 4px 10px;
-    border-radius: 4px;
-}
-
-.fund-stats {
-    display: flex;
-    gap: 20px;
-    margin-bottom: 12px;
-    flex-wrap: wrap;
-}
-
-.stat-item {
-    display: flex;
-    flex-direction: column;
-}
-
-.stat-label {
-    font-size: 0.8rem;
-    color: var(--text-secondary);
-}
-
-.stat-value {
-    font-size: 1rem;
-    font-weight: bold;
-}
-
-.fund-reason {
-    font-size: 0.9rem;
-    line-height: 1.6;
-    color: var(--text-secondary);
-    padding-top: 12px;
-    border-top: 1px solid var(--card-border);
-}
-
-.fund-reason strong {
-    color: #4a9eff;
-}
-
-.risk-tag {
-    display: inline-block;
-    padding: 2px 8px;
-    border-radius: 4px;
-    font-size: 0.75rem;
-    margin-left: 8px;
-}
-
-.risk-low {
-    background: rgba(9, 187, 7, 0.2);
-    color: var(--negative);
-}
-
-.risk-medium {
-    background: rgba(255, 193, 7, 0.2);
-    color: #ffc107;
-}
-
-.risk-high {
-    background: rgba(230, 67, 64, 0.2);
-    color: var(--positive);
-}
-
-/* ==================== 热门板块 ==================== */
-.sector-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-}
-
-@media (max-width: 768px) {
-    .sector-grid {
-        grid-template-columns: 1fr;
-    }
-}
-
-.sector-col h3 {
-    font-size: 1.1rem;
-    margin-bottom: 12px;
-}
-
-.sector-hot-list {
-    list-style: none;
-}
-
-.sector-hot-list li {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 12px 14px;
+.fund-flow-item {
     background: rgba(255, 255, 255, 0.02);
-    border-radius: 8px;
-    margin-bottom: 8px;
+    border-radius: 10px;
+    padding: 12px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     cursor: pointer;
     transition: background 0.3s;
 }
 
-.sector-hot-list li:hover {
-    background: rgba(255, 255, 255, 0.05);
+.fund-flow-item:hover {
+    background: rgba(255, 255, 255, 0.04);
 }
 
-.sector-hot-list .sector-name {
-    font-size: 0.95rem;
+.fund-flow-name {
+    font-size: 0.9rem;
 }
 
-.sector-hot-list .sector-reason {
+.fund-flow-value {
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+
+/* ==================== 利好板块 ==================== */
+.favorable-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.favorable-item {
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 12px;
+    padding: 16px;
+    border-left: 3px solid var(--positive);
+    cursor: pointer;
+    transition: transform 0.3s;
+}
+
+.favorable-item:hover {
+    transform: translateY(-2px);
+}
+
+.favorable-item.future {
+    border-left-color: #4a9eff;
+}
+
+.favorable-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.favorable-name {
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.favorable-tag {
+    font-size: 0.75rem;
+    padding: 2px 8px;
+    border-radius: 4px;
+    background: rgba(230, 67, 64, 0.2);
+    color: var(--positive);
+}
+
+.favorable-tag.medium {
+    background: rgba(255, 193, 7, 0.2);
+    color: #ffc107;
+}
+
+.favorable-tag.low {
+    background: rgba(74, 158, 255, 0.2);
+    color: #4a9eff;
+}
+
+.favorable-reason {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    margin-bottom: 8px;
+}
+
+.favorable-meta {
+    display: flex;
+    gap: 16px;
     font-size: 0.8rem;
     color: var(--text-secondary);
 }
 
-/* ==================== 新闻列表 ==================== */
+/* 板块轮动 */
+.rotation-content {
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 12px;
+    padding: 16px;
+}
+
+.rotation-from, .rotation-to {
+    margin-bottom: 12px;
+}
+
+.rotation-label {
+    color: var(--text-secondary);
+    margin-right: 8px;
+}
+
+.rotation-analysis {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    padding-top: 12px;
+    border-top: 1px solid var(--card-border);
+}
+
+/* ==================== 买卖建议 ==================== */
+.recommend-group {
+    margin-bottom: 24px;
+}
+
+.recommend-group h3 {
+    font-size: 1.1rem;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--card-border);
+}
+
+.recommend-list {
+    display: grid;
+    gap: 12px;
+}
+
+.recommend-card {
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 12px;
+    padding: 16px;
+    cursor: pointer;
+    transition: transform 0.3s;
+}
+
+.recommend-card:hover {
+    transform: translateY(-2px);
+}
+
+.recommend-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.recommend-name {
+    font-size: 1.05rem;
+    font-weight: bold;
+}
+
+.recommend-code {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    background: rgba(255, 255, 255, 0.1);
+    padding: 2px 8px;
+    border-radius: 4px;
+}
+
+.recommend-stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 12px;
+}
+
+.recommend-stat {
+    display: flex;
+    flex-direction: column;
+}
+
+.recommend-stat-label {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+}
+
+.recommend-stat-value {
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+.recommend-reason {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    padding-top: 12px;
+    border-top: 1px solid var(--card-border);
+}
+
+.recommend-prices {
+    display: flex;
+    gap: 20px;
+    margin-top: 12px;
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 8px;
+}
+
+.price-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.price-label {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+}
+
+.price-value {
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+/* ==================== 实时新闻 ==================== */
+.news-filter {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.filter-btn {
+    padding: 6px 16px;
+    border: 1px solid var(--card-border);
+    border-radius: 20px;
+    background: transparent;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.filter-btn:hover {
+    border-color: #4a9eff;
+    color: #4a9eff;
+}
+
+.filter-btn.active {
+    background: #4a9eff;
+    border-color: #4a9eff;
+    color: #fff;
+}
+
 .news-list {
     display: grid;
     gap: 12px;
@@ -444,11 +512,11 @@ body {
     background: rgba(255, 255, 255, 0.04);
 }
 
-.news-item.positive-impact {
+.news-item.positive-news {
     border-left-color: var(--positive);
 }
 
-.news-item.negative-impact {
+.news-item.negative-news {
     border-left-color: var(--negative);
 }
 
@@ -478,18 +546,57 @@ body {
     font-size: 0.8rem;
     color: var(--text-secondary);
     margin-bottom: 8px;
+    flex-wrap: wrap;
 }
 
 .news-impact {
-    font-size: 0.8rem;
     padding: 2px 8px;
     border-radius: 4px;
+    font-size: 0.75rem;
+}
+
+.news-impact.positive {
+    background: rgba(230, 67, 64, 0.2);
+    color: var(--positive);
+}
+
+.news-impact.negative {
+    background: rgba(9, 187, 7, 0.2);
+    color: var(--negative);
+}
+
+.news-impact.neutral {
+    background: rgba(153, 153, 153, 0.2);
+    color: var(--neutral);
+}
+
+.news-importance {
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    background: rgba(255, 215, 0, 0.2);
+    color: var(--highlight);
 }
 
 .news-summary {
     font-size: 0.85rem;
     color: var(--text-secondary);
     line-height: 1.5;
+}
+
+.news-sectors {
+    margin-top: 8px;
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.sector-tag {
+    font-size: 0.75rem;
+    padding: 2px 8px;
+    border-radius: 4px;
+    background: rgba(74, 158, 255, 0.2);
+    color: #4a9eff;
 }
 
 /* ==================== 我的基金 ==================== */
@@ -529,8 +636,10 @@ body {
     font-weight: bold;
 }
 
-.my-fund-nav {
-    font-size: 0.9rem;
+.my-fund-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85rem;
     color: var(--text-secondary);
 }
 
@@ -578,6 +687,7 @@ body {
     border: none;
     margin: 0;
     padding: 0;
+    font-size: 1.3rem;
 }
 
 .modal-close {
@@ -634,35 +744,6 @@ body {
     border-radius: 12px;
 }
 
-.performance-section h3 {
-    font-size: 1.1rem;
-    margin-bottom: 12px;
-}
-
-.performance-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-    gap: 12px;
-}
-
-.performance-item {
-    background: rgba(255, 255, 255, 0.02);
-    border-radius: 8px;
-    padding: 12px;
-    text-align: center;
-}
-
-.performance-label {
-    font-size: 0.8rem;
-    color: var(--text-secondary);
-    margin-bottom: 4px;
-}
-
-.performance-value {
-    font-size: 1.1rem;
-    font-weight: bold;
-}
-
 /* ==================== 页脚 ==================== */
 .footer {
     text-align: center;
@@ -697,18 +778,12 @@ body {
         padding: 16px;
     }
     
-    .index-value {
+    .index-value, .capital-value {
         font-size: 1.5rem;
     }
     
-    .fund-header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 8px;
-    }
-    
-    .fund-stats {
-        gap: 12px;
+    .favorable-grid, .my-funds-grid {
+        grid-template-columns: 1fr;
     }
     
     .modal-body {
@@ -718,24 +793,11 @@ body {
     .chart-container {
         height: 250px;
     }
-}
-
-/* ==================== 加载状态 ==================== */
-.loading {
-    text-align: center;
-    padding: 40px;
-    color: var(--text-secondary);
-}
-
-.loading::after {
-    content: '...';
-    animation: dots 1.5s infinite;
-}
-
-@keyframes dots {
-    0%, 20% { content: '.'; }
-    40% { content: '..'; }
-    60%, 100% { content: '...'; }
+    
+    .recommend-prices {
+        flex-wrap: wrap;
+        gap: 12px;
+    }
 }
 
 /* ==================== 空状态 ==================== */
@@ -747,4 +809,14 @@ body {
 
 .empty-state p {
     font-size: 0.9rem;
+}
+
+/* ==================== 加载动画 ==================== */
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+.loading {
+    animation: pulse 1.5s infinite;
 }

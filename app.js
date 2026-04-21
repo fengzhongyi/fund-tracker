@@ -11,93 +11,33 @@ function initApp() {
         document.getElementById('update-time').textContent = '等待数据更新...';
     }
     
-    // 设置数据来源链接
-    document.getElementById('main-source-link').href = DATA_SOURCES.mainFund.url;
-    
-    // 检查是否交易日
-    if (!SAMPLE_DATA.isTradingDay) {
-        showMarketClosed();
-        return;
-    }
-    
-    // 渲染数据
-    renderIndexData();
-    renderFundFlow();
-    renderFundAnalysis();
-    renderSectorFlow();
-    renderStableFunds();
-    renderAggressiveFunds();
-    renderHotSectors();
-    renderNews();
+    // 渲染各模块
+    renderRealtimeIndex();
+    renderCapitalFlow();
+    renderFavorableSectors();
+    renderRecommendFunds();
+    renderRealtimeNews();
     renderMyFunds();
     
     // 绑定事件
     bindEvents();
 }
 
-// ==================== 显示休市提示 ====================
-function showMarketClosed() {
-    document.getElementById('market-closed-notice').style.display = 'block';
-    document.getElementById('main-content').style.display = 'none';
-    
-    // 计算下一交易日
-    const today = new Date();
-    let nextTrading = findNextTradingDay(today);
-    document.getElementById('next-trading-day').textContent = formatDate(nextTrading);
-}
-
-function findNextTradingDay(date) {
-    let d = new Date(date);
-    d.setDate(d.getDate() + 1);
-    
-    while (isHolidayOrWeekend(d)) {
-        d.setDate(d.getDate() + 1);
-    }
-    
-    return d;
-}
-
-function isHolidayOrWeekend(date) {
-    const dateStr = formatDateToISO(date);
-    const day = date.getDay();
-    
-    // 周末
-    if (day === 0 || day === 6) return true;
-    
-    // 节假日
-    if (HOLIDAYS_2026.includes(dateStr)) return true;
-    
-    return false;
-}
-
-function formatDateToISO(date) {
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
-    return `${year}-${month}-${day}`;
-}
-
-function formatDate(date) {
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
-    const weekdays = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
-    return `${year}-${month}-${day} ${weekdays[date.getDay()]}`;
-}
-
-// ==================== 渲染大盘指数 ====================
-function renderIndexData() {
+// ==================== 渲染实时大盘指数 ====================
+function renderRealtimeIndex() {
     const indices = ['shangzhi', 'shengzheng', 'chuangye', 'zhuanke50'];
-    const data = SAMPLE_DATA.afternoonReport.indexPerformance || SAMPLE_DATA.morningReport.indexPerformance;
+    const data = SAMPLE_DATA.realtimeIndex;
     
     indices.forEach(index => {
         const indexData = data[index];
         if (indexData && indexData.value) {
             const valueEl = document.getElementById(`${index}-value`);
             const changeEl = document.getElementById(`${index}-change`);
+            const volumeEl = document.getElementById(`${index}-volume`);
             
             valueEl.textContent = indexData.value.toFixed(2);
             changeEl.textContent = indexData.change;
+            volumeEl.textContent = indexData.volume || '';
             
             // 设置颜色：红涨绿跌
             const changeValue = parseFloat(indexData.change);
@@ -116,62 +56,61 @@ function renderIndexData() {
 }
 
 // ==================== 渲染资金流向 ====================
-function renderFundFlow() {
+function renderCapitalFlow() {
     const mainFund = SAMPLE_DATA.capitalFlow.mainFund;
     const northFund = SAMPLE_DATA.capitalFlow.northFund;
     
     // 主力资金
-    const mainValueEl = document.getElementById('main-fund-value');
-    const mainTrendEl = document.getElementById('main-fund-trend');
-    
     if (mainFund.value !== 0) {
+        const mainValueEl = document.getElementById('main-fund-value');
+        const mainAnalysisEl = document.getElementById('main-fund-analysis');
         const prefix = mainFund.value > 0 ? '+' : '';
         mainValueEl.textContent = `${prefix}${mainFund.value} ${mainFund.unit}`;
-        mainValueEl.className = mainFund.value > 0 ? 'flow-value positive' : 'flow-value negative';
-        mainTrendEl.textContent = mainFund.trend || mainFund.direction;
+        mainValueEl.className = mainFund.value > 0 ? 'capital-value positive' : 'capital-value negative';
+        mainAnalysisEl.textContent = mainFund.analysis || mainFund.trend || '';
     }
     
     // 北向资金
-    const northValueEl = document.getElementById('north-fund-value');
-    const northTrendEl = document.getElementById('north-fund-trend');
-    
     if (northFund.value !== 0) {
+        const northValueEl = document.getElementById('north-fund-value');
+        const northAnalysisEl = document.getElementById('north-fund-analysis');
         const prefix = northFund.value > 0 ? '+' : '';
         northValueEl.textContent = `${prefix}${northFund.value} ${northFund.unit}`;
-        northValueEl.className = northFund.value > 0 ? 'flow-value positive' : 'flow-value negative';
-        northTrendEl.textContent = northFund.trend || northFund.direction;
+        northValueEl.className = northFund.value > 0 ? 'capital-value positive' : 'capital-value negative';
+        northAnalysisEl.textContent = northFund.analysis || northFund.trend || '';
     }
+    
+    // 板块资金流向
+    renderSectorFlow();
+    
+    // 基金资金流向
+    renderFundFlow();
 }
 
-// ==================== 渲染资金流向分析 ====================
-function renderFundAnalysis() {
-    const analysis = FUND_FLOW_ANALYSIS;
-    
-    document.getElementById('main-analysis').textContent = analysis.mainFundAnalysis.summary || '--';
-    document.getElementById('north-analysis').textContent = analysis.northFundAnalysis.summary || '--';
-    
-    const rising = analysis.sectorRotation.rising || [];
-    const falling = analysis.sectorRotation.falling || [];
-    document.getElementById('sector-rotation').textContent = 
-        `领涨：${rising.slice(0, 3).join('、') || '--'}；领跌：${falling.slice(0, 3).join('、') || '--'}`;
-}
-
-// ==================== 渲染板块资金流向 ====================
 function renderSectorFlow() {
     const inflowList = document.getElementById('inflow-sectors');
     const outflowList = document.getElementById('outflow-sectors');
     
-    // 流入板块
     if (SAMPLE_DATA.capitalFlow.sectorFunds) {
-        const inflows = SAMPLE_DATA.capitalFlow.sectorFunds.filter(s => s.flow > 0);
+        const inflows = SAMPLE_DATA.capitalFlow.sectorFunds.filter(s => s.flow > 0).slice(0, 10);
         inflows.forEach(sector => {
-            const li = createSectorItem(sector, true);
+            const li = document.createElement('li');
+            li.innerHTML = `
+                <span class="sector-name">${sector.name}</span>
+                <span class="sector-amount positive">+${sector.flow}亿</span>
+            `;
+            li.addEventListener('click', () => openSectorLink(sector.name));
             inflowList.appendChild(li);
         });
         
-        const outflows = SAMPLE_DATA.capitalFlow.sectorFunds.filter(s => s.flow < 0);
+        const outflows = SAMPLE_DATA.capitalFlow.sectorFunds.filter(s => s.flow < 0).slice(0, 10);
         outflows.forEach(sector => {
-            const li = createSectorItem(sector, false);
+            const li = document.createElement('li');
+            li.innerHTML = `
+                <span class="sector-name">${sector.name}</span>
+                <span class="sector-amount negative">${sector.flow}亿</span>
+            `;
+            li.addEventListener('click', () => openSectorLink(sector.name));
             outflowList.appendChild(li);
         });
     }
@@ -184,214 +123,334 @@ function renderSectorFlow() {
     }
 }
 
-function createSectorItem(sector, isInflow) {
-    const li = document.createElement('li');
-    const prefix = sector.flow > 0 ? '+' : '';
-    li.innerHTML = `
-        <span class="sector-name">${sector.name}</span>
-        <span class="sector-amount ${isInflow ? 'positive' : 'negative'}">${prefix}${sector.flow}亿</span>
-    `;
-    li.addEventListener('click', () => {
-        window.open(`https://quote.eastmoney.com/center/boardlist.html#${sector.name}`, '_blank');
-    });
-    return li;
-}
-
-// ==================== 渲染稳健型基金 ====================
-function renderStableFunds() {
-    const container = document.getElementById('stable-funds');
-    const funds = SAMPLE_DATA.morningReport.recommendedFunds || [];
+function renderFundFlow() {
+    const container = document.getElementById('fund-flow-list');
+    const fundFlows = SAMPLE_DATA.capitalFlow.fundFlows || [];
     
-    if (funds.length === 0) {
-        container.innerHTML = '<div class="empty-state"><p>等待数据更新...</p></div>';
-        return;
-    }
-    
-    funds.forEach(fund => {
-        const card = createFundCard(fund);
-        container.appendChild(card);
-    });
-}
-
-// ==================== 渲染激进型基金 ====================
-function renderAggressiveFunds() {
-    const container = document.getElementById('aggressive-funds');
-    const funds = SAMPLE_DATA.aggressiveFunds || [];
-    
-    if (funds.length === 0) {
-        container.innerHTML = '<div class="empty-state"><p>等待数据更新...</p></div>';
-        return;
-    }
-    
-    funds.forEach(fund => {
-        const card = createAggressiveFundCard(fund);
-        container.appendChild(card);
-    });
-}
-
-function createFundCard(fund) {
-    const card = document.createElement('div');
-    card.className = 'fund-card';
-    
-    const changeClass = getChangeClass(fund.change);
-    
-    card.innerHTML = `
-        <div class="fund-header">
-            <span class="fund-name">${fund.name}</span>
-            <span class="fund-code">${fund.code}</span>
-        </div>
-        <div class="fund-stats">
-            <div class="stat-item">
-                <span class="stat-label">今日涨跌</span>
-                <span class="stat-value ${changeClass}">${fund.change}</span>
-            </div>
-            <div class="stat-item">
-                <span class="stat-label">类型</span>
-                <span class="stat-value">${fund.type || '稳健型'}</span>
-            </div>
-        </div>
-        <div class="fund-reason">
-            <strong>推荐理由：</strong>${fund.reason}
-        </div>
-    `;
-    
-    card.addEventListener('click', () => {
-        openFundModal(fund.code);
-    });
-    
-    return card;
-}
-
-function createAggressiveFundCard(fund) {
-    const card = document.createElement('div');
-    card.className = 'fund-card';
-    
-    const changeClass = getChangeClass(fund.change);
-    
-    card.innerHTML = `
-        <div class="fund-header">
-            <span class="fund-name">${fund.name}</span>
-            <span class="fund-code">${fund.code}</span>
-            <span class="risk-tag risk-high">高风险</span>
-        </div>
-        <div class="fund-stats">
-            <div class="stat-item">
-                <span class="stat-label">今日涨跌</span>
-                <span class="stat-value ${changeClass}">${fund.change}</span>
-            </div>
-            <div class="stat-item">
-                <span class="stat-label">本周</span>
-                <span class="stat-value ${getChangeClass(fund.weekChange)}">${fund.weekChange || '--'}</span>
-            </div>
-            <div class="stat-item">
-                <span class="stat-label">本月</span>
-                <span class="stat-value ${getChangeClass(fund.monthChange)}">${fund.monthChange || '--'}</span>
-            </div>
-            <div class="stat-item">
-                <span class="stat-label">今年</span>
-                <span class="stat-value ${getChangeClass(fund.yearChange)}">${fund.yearChange || '--'}</span>
-            </div>
-        </div>
-        <div class="fund-reason">
-            <strong>推荐理由：</strong>${fund.reason}
-        </div>
-    `;
-    
-    card.addEventListener('click', () => {
-        openFundModal(fund.code);
-    });
-    
-    return card;
-}
-
-function getChangeClass(change) {
-    if (!change) return 'neutral';
-    const value = parseFloat(change.replace('%', ''));
-    if (value > 0) return 'positive';
-    if (value < 0) return 'negative';
-    return 'neutral';
-}
-
-// ==================== 渲染热门板块 ====================
-function renderHotSectors() {
-    const risingList = document.getElementById('hot-rising-sectors');
-    const fallingList = document.getElementById('hot-falling-sectors');
-    
-    const hotSectors = SAMPLE_DATA.morningReport.hotSectors || { rising: [], falling: [] };
-    
-    // 领涨板块
-    hotSectors.rising.forEach(sector => {
-        const li = document.createElement('li');
-        li.innerHTML = `
-            <span class="sector-name">${sector.name}</span>
-            <span class="sector-reason">${sector.reason || ''}</span>
-        `;
-        li.addEventListener('click', () => {
-            window.open(`https://quote.eastmoney.com/center/boardlist.html#${sector.name}`, '_blank');
+    if (fundFlows.length === 0) {
+        // 从fundData中获取
+        const codes = Object.keys(SAMPLE_DATA.fundData);
+        codes.forEach(code => {
+            const fund = SAMPLE_DATA.fundData[code];
+            if (fund.netFlow) {
+                const item = document.createElement('div');
+                item.className = 'fund-flow-item';
+                const flowClass = fund.netFlow > 0 ? 'positive' : fund.netFlow < 0 ? 'negative' : 'neutral';
+                const prefix = fund.netFlow > 0 ? '+' : '';
+                item.innerHTML = `
+                    <span class="fund-flow-name">${fund.name}</span>
+                    <span class="fund-flow-value ${flowClass}">${prefix}${fund.netFlow}亿</span>
+                `;
+                item.addEventListener('click', () => openFundModal(code));
+                container.appendChild(item);
+            }
         });
-        risingList.appendChild(li);
-    });
-    
-    // 领跌板块
-    hotSectors.falling.forEach(sector => {
-        const li = document.createElement('li');
-        li.innerHTML = `
-            <span class="sector-name">${sector.name}</span>
-            <span class="sector-reason">${sector.reason || ''}</span>
-        `;
-        li.addEventListener('click', () => {
-            window.open(`https://quote.eastmoney.com/center/boardlist.html#${sector.name}`, '_blank');
+    } else {
+        fundFlows.forEach(fund => {
+            const item = document.createElement('div');
+            item.className = 'fund-flow-item';
+            const flowClass = fund.netFlow > 0 ? 'positive' : fund.netFlow < 0 ? 'negative' : 'neutral';
+            const prefix = fund.netFlow > 0 ? '+' : '';
+            item.innerHTML = `
+                <span class="fund-flow-name">${fund.name}</span>
+                <span class="fund-flow-value ${flowClass}">${prefix}${fund.netFlow}亿</span>
+            `;
+            item.addEventListener('click', () => openFundModal(fund.code));
+            container.appendChild(item);
         });
-        fallingList.appendChild(li);
-    });
-    
-    if (risingList.children.length === 0) {
-        risingList.innerHTML = '<li class="empty-state"><p>暂无数据</p></li>';
     }
-    if (fallingList.children.length === 0) {
-        fallingList.innerHTML = '<li class="empty-state"><p>暂无数据</p></li>';
+    
+    if (container.children.length === 0) {
+        container.innerHTML = '<div class="empty-state"><p>暂无数据</p></div>';
     }
 }
 
-// ==================== 渲染新闻 ====================
-function renderNews() {
-    const container = document.getElementById('daily-news');
+// ==================== 渲染利好板块 ====================
+function renderFavorableSectors() {
+    // 当前利好板块
+    const currentList = document.getElementById('current-favorable-list');
+    const current = SAMPLE_DATA.favorableSectors.current || [];
     
-    if (DAILY_NEWS.length === 0) {
-        container.innerHTML = '<div class="empty-state"><p>等待数据更新...</p></div>';
-        return;
-    }
-    
-    DAILY_NEWS.forEach(news => {
+    current.forEach(sector => {
         const item = document.createElement('div');
-        let impactClass = '';
-        if (news.impact.includes('利好') || news.impact.includes('利好')) {
-            impactClass = 'positive-impact';
-        } else if (news.impact.includes('利空')) {
-            impactClass = 'negative-impact';
+        item.className = 'favorable-item';
+        const tagClass = sector.sustainability === '强' ? '' : sector.sustainability === '中' ? 'medium' : 'low';
+        item.innerHTML = `
+            <div class="favorable-header">
+                <span class="favorable-name">${sector.name}</span>
+                <span class="favorable-tag ${tagClass}">${sector.sustainability || '中'}</span>
+            </div>
+            <div class="favorable-reason">${sector.reason}</div>
+            <div class="favorable-meta">
+                <span>资金流入：${sector.inflow > 0 ? '+' : ''}${sector.inflow}亿</span>
+                <span>热点：${sector.hotStocks ? sector.hotStocks.slice(0, 3).join('、') : '--'}</span>
+            </div>
+        `;
+        item.addEventListener('click', () => openSectorLink(sector.name));
+        currentList.appendChild(item);
+    });
+    
+    if (currentList.children.length === 0) {
+        currentList.innerHTML = '<div class="empty-state"><p>暂无数据</p></div>';
+    }
+    
+    // 未来利好板块
+    const futureList = document.getElementById('future-favorable-list');
+    const future = SAMPLE_DATA.favorableSectors.future || [];
+    
+    future.forEach(sector => {
+        const item = document.createElement('div');
+        item.className = 'favorable-item future';
+        const tagClass = sector.potential === '高' ? '' : sector.potential === '中' ? 'medium' : 'low';
+        item.innerHTML = `
+            <div class="favorable-header">
+                <span class="favorable-name">${sector.name}</span>
+                <span class="favorable-tag ${tagClass}">${sector.potential || '中'}潜力</span>
+            </div>
+            <div class="favorable-reason">催化事件：${sector.catalyst}</div>
+            <div class="favorable-meta">
+                <span>预期时间：${sector.expectedTime}</span>
+            </div>
+        `;
+        item.addEventListener('click', () => openSectorLink(sector.name));
+        futureList.appendChild(item);
+    });
+    
+    if (futureList.children.length === 0) {
+        futureList.innerHTML = '<div class="empty-state"><p>暂无数据</p></div>';
+    }
+    
+    // 板块轮动
+    const rotation = SAMPLE_DATA.favorableSectors.rotation || {};
+    document.getElementById('rotation-from').textContent = rotation.from ? rotation.from.join('、') : '--';
+    document.getElementById('rotation-to').textContent = rotation.to ? rotation.to.join('、') : '--';
+    document.getElementById('rotation-analysis').textContent = rotation.analysis || '--';
+}
+
+// ==================== 渲染买卖建议 ====================
+function renderRecommendFunds() {
+    const { buyList, sellList, holdList } = SAMPLE_DATA.recommendedFunds;
+    
+    // 买入建议
+    const buyContainer = document.getElementById('buy-list');
+    if (buyList && buyList.length > 0) {
+        buyList.forEach(fund => {
+            const card = createRecommendCard(fund, 'buy');
+            buyContainer.appendChild(card);
+        });
+    } else {
+        buyContainer.innerHTML = '<div class="empty-state"><p>暂无买入建议</p></div>';
+    }
+    
+    // 卖出建议
+    const sellContainer = document.getElementById('sell-list');
+    if (sellList && sellList.length > 0) {
+        sellList.forEach(fund => {
+            const card = createRecommendCard(fund, 'sell');
+            sellContainer.appendChild(card);
+        });
+    } else {
+        sellContainer.innerHTML = '<div class="empty-state"><p>暂无卖出建议</p></div>';
+    }
+    
+    // 持有观望
+    const holdContainer = document.getElementById('hold-list');
+    if (holdList && holdList.length > 0) {
+        holdList.forEach(fund => {
+            const card = createRecommendCard(fund, 'hold');
+            holdContainer.appendChild(card);
+        });
+    } else {
+        holdContainer.innerHTML = '<div class="empty-state"><p>暂无持有建议</p></div>';
+    }
+}
+
+function createRecommendCard(fund, type) {
+    const card = document.createElement('div');
+    card.className = 'recommend-card';
+    
+    if (type === 'buy') {
+        const changeClass = getChangeClass(fund.change);
+        card.innerHTML = `
+            <div class="recommend-header">
+                <span class="recommend-name">${fund.name}</span>
+                <span class="recommend-code">${fund.code}</span>
+            </div>
+            <div class="recommend-stats">
+                <div class="recommend-stat">
+                    <span class="recommend-stat-label">当前价</span>
+                    <span class="recommend-stat-value">${fund.price || fund.nav}</span>
+                </div>
+                <div class="recommend-stat">
+                    <span class="recommend-stat-label">今日涨跌</span>
+                    <span class="recommend-stat-value ${changeClass}">${fund.change}</span>
+                </div>
+                <div class="recommend-stat">
+                    <span class="recommend-stat-label">风险等级</span>
+                    <span class="recommend-stat-value">${fund.riskLevel || '中'}</span>
+                </div>
+                <div class="recommend-stat">
+                    <span class="recommend-stat-label">预期收益</span>
+                    <span class="recommend-stat-value positive">${fund.expectedReturn || '--'}</span>
+                </div>
+            </div>
+            <div class="recommend-prices">
+                <div class="price-item">
+                    <span class="price-label">建议买入价</span>
+                    <span class="price-value positive">${fund.buyPrice || '--'}</span>
+                </div>
+                <div class="price-item">
+                    <span class="price-label">目标价</span>
+                    <span class="price-value">${fund.targetPrice || '--'}</span>
+                </div>
+                <div class="price-item">
+                    <span class="price-label">止损价</span>
+                    <span class="price-value negative">${fund.stopLoss || '--'}</span>
+                </div>
+            </div>
+            <div class="recommend-reason">${fund.reason}</div>
+        `;
+    } else if (type === 'sell') {
+        const profitClass = getChangeClass(fund.profit);
+        card.innerHTML = `
+            <div class="recommend-header">
+                <span class="recommend-name">${fund.name}</span>
+                <span class="recommend-code">${fund.code}</span>
+            </div>
+            <div class="recommend-stats">
+                <div class="recommend-stat">
+                    <span class="recommend-stat-label">当前价</span>
+                    <span class="recommend-stat-value">${fund.price}</span>
+                </div>
+                <div class="recommend-stat">
+                    <span class="recommend-stat-label">持仓天数</span>
+                    <span class="recommend-stat-value">${fund.holdDays || '--'}天</span>
+                </div>
+                <div class="recommend-stat">
+                    <span class="recommend-stat-label">盈亏</span>
+                    <span class="recommend-stat-value ${profitClass}">${fund.profit}</span>
+                </div>
+            </div>
+            <div class="recommend-reason">${fund.reason}</div>
+        `;
+    } else {
+        const changeClass = getChangeClass(fund.change);
+        card.innerHTML = `
+            <div class="recommend-header">
+                <span class="recommend-name">${fund.name}</span>
+                <span class="recommend-code">${fund.code}</span>
+            </div>
+            <div class="recommend-stats">
+                <div class="recommend-stat">
+                    <span class="recommend-stat-label">当前价</span>
+                    <span class="recommend-stat-value">${fund.price || fund.nav}</span>
+                </div>
+                <div class="recommend-stat">
+                    <span class="recommend-stat-label">今日涨跌</span>
+                    <span class="recommend-stat-value ${changeClass}">${fund.change}</span>
+                </div>
+            </div>
+            <div class="recommend-reason">${fund.reason || '建议继续持有观望'}</div>
+        `;
+    }
+    
+    card.addEventListener('click', () => openFundModal(fund.code));
+    return card;
+}
+
+// ==================== 渲染实时新闻 ====================
+function renderRealtimeNews() {
+    const container = document.getElementById('realtime-news');
+    const news = SAMPLE_DATA.realtimeNews || [];
+    
+    if (news.length === 0) {
+        container.innerHTML = '<div class="empty-state"><p>等待数据更新...</p></div>';
+        return;
+    }
+    
+    news.forEach(item => {
+        const newsItem = document.createElement('div');
+        let impactClass = 'neutral';
+        if (item.impact.includes('利好')) {
+            impactClass = 'positive-news';
+        } else if (item.impact.includes('利空')) {
+            impactClass = 'negative-news';
         }
         
-        item.className = `news-item ${impactClass}`;
-        item.innerHTML = `
+        newsItem.className = `news-item ${impactClass}`;
+        newsItem.dataset.impact = item.impact.includes('利好') ? 'positive' : item.impact.includes('利空') ? 'negative' : 'neutral';
+        
+        newsItem.innerHTML = `
             <div class="news-header">
-                <span class="news-title">${news.title}</span>
-                <span class="news-time">${news.time}</span>
+                <span class="news-title">${item.title}</span>
+                <span class="news-time">${item.time}</span>
             </div>
             <div class="news-meta">
-                <span>来源：${news.source}</span>
-                <span class="news-impact ${getImpactClass(news.impact)}">${news.impact}</span>
+                <span>来源：${item.source}</span>
+                <span class="news-impact ${getImpactClass(item.impact)}">${item.impact}</span>
+                ${item.importance === '高' ? '<span class="news-importance">重要</span>' : ''}
             </div>
-            <div class="news-summary">${news.summary}</div>
+            <div class="news-summary">${item.summary}</div>
+            ${item.relatedSectors && item.relatedSectors.length > 0 ? `
+                <div class="news-sectors">
+                    ${item.relatedSectors.map(s => `<span class="sector-tag">${s}</span>`).join('')}
+                </div>
+            ` : ''}
         `;
         
-        item.addEventListener('click', () => {
-            if (news.sourceUrl) {
-                window.open(news.sourceUrl, '_blank');
+        newsItem.addEventListener('click', () => {
+            if (item.sourceUrl) {
+                window.open(item.sourceUrl, '_blank');
             }
         });
         
-        container.appendChild(item);
+        container.appendChild(newsItem);
     });
+}
+
+// ==================== 渲染我的基金 ====================
+function renderMyFunds() {
+    const container = document.getElementById('my-funds-list');
+    const fundCodes = ['510300', '588000', '515080', '510500', '006546', '110017'];
+    
+    fundCodes.forEach(code => {
+        const fund = SAMPLE_DATA.fundData[code];
+        if (fund && (fund.price || fund.nav)) {
+            const card = document.createElement('div');
+            card.className = 'my-fund-card';
+            
+            const changeClass = getChangeClass(fund.change);
+            const flowClass = fund.netFlow > 0 ? 'positive' : fund.netFlow < 0 ? 'negative' : 'neutral';
+            const flowPrefix = fund.netFlow > 0 ? '+' : '';
+            
+            card.innerHTML = `
+                <div class="my-fund-header">
+                    <span class="my-fund-name">${fund.name}</span>
+                    <span class="my-fund-change ${changeClass}">${fund.change || '--'}</span>
+                </div>
+                <div class="my-fund-meta">
+                    <span>净值：${fund.nav || '--'}</span>
+                    <span>资金：${fund.netFlow ? flowPrefix + fund.netFlow + '亿' : '--'}</span>
+                </div>
+            `;
+            
+            card.addEventListener('click', () => openFundModal(code));
+            container.appendChild(card);
+        }
+    });
+    
+    if (container.children.length === 0) {
+        container.innerHTML = '<div class="empty-state"><p>等待数据更新...</p></div>';
+    }
+}
+
+// ==================== 辅助函数 ====================
+function getChangeClass(change) {
+    if (!change) return 'neutral';
+    const value = parseFloat(String(change).replace('%', ''));
+    if (value > 0) return 'positive';
+    if (value < 0) return 'negative';
+    return 'neutral';
 }
 
 function getImpactClass(impact) {
@@ -400,39 +459,8 @@ function getImpactClass(impact) {
     return 'neutral';
 }
 
-// ==================== 渲染我的基金 ====================
-function renderMyFunds() {
-    const container = document.getElementById('my-funds-list');
-    
-    const fundCodes = ['510300', '588000', '515080', '510500', '006546', '110017'];
-    
-    fundCodes.forEach(code => {
-        const fund = SAMPLE_DATA.fundData[code];
-        if (fund && fund.price) {
-            const card = document.createElement('div');
-            card.className = 'my-fund-card';
-            
-            const changeClass = getChangeClass(fund.change);
-            
-            card.innerHTML = `
-                <div class="my-fund-header">
-                    <span class="my-fund-name">${fund.name}</span>
-                    <span class="my-fund-change ${changeClass}">${fund.change}</span>
-                </div>
-                <div class="my-fund-nav">净值：${fund.nav} (${fund.navDate})</div>
-            `;
-            
-            card.addEventListener('click', () => {
-                openFundModal(code);
-            });
-            
-            container.appendChild(card);
-        }
-    });
-    
-    if (container.children.length === 0) {
-        container.innerHTML = '<div class="empty-state"><p>等待数据更新...</p></div>';
-    }
+function openSectorLink(name) {
+    window.open(`https://quote.eastmoney.com/center/boardlist.html#${encodeURIComponent(name)}`, '_blank');
 }
 
 // ==================== 基金详情模态框 ====================
@@ -451,13 +479,18 @@ function openFundModal(code) {
     changeEl.textContent = fund.change || '--';
     changeEl.className = `info-value ${getChangeClass(fund.change)}`;
     
+    const flowEl = document.getElementById('modal-fund-flow');
+    if (fund.netFlow) {
+        const prefix = fund.netFlow > 0 ? '+' : '';
+        flowEl.textContent = `${prefix}${fund.netFlow}亿`;
+        flowEl.className = `info-value ${fund.netFlow > 0 ? 'positive' : 'negative'}`;
+    } else {
+        flowEl.textContent = '--';
+    }
+    
     document.getElementById('modal-fund-scale').textContent = fund.scale || '--';
     document.getElementById('modal-fund-manager').textContent = fund.manager || '--';
-    document.getElementById('modal-established').textContent = fund.established || '--';
     document.getElementById('modal-tracking').textContent = fund.tracking || '--';
-    
-    // 渲染收益表现
-    renderPerformance(fund);
     
     // 渲染图表
     if (fund.navHistory && fund.navHistory.length > 0) {
@@ -470,31 +503,6 @@ function openFundModal(code) {
     modal.classList.add('active');
 }
 
-function renderPerformance(fund) {
-    const container = document.getElementById('performance-grid');
-    container.innerHTML = '';
-    
-    const performances = [
-        { label: '近一周', value: fund.weekChange },
-        { label: '近一月', value: fund.monthChange },
-        { label: '近三月', value: fund.threeMonthChange },
-        { label: '今年来', value: fund.yearChange },
-        { label: '近三年', value: fund.threeYearChange }
-    ];
-    
-    performances.forEach(p => {
-        if (p.value) {
-            const item = document.createElement('div');
-            item.className = 'performance-item';
-            item.innerHTML = `
-                <span class="performance-label">${p.label}</span>
-                <span class="performance-value ${getChangeClass(p.value)}">${p.value}</span>
-            `;
-            container.appendChild(item);
-        }
-    });
-}
-
 function renderNavChart(data) {
     const chartDom = document.getElementById('fund-chart');
     const myChart = echarts.init(chartDom);
@@ -504,38 +512,22 @@ function renderNavChart(data) {
     
     const option = {
         backgroundColor: 'transparent',
-        tooltip: {
-            trigger: 'axis'
-        },
-        grid: {
-            left: '3%',
-            right: '4%',
-            bottom: '3%',
-            containLabel: true
-        },
+        tooltip: { trigger: 'axis' },
+        grid: { left: '3%', right: '4%', bottom: '3%', containLabel: true },
         xAxis: {
             type: 'category',
             data: dates,
-            axisLabel: {
-                color: '#aaa',
-                fontSize: 10
-            }
+            axisLabel: { color: '#aaa', fontSize: 10 }
         },
         yAxis: {
             type: 'value',
-            axisLabel: {
-                color: '#aaa',
-                fontSize: 10
-            }
+            axisLabel: { color: '#aaa', fontSize: 10 }
         },
         series: [{
             data: values,
             type: 'line',
             smooth: true,
-            lineStyle: {
-                color: '#e64340',
-                width: 2
-            },
+            lineStyle: { color: '#e64340', width: 2 },
             areaStyle: {
                 color: {
                     type: 'linear',
@@ -561,41 +553,25 @@ function renderKlineChart(data) {
     
     const option = {
         backgroundColor: 'transparent',
-        tooltip: {
-            trigger: 'axis',
-            axisPointer: {
-                type: 'cross'
-            }
-        },
-        grid: {
-            left: '3%',
-            right: '4%',
-            bottom: '3%',
-            containLabel: true
-        },
+        tooltip: { trigger: 'axis', axisPointer: { type: 'cross' } },
+        grid: { left: '3%', right: '4%', bottom: '3%', containLabel: true },
         xAxis: {
             type: 'category',
             data: dates,
-            axisLabel: {
-                color: '#aaa',
-                fontSize: 10
-            }
+            axisLabel: { color: '#aaa', fontSize: 10 }
         },
         yAxis: {
             type: 'value',
-            axisLabel: {
-                color: '#aaa',
-                fontSize: 10
-            }
+            axisLabel: { color: '#aaa', fontSize: 10 }
         },
         series: [{
             type: 'candlestick',
             data: ohlc,
             itemStyle: {
-                color: '#e64340',        // 阳线（涨）红色
-                color0: '#09bb07',       // 阴线（跌）绿色
-                borderColor: '#e64340',  // 阳线边框
-                borderColor0: '#09bb07'  // 阴线边框
+                color: '#e64340',
+                color0: '#09bb07',
+                borderColor: '#e64340',
+                borderColor0: '#09bb07'
             }
         }]
     };
@@ -609,14 +585,9 @@ function bindEvents() {
     const modal = document.getElementById('fund-modal');
     const closeBtn = document.querySelector('.modal-close');
     
-    closeBtn.addEventListener('click', () => {
-        modal.classList.remove('active');
-    });
-    
+    closeBtn.addEventListener('click', () => modal.classList.remove('active'));
     modal.addEventListener('click', (e) => {
-        if (e.target === modal) {
-            modal.classList.remove('active');
-        }
+        if (e.target === modal) modal.classList.remove('active');
     });
     
     // 指数点击
@@ -630,6 +601,23 @@ function bindEvents() {
                 zhuanke50: '科创50'
             };
             window.open(`https://quote.eastmoney.com/center/gridlist.html#${indexNames[index]}`, '_blank');
+        });
+    });
+    
+    // 新闻筛选
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            
+            const filter = btn.dataset.filter;
+            document.querySelectorAll('.news-item').forEach(item => {
+                if (filter === 'all') {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = item.dataset.impact === filter ? 'block' : 'none';
+                }
+            });
         });
     });
 }
