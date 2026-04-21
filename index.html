@@ -3,415 +3,227 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>个人投资看板</title>
+    <title>投资看板</title>
     <link rel="stylesheet" href="styles.css">
     <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
 </head>
 <body>
-    <div class="app-container">
-        <!-- 侧边导航 -->
-        <nav class="sidebar" id="sidebar">
-            <div class="logo">
-                <span class="logo-icon">📊</span>
-                <span class="logo-text">投资看板</span>
+    <div class="container">
+        <!-- 头部 -->
+        <header class="header">
+            <h1>📊 投资看板</h1>
+            <div class="update-info">
+                <span id="update-time">数据加载中...</span>
+                <span class="source-link">
+                    <a href="#" id="main-source-link" target="_blank">数据来源</a>
+                </span>
             </div>
-            <ul class="nav-menu">
-                <li class="nav-item active" data-tab="dashboard">
-                    <span class="nav-icon">📈</span>
-                    <span class="nav-text">今日看板</span>
-                </li>
-                <li class="nav-item" data-tab="search">
-                    <span class="nav-icon">🔍</span>
-                    <span class="nav-text">基金/股票查询</span>
-                </li>
-                <li class="nav-item" data-tab="capital">
-                    <span class="nav-icon">💰</span>
-                    <span class="nav-text">资金流向</span>
-                </li>
-                <li class="nav-item" data-tab="watchlist">
-                    <span class="nav-icon">⭐</span>
-                    <span class="nav-text">我的自选</span>
-                </li>
-                <li class="nav-item" data-tab="history">
-                    <span class="nav-icon">📋</span>
-                    <span class="nav-text">历史报告</span>
-                </li>
-            </ul>
-            <div class="nav-footer">
-                <div class="market-status-badge" id="marketStatus">🔴 检查中...</div>
-                <div class="update-time" id="updateTime">数据更新时间：--</div>
-                <button class="refresh-data-btn" id="refreshDataBtn" onclick="refreshData()">🔄 手动刷新</button>
-            </div>
-        </nav>
-
-        <!-- 移动端顶部导航 -->
-        <header class="mobile-header">
-            <button class="menu-toggle" id="menuToggle">☰</button>
-            <div class="mobile-logo">📊 投资看板</div>
-            <div class="mobile-time" id="mobileTime"></div>
         </header>
 
-        <!-- 主内容区 -->
-        <main class="main-content" id="mainContent">
-            <!-- 今日看板 -->
-            <section class="tab-content active" id="dashboard">
-                <div class="section-header">
-                    <h1>📊 今日市场分析 <span id="dateDisplay" class="current-date"></span></h1>
-                    <div class="date-selector">
-                        <input type="date" id="reportDate" class="date-input">
-                        <button class="today-btn" id="todayBtn">今天</button>
-                    </div>
+        <!-- 休市提示 -->
+        <div id="market-closed-notice" class="market-notice" style="display: none;">
+            <div class="notice-content">
+                <h2>🌙 今日休市</h2>
+                <p id="closed-reason">今日为非交易日，市场暂停交易</p>
+                <div class="next-trading">
+                    <p>下一交易日：<span id="next-trading-day">--</span></p>
                 </div>
+            </div>
+        </div>
 
-                <!-- 早间报告 -->
-                <div class="report-card morning-report">
-                    <div class="report-header">
-                        <span class="report-badge morning">🌅 早间分析</span>
-                        <span class="report-time" id="morningTime"></span>
+        <!-- 主内容 -->
+        <main id="main-content">
+            <!-- 大盘指数 -->
+            <section class="card index-section">
+                <h2>📈 大盘指数</h2>
+                <div class="index-grid">
+                    <div class="index-item" data-index="shangzhi">
+                        <div class="index-name">上证指数</div>
+                        <div class="index-value positive" id="shangzhi-value">--</div>
+                        <div class="index-change" id="shangzhi-change">--</div>
                     </div>
-                    <div class="report-content" id="morningReport">
-                        <div class="report-section">
-                            <h3>💵 资金流向摘要 <a href="https://data.eastmoney.com/zjlx/" target="_blank" class="section-source-link">📊 数据来源</a></h3>
-                            <div class="fund-flow-summary" id="fundFlowSummary"></div>
-                        </div>
-                        <!-- 资金流向分析 -->
-                        <div class="report-section">
-                            <h3>📊 资金流向分析</h3>
-                            <div class="fund-flow-analysis" id="fundFlowAnalysis"></div>
-                        </div>
-                        <div class="report-section">
-                            <h3>📋 今日推荐 <a href="https://fund.eastmoney.com/" target="_blank" class="section-source-link">📊 数据来源</a></h3>
-                            <div class="recommended-funds" id="recommendedFunds"></div>
-                        </div>
-                        <div class="report-section">
-                            <h3>⚠️ 风险提示</h3>
-                            <div class="risk-warning" id="riskWarning"></div>
-                        </div>
-                        <div class="report-section">
-                            <h3>💡 操作建议</h3>
-                            <div class="operation-advice" id="operationAdvice"></div>
-                        </div>
+                    <div class="index-item" data-index="shengzheng">
+                        <div class="index-name">深证成指</div>
+                        <div class="index-value positive" id="shengzheng-value">--</div>
+                        <div class="index-change" id="shengzheng-change">--</div>
                     </div>
-                </div>
-
-                <!-- 今日重大新闻 -->
-                <div class="report-card daily-news-card">
-                    <div class="report-header">
-                        <span class="report-badge news">📰 今日重大新闻</span>
-                        <span class="report-subtitle">信息来源：新闻联播、财经媒体</span>
+                    <div class="index-item" data-index="chuangye">
+                        <div class="index-name">创业板指</div>
+                        <div class="index-value positive" id="chuangye-value">--</div>
+                        <div class="index-change" id="chuangye-change">--</div>
                     </div>
-                    <div class="daily-news" id="dailyNews"></div>
-                </div>
-
-                <!-- 激进型基金推荐区域 -->
-                <div id="aggressiveFunds"></div>
-
-                <!-- 午后报告 -->
-                <div class="report-card afternoon-report">
-                    <div class="report-header">
-                        <span class="report-badge afternoon">🌇 午后分析</span>
-                        <span class="report-time" id="afternoonTime"></span>
-                    </div>
-                    <div class="report-content" id="afternoonReport">
-                        <div class="report-section">
-                            <h3>📊 午后行情回顾</h3>
-                            <div class="afternoon-review" id="afternoonReview"></div>
-                        </div>
-                        <div class="report-section">
-                            <h3>🔄 板块轮动 <a href="https://quote.eastmoney.com/center/boardlist.html" target="_blank" class="section-source-link">📊 数据来源</a></h3>
-                            <div class="sector-rotation" id="sectorRotation"></div>
-                        </div>
-                        <div class="report-section">
-                            <h3>📈 明日展望</h3>
-                            <div class="tomorrow-outlook" id="tomorrowOutlook"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 快速自选 -->
-                <div class="quick-watchlist">
-                    <h3>⭐ 自选动态</h3>
-                    <div class="watchlist-grid" id="quickWatchlist"></div>
-                </div>
-            </section>
-
-            <!-- 基金/股票查询 -->
-            <section class="tab-content" id="search">
-                <div class="section-header">
-                    <h1>🔍 基金/股票查询</h1>
-                </div>
-                <div class="search-box">
-                    <input type="text" id="searchInput" class="search-input" placeholder="输入基金代码、名称或股票代码...">
-                    <select id="searchType" class="search-type">
-                        <option value="fund">基金</option>
-                        <option value="stock">股票</option>
-                    </select>
-                    <button class="search-btn" id="searchBtn">查询</button>
-                </div>
-                <div class="search-result" id="searchResult">
-                    <div class="empty-state">
-                        <p>请输入基金代码或股票代码进行查询</p>
-                        <p class="hint">例如：510300（沪深300ETF）、000001（平安银行）</p>
+                    <div class="index-item" data-index="zhuanke50">
+                        <div class="index-name">科创50</div>
+                        <div class="index-value positive" id="zhuanke50-value">--</div>
+                        <div class="index-change" id="zhuanke50-change">--</div>
                     </div>
                 </div>
             </section>
 
             <!-- 资金流向 -->
-            <section class="tab-content" id="capital">
-                <div class="section-header">
-                    <h1>💰 资金流向分析</h1>
+            <section class="card fund-flow-section">
+                <h2>💰 资金流向</h2>
+                <div class="source-badge">
+                    <a href="https://data.eastmoney.com/zjlx/" target="_blank">数据来源：东方财富</a>
                 </div>
-                
-                <div class="capital-overview">
-                    <div class="capital-card main-fund">
-                        <div class="capital-title">主力资金净流入</div>
-                        <div class="capital-value" id="mainFundFlow">--</div>
-                        <div class="capital-change" id="mainFundChange">--</div>
+                <div class="fund-flow-grid">
+                    <div class="fund-flow-item">
+                        <div class="flow-label">主力资金</div>
+                        <div class="flow-value" id="main-fund-value">--</div>
+                        <div class="flow-trend" id="main-fund-trend">--</div>
                     </div>
-                    <div class="capital-card north-fund">
-                        <div class="capital-title">北向资金</div>
-                        <div class="capital-value" id="northFundFlow">--</div>
-                        <div class="capital-change" id="northFundChange">--</div>
-                    </div>
-                    <div class="capital-card south-fund">
-                        <div class="capital-title">南向资金</div>
-                        <div class="capital-value" id="southFundFlow">--</div>
-                        <div class="capital-change" id="southFundChange">--</div>
+                    <div class="fund-flow-item">
+                        <div class="flow-label">北向资金</div>
+                        <div class="flow-value" id="north-fund-value">--</div>
+                        <div class="flow-trend" id="north-fund-trend">--</div>
                     </div>
                 </div>
-
-                <div class="charts-container">
-                    <div class="chart-card">
-                        <h3>大盘主力资金流向（近5日）</h3>
-                        <div id="mainFundChart" class="echart-container"></div>
-                    </div>
-                    <div class="chart-card">
-                        <h3>北向资金趋势（近5日）</h3>
-                        <div id="northFundChart" class="echart-container"></div>
-                    </div>
-                </div>
-
-                <!-- 数据来源 -->
-                <div id="capitalSources" class="data-sources-section"></div>
-
-                <div class="sector-funds">
-                    <h3>🔥 热门板块资金变化</h3>
-                    <div class="sector-list" id="sectorFundList"></div>
-                </div>
-            </section>
-
-            <!-- 我的自选 -->
-            <section class="tab-content" id="watchlist">
-                <div class="section-header">
-                    <h1>⭐ 我的自选</h1>
-                    <button class="add-btn" id="addWatchBtn">+ 添加自选</button>
-                </div>
-                <div class="watchlist-container" id="watchlistContainer">
-                    <div class="watchlist-table">
-                        <div class="table-header">
-                            <div class="th">名称/代码</div>
-                            <div class="th">最新价</div>
-                            <div class="th">涨跌幅</div>
-                            <div class="th">近1月</div>
-                            <div class="th">操作</div>
+                <div class="fund-flow-detail">
+                    <h3>板块资金流向</h3>
+                    <div class="sector-flow-container">
+                        <div class="sector-flow inflow">
+                            <h4 class="positive">🔴 资金流入</h4>
+                            <ul id="inflow-sectors" class="sector-list"></ul>
                         </div>
-                        <div class="table-body" id="watchlistBody">
-                            <div class="empty-state">
-                                <p>暂无自选内容</p>
-                                <p class="hint">点击上方"添加自选"按钮，添加您关注的基金或股票</p>
-                            </div>
+                        <div class="sector-flow outflow">
+                            <h4 class="negative">🟢 资金流出</h4>
+                            <ul id="outflow-sectors" class="sector-list"></ul>
                         </div>
+                    </div>
+                </div>
+                <div class="fund-analysis">
+                    <h3>资金流向分析</h3>
+                    <div id="fund-analysis-content">
+                        <p class="analysis-item"><strong>主力资金：</strong><span id="main-analysis">--</span></p>
+                        <p class="analysis-item"><strong>北向资金：</strong><span id="north-analysis">--</span></p>
+                        <p class="analysis-item"><strong>板块轮动：</strong><span id="sector-rotation">--</span></p>
                     </div>
                 </div>
             </section>
 
-            <!-- 历史报告 -->
-            <section class="tab-content" id="history">
-                <div class="section-header">
-                    <h1>📋 历史报告</h1>
+            <!-- 稳健型基金推荐 -->
+            <section class="card fund-section">
+                <h2>🛡️ 稳健型基金推荐</h2>
+                <div class="source-badge">
+                    <a href="https://fund.eastmoney.com/" target="_blank">数据来源：天天基金</a>
                 </div>
-                <div class="history-filters">
-                    <input type="date" id="historyStartDate" class="date-input">
-                    <span class="date-separator">至</span>
-                    <input type="date" id="historyEndDate" class="date-input">
-                    <button class="filter-btn" id="filterHistoryBtn">筛选</button>
+                <div class="fund-list" id="stable-funds"></div>
+            </section>
+
+            <!-- 激进型基金推荐 -->
+            <section class="card fund-section">
+                <h2>🚀 激进型基金推荐</h2>
+                <div class="source-badge">
+                    <a href="https://fund.eastmoney.com/" target="_blank">数据来源：天天基金</a>
                 </div>
-                <div class="history-list" id="historyList"></div>
+                <div class="fund-list" id="aggressive-funds"></div>
+            </section>
+
+            <!-- 热门板块 -->
+            <section class="card hot-sector-section">
+                <h2>🔥 热门板块</h2>
+                <div class="source-badge">
+                    <a href="https://quote.eastmoney.com/center/boardlist.html" target="_blank">数据来源：东方财富</a>
+                </div>
+                <div class="sector-grid">
+                    <div class="sector-col rising">
+                        <h3 class="positive">🔴 领涨板块</h3>
+                        <ul id="hot-rising-sectors" class="sector-hot-list"></ul>
+                    </div>
+                    <div class="sector-col falling">
+                        <h3 class="negative">🟢 领跌板块</h3>
+                        <ul id="hot-falling-sectors" class="sector-hot-list"></ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 每日重大新闻 -->
+            <section class="card news-section">
+                <h2>📰 每日重大新闻</h2>
+                <div class="source-badge">
+                    <a href="https://tv.cctv.com/lm/xwlb/" target="_blank">数据来源：新闻联播</a>
+                </div>
+                <div class="news-list" id="daily-news"></div>
+            </section>
+
+            <!-- 关注基金列表 -->
+            <section class="card my-funds-section">
+                <h2>📋 我的关注基金</h2>
+                <div class="source-badge">
+                    <a href="https://fund.eastmoney.com/" target="_blank">数据来源：天天基金</a>
+                </div>
+                <div class="my-funds-grid" id="my-funds-list"></div>
             </section>
         </main>
-    </div>
 
-    <!-- 添加自选弹窗 -->
-    <div class="modal" id="addWatchModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>添加自选</h3>
-                <button class="modal-close" id="closeModal">&times;</button>
-            </div>
-            <div class="modal-body">
-                <div class="form-group">
-                    <label>类型</label>
-                    <select id="addType" class="form-input">
-                        <option value="fund">基金</option>
-                        <option value="stock">股票</option>
-                    </select>
+        <!-- 基金详情模态框 -->
+        <div id="fund-modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 id="modal-fund-name">基金详情</h2>
+                    <span class="modal-close">&times;</span>
                 </div>
-                <div class="form-group">
-                    <label>代码</label>
-                    <input type="text" id="addCode" class="form-input" placeholder="请输入基金/股票代码">
-                </div>
-                <div class="form-group">
-                    <label>名称</label>
-                    <input type="text" id="addName" class="form-input" placeholder="请输入名称">
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button class="btn-secondary" id="cancelAdd">取消</button>
-                <button class="btn-primary" id="confirmAdd">添加</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- 基金详情弹窗 -->
-    <div class="modal" id="fundDetailModal">
-        <div class="modal-content fund-detail-modal">
-            <div class="modal-header">
-                <h3>基金详情</h3>
-                <button class="modal-close" id="closeFundDetail">&times;</button>
-            </div>
-            <div class="fund-detail-header">
-                <div class="fund-detail-title">
-                    <div class="fund-detail-name" id="detailFundName">--</div>
-                    <div class="fund-detail-code" id="detailFundCode">--</div>
-                </div>
-                <div class="fund-detail-price">
-                    <div class="fund-detail-nav" id="detailFundNav">净值：--</div>
-                    <div class="fund-detail-change up" id="detailFundChange">--</div>
-                </div>
-            </div>
-            <div class="fund-detail-body">
-                <!-- 收益数据 -->
-                <div class="fund-detail-section">
-                    <h4>📊 收益数据</h4>
-                    <div class="return-grid">
-                        <div class="return-item">
-                            <div class="label">日涨跌</div>
-                            <div class="value" id="detailDayChange">--</div>
-                        </div>
-                        <div class="return-item">
-                            <div class="label">近1周</div>
-                            <div class="value" id="detailWeekChange">--</div>
-                        </div>
-                        <div class="return-item">
-                            <div class="label">近1月</div>
-                            <div class="value" id="detailMonthChange">--</div>
-                        </div>
-                        <div class="return-item">
-                            <div class="label">近1年</div>
-                            <div class="value" id="detailYearChange">--</div>
-                        </div>
-                    </div>
-                </div>
-                <!-- 净值走势图 -->
-                <div class="fund-detail-section">
-                    <h4>📈 净值走势（近30日）</h4>
-                    <div id="navChart" class="nav-chart-container"></div>
-                </div>
-                <!-- 日K线图 -->
-                <div class="fund-detail-section">
-                    <h4>📊 日K线图（MA5/MA10/MA20）</h4>
-                    <div id="fundKlineChart" class="fund-kline-container"></div>
-                </div>
-                <!-- 基金信息 -->
-                <div class="fund-detail-section">
-                    <h4>📋 基金信息</h4>
+                <div class="modal-body">
                     <div class="fund-info-grid">
-                        <div class="fund-info-item">
-                            <span class="label">基金经理</span>
-                            <span class="value" id="detailManager">--</span>
+                        <div class="info-item">
+                            <span class="info-label">基金代码</span>
+                            <span class="info-value" id="modal-fund-code">--</span>
                         </div>
-                        <div class="fund-info-item">
-                            <span class="label">基金规模</span>
-                            <span class="value" id="detailSize">--</span>
+                        <div class="info-item">
+                            <span class="info-label">最新净值</span>
+                            <span class="info-value" id="modal-fund-nav">--</span>
                         </div>
-                        <div class="fund-info-item">
-                            <span class="label">净值日期</span>
-                            <span class="value" id="detailNavDate">--</span>
+                        <div class="info-item">
+                            <span class="info-label">净值日期</span>
+                            <span class="info-value" id="modal-nav-date">--</span>
                         </div>
-                        <div class="fund-info-item">
-                            <span class="label">基金类型</span>
-                            <span class="value" id="detailType">--</span>
+                        <div class="info-item">
+                            <span class="info-label">今日涨跌</span>
+                            <span class="info-value" id="modal-fund-change">--</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">基金规模</span>
+                            <span class="info-value" id="modal-fund-scale">--</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">基金经理</span>
+                            <span class="info-value" id="modal-fund-manager">--</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">成立日期</span>
+                            <span class="info-value" id="modal-established">--</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">跟踪指数</span>
+                            <span class="info-value" id="modal-tracking">--</span>
                         </div>
                     </div>
-                </div>
-                <!-- 基金描述 -->
-                <div class="fund-detail-section">
-                    <h4>📝 基金简介</h4>
-                    <div class="fund-description" id="detailDescription">--</div>
-                </div>
-                <!-- 数据来源 -->
-                <div class="fund-detail-section">
-                    <div id="fundDetailSource" class="detail-source-container"></div>
-                </div>
-                <!-- 风险提示 -->
-                <div class="fund-detail-section">
-                    <div class="fund-risk-warning">
-                        <p>⚠️ 基金投资有风险，入市需谨慎。过往业绩不代表未来表现，本页面内容仅供参考，不构成投资建议。投资者应根据自身风险承受能力做出投资决策。</p>
+                    <div class="chart-section">
+                        <h3>近30天净值走势</h3>
+                        <div id="fund-chart" class="chart-container"></div>
+                    </div>
+                    <div class="chart-section">
+                        <h3>日K线图</h3>
+                        <div id="kline-chart" class="chart-container"></div>
+                    </div>
+                    <div class="performance-section">
+                        <h3>收益表现</h3>
+                        <div class="performance-grid" id="performance-grid"></div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- 板块详情弹窗 -->
-    <div class="modal" id="sectorDetailModal">
-        <div class="modal-content sector-detail-modal">
-            <div class="modal-header">
-                <h3>📊 板块详情</h3>
-                <button class="modal-close" id="closeSectorDetail">&times;</button>
-            </div>
-            <div class="sector-detail-header">
-                <div class="sector-detail-title">
-                    <span class="sector-title" id="detailSectorName">--</span>
-                    <span class="sector-subtitle">板块资金流向分析</span>
-                </div>
-                <div class="sector-detail-stats">
-                    <div class="detail-value" id="detailSectorInflow">--</div>
-                    <div class="detail-change" id="detailSectorChange">--</div>
-                </div>
-            </div>
-            <div class="sector-detail-body">
-                <!-- K线图 -->
-                <div class="sector-detail-section">
-                    <h4>📈 K线走势图（近30日）</h4>
-                    <div id="sectorKlineChart" class="sector-kline-container"></div>
-                    <div id="sectorDetailSource" class="sector-source-container"></div>
-                </div>
-                <div class="sector-detail-section">
-                    <h4>🏆 板块龙头股</h4>
-                    <div class="leading-stocks" id="detailSectorStocks">
-                        <!-- 动态填充 -->
-                    </div>
-                </div>
-                <div class="sector-detail-section">
-                    <h4>📝 近期走势分析</h4>
-                    <div class="sector-description" id="detailSectorDescription">
-                        <!-- 动态填充 -->
-                    </div>
-                </div>
-                <div class="sector-detail-section">
-                    <h4>💡 操作建议</h4>
-                    <div class="sector-advice" id="detailSectorAdvice">
-                        <!-- 动态填充 -->
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- 提示消息 -->
-    <div class="toast" id="toast">
-        <span class="toast-message"></span>
+        <!-- 页脚 -->
+        <footer class="footer">
+            <p>投资有风险，决策需谨慎。本看板仅供参考，不构成投资建议。</p>
+            <p class="links">
+                <a href="https://data.eastmoney.com/zjlx/" target="_blank">东方财富-主力资金</a> |
+                <a href="https://data.eastmoney.com/hsgt/" target="_blank">北向资金</a> |
+                <a href="https://fund.eastmoney.com/" target="_blank">天天基金</a> |
+                <a href="https://tv.cctv.com/lm/xwlb/" target="_blank">新闻联播</a>
+            </p>
+        </footer>
     </div>
 
     <script src="data.js"></script>
