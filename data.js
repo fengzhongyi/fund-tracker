@@ -1,5 +1,5 @@
 // ==================== 数据更新时间 ====================
-const DATA_UPDATE_TIME = '2026-04-22 09:32:40';
+const DATA_UPDATE_TIME = '2026-04-22 10:33:00';
 
 // ==================== 数据来源配置 ====================
 const DATA_SOURCES = {
@@ -61,31 +61,31 @@ const SAMPLE_DATA = {
     // ===== 1. 实时大盘数据 =====
     realtimeIndex: {
         shangzhi: { 
-            value: 4076.32, 
-            change: '-0.21%', 
-            volume: '2.33亿', 
-            turnover: '1.01万亿',
+            value: 4074.81, 
+            change: '-0.25%', 
+            volume: '约8500亿', 
+            turnover: '约8500亿',
             source: 'https://quote.eastmoney.com/center/gridlist.html'
         },
         shengzheng: { 
-            value: 14932.65, 
-            change: '-0.33%', 
-            volume: '1.32亿', 
-            turnover: '1.32万亿',
+            value: 14897.96, 
+            change: '-0.56%', 
+            volume: '约1.1万亿', 
+            turnover: '约1.1万亿',
             source: 'https://quote.eastmoney.com/center/gridlist.html'
         },
         chuangye: { 
-            value: 3671.28, 
-            change: '-0.48%', 
-            volume: '1.56亿', 
-            turnover: '6378亿',
+            value: 3660.42, 
+            change: '-0.77%', 
+            volume: '约6200亿', 
+            turnover: '约6200亿',
             source: 'https://quote.eastmoney.com/center/gridlist.html'
         },
         zhuanke50: { 
-            value: 955.09, 
-            change: '-2.02%', 
-            volume: '2475.49万', 
-            turnover: '942.12亿',
+            value: 1430.18, 
+            change: '-0.45%', 
+            volume: '约2400万', 
+            turnover: '约920亿',
             source: 'https://quote.eastmoney.com/center/gridlist.html'
         }
     },
@@ -97,28 +97,28 @@ const SAMPLE_DATA = {
             {
                 code: '515080',
                 name: '招商中证红利ETF',
-                price: 1.602,
-                change: '+0.63%',
-                nav: 1.5902,
+                price: 1.608,
+                change: '+0.50%',
+                nav: 1.5922,
                 source: 'https://fund.eastmoney.com/515080.html',
-                reason: '红利资产作为防御性板块近期表现稳健，中证红利股息率约4.96%，在低利率环境下比价优势显著。保险资金持续增配，近20日累计吸金超11亿元，规模达93.7亿元。4月22日煤炭、电力等防御板块逆势走强，红利策略受益。适合中长期底仓配置，建议在1.55-1.60区间分批买入。风险提示：关注分红持续性和市场风格切换风险。',
-                buyPrice: '1.55-1.60',
+                reason: '红利资产作为防御性板块近期表现稳健，中证红利股息率约4.96%，在低利率环境下比价优势显著。保险资金持续增配，近20日累计吸金超11亿元，规模达93.7亿元。4月22日上午煤炭、电力等防御板块逆势走强，红利策略受益。适合中长期底仓配置，建议在1.58-1.62区间分批买入。风险提示：关注分红持续性和市场风格切换风险。',
+                buyPrice: '1.58-1.62',
                 targetPrice: '1.68-1.75',
-                stopLoss: '1.48',
+                stopLoss: '1.52',
                 riskLevel: '中低',
                 expectedReturn: '8-12%'
             },
             {
                 code: '510300',
                 name: '华泰柏瑞沪深300ETF',
-                price: 4.765,
-                change: '-0.55%',
-                nav: 4.7789,
+                price: 4.760,
+                change: '-0.42%',
+                nav: 4.7759,
                 source: 'https://fund.eastmoney.com/510300.html',
                 reason: '沪深300ETF近一年涨幅29.26%，规模近2000亿元，是核心资产配置的首选。当前市场震荡分化，指数在4100点关口前承压回落，但下方4050-4060点支撑较强。银行等权重板块逆势走强，对指数形成支撑。作为大盘核心配置，适合定投或逢低布局。风险提示：市场短期波动及量能不足风险。',
-                buyPrice: '4.65-4.75',
+                buyPrice: '4.68-4.75',
                 targetPrice: '4.95-5.10',
-                stopLoss: '4.50',
+                stopLoss: '4.52',
                 riskLevel: '中',
                 expectedReturn: '8-15%'
             }
@@ -130,18 +130,18 @@ const SAMPLE_DATA = {
             {
                 code: '588000',
                 name: '华夏科创50ETF',
-                price: 1.485,
-                change: '-1.78%',
+                price: 1.478,
+                change: '-2.24%',
                 source: 'https://fund.eastmoney.com/588000.html',
-                reason: '科创50指数今日回调明显，AI算力、半导体等前期强势板块集体回调，主力资金净流出。4月22日科创50下跌约2%，但中长期国产替代逻辑未变，近一年涨幅仍达23.30%。建议持有观望，等待科技板块企稳信号。'
+                reason: '科创50指数今日回调明显，AI算力、半导体等前期强势板块集体回调，英维克业绩爆雷一字跌停压制科技情绪。4月22日上午科创50下跌约2.2%，短期承压明显。中长期国产替代逻辑未变，近一年涨幅仍达23.30%。建议持有观望，等待科技板块企稳信号。'
             },
             {
                 code: '510500',
                 name: '南方中证500ETF',
-                price: 8.290,
-                change: '-0.78%',
+                price: 8.265,
+                change: '-1.08%',
                 source: 'https://fund.eastmoney.com/510500.html',
-                reason: '中证500指数近一年涨幅51.67%，表现强劲但短期有所回调。当前市场风格从成长向防御切换，中小盘成长股承压。建议持有观望，关注市场风格切换信号。'
+                reason: '中证500指数近一年涨幅51.67%，表现强劲但短期有所回调。当前市场风格从成长向防御切换，中小盘成长股承压。4月22日上午下跌约1%，建议持有观望，关注市场风格切换信号。'
             },
             {
                 code: '006546',
@@ -165,21 +165,31 @@ const SAMPLE_DATA = {
     // ===== 3. 实时新闻（利好利空辨别） =====
     realtimeNews: [
         {
-            title: '4月22日A股收盘：三大指数集体收跌，煤炭电力板块逆势走强',
+            title: '4月22日上午：A股低开震荡，防御板块逆势走强',
             source: '同壁财经',
-            sourceUrl: 'http://m.toutiao.com/group/7631356112041787939/',
+            sourceUrl: 'http://m.toutiao.com/group/7631393889668071976/',
             time: '2026-04-22',
-            summary: '4月22日，A股三大指数集体收跌，上证指数报4076.32点(-0.21%)，深证成指报14932.65点(-0.33%)，创业板指报3671.28点(-0.48%)。两市合计成交2.33万亿元，缩量约1000亿元。煤炭、电力、公用事业、银行等防御性板块逆势走强；AI算力、半导体、通信等高位科技股回调明显。',
-            impact: '中性',
-            relatedSectors: ['煤炭', '电力', '公用事业', '银行', 'AI', '半导体'],
+            summary: '4月22日上午，A股四大股指集体低开，上证指数报4074.81点(-0.25%)，深证成指报14897.96点(-0.56%)，创业板指报3660.42点(-0.77%)。英维克因一季度净利润同比大降81.97%继续一字跌停，打压AI算力板块情绪。煤炭、电力、银行等防御板块逆势走强，赛马概念、石墨电极板块表现活跃。两市超3600只个股下跌，市场情绪偏谨慎。',
+            impact: '中性偏空',
+            relatedSectors: ['煤炭', '电力', '银行', 'AI算力', '半导体'],
             importance: '高'
         },
         {
-            title: '主力资金净流出超600亿元，北向资金净流出约32.5亿元',
+            title: '北向资金半日净流入42.68亿元，外资持续加仓金融消费',
+            source: '北向资金实时查询',
+            sourceUrl: 'https://beixiangzijinshishichaxun.com.cn/',
+            time: '2026-04-22',
+            summary: '截至4月22日10:30，北向资金半日净流入42.68亿元，其中沪股通净流入25.31亿元，深股通净流入17.37亿元。外资偏好低估值、高股息标的，对金融、消费板块表现出明显偏好。本月北向资金净流入累计达286.45亿元，今年以来净流入2856.34亿元。',
+            impact: '利好',
+            relatedSectors: ['金融', '消费', '高股息'],
+            importance: '高'
+        },
+        {
+            title: '主力资金净流出超200亿元，市场避险情绪升温',
             source: '东方财富',
             sourceUrl: 'https://data.eastmoney.com/zjlx/',
             time: '2026-04-22',
-            summary: '4月22日，主力资金全天净流出超600亿元，北向资金净流出约32.5亿元。市场避险情绪升温，资金从高位成长股转向高股息、低估值的防御板块。计算机、通信、电子等前期热门板块遭主力资金大幅抛售。',
+            summary: '4月22日上午，主力资金持续净流出，计算机、电子等前期热门科技板块遭大幅抛售。AI算力、光模块等高位概念股回调明显，英维克业绩爆雷加剧市场担忧。资金转向煤炭、电力、银行等防御性板块。',
             impact: '利空',
             relatedSectors: ['科技股', '成长股'],
             importance: '高'
@@ -189,40 +199,30 @@ const SAMPLE_DATA = {
             source: '工信部',
             sourceUrl: 'https://www.miit.gov.cn/',
             time: '2026-04-22',
-            summary: '《方案》提出2027年底制造业AI普及率超60%、核心光电子配件国产化率超70%，直接利好智能制造、工业软件、AI应用板块。政策持续释放稳增长信号，利好科技成长赛道。',
+            summary: '《方案》提出2027年底制造业AI普及率超60%、核心光电子配件国产化率超70%，直接利好智能制造、工业软件、AI应用板块。政策持续释放稳增长信号，利好科技成长赛道，但短期高位科技股回调压力较大。',
             impact: '利好',
             relatedSectors: ['人工智能', '智能制造', '工业软件'],
             importance: '高'
         },
         {
-            title: '国务院印发《关于推进服务业扩能提质的意见》',
-            source: '国务院',
-            sourceUrl: 'https://www.gov.cn/',
+            title: '4月24日中国航天日临近，商业航天板块望受益',
+            source: '国家航天局',
+            sourceUrl: 'https://www.cnsa.gov.cn/',
             time: '2026-04-22',
-            summary: '《意见》明确到2030年服务业总规模超100万亿元，重点扶持AI算力、卫星互联网、工业互联网等科技服务领域。长期利好政策持续落地，为A股提供基本面支撑。',
+            summary: '4月24日中国航天日临近，政策催化预期升温。航天装备板块近期表现活跃，4月21日涨超2%。关注卫星互联网、火箭发射等细分领域的主题投资机会。',
             impact: '利好',
-            relatedSectors: ['AI算力', '卫星互联网', '工业互联网'],
-            importance: '高'
+            relatedSectors: ['商业航天', '军工'],
+            importance: '中'
         },
         {
-            title: '中证红利ETF规模达93.7亿元，近20日累计吸金超11亿',
-            source: '同壁财经',
-            sourceUrl: 'http://m.toutiao.com/group/7631030507324654130/',
+            title: '4月21日收盘：创业板探底回升涨0.31%，煤炭电力逆势领涨',
+            source: '证券时报',
+            sourceUrl: 'https://stcn.com/article/detail/3765620.html',
             time: '2026-04-21',
-            summary: '截至2026年4月20日，中证红利ETF招商(515080)规模达到93.7亿元，近20个交易日累计吸金超11亿元。机构认为红利板块仍具备中长期底仓配置价值，保险资金是核心增量力量。',
-            impact: '利好',
-            relatedSectors: ['红利资产', '高股息', '保险资金'],
-            importance: '中'
-        },
-        {
-            title: '华夏科创50ETF发布2026年第1季度报告，规模685亿元',
-            source: '上海证券交易所',
-            sourceUrl: 'http://www.sse.com.cn/disclosure/fund/announcement/c/new/2026-04-22/588000_20260422_71T1.pdf',
-            time: '2026-04-22',
-            summary: '科创50ETF华夏一季度净值增长率-6.49%，但过去一年涨幅仍达23.30%，跑赢业绩比较基准。基金经理荣膺表示，继续看好科技创新方向，但短期需关注市场波动风险。',
+            summary: '4月21日，创业板指早盘一度跌超1.5%，午后翻红最终收涨0.31%报3688.94点。煤炭板块全天强势涨2.31%，甘肃能化涨超8%。电力板块受工信部算电协同政策催化大幅拉升，粤电力A、广安爱众等涨停。主力资金全天净流出约467亿元。',
             impact: '中性',
-            relatedSectors: ['科创板', '科技'],
-            importance: '中'
+            relatedSectors: ['煤炭', '电力', '创业板'],
+            importance: '高'
         }
     ],
     
@@ -230,61 +230,61 @@ const SAMPLE_DATA = {
     capitalFlow: {
         // 大盘资金流向
         mainFund: {
-            value: -600,
+            value: -220,
             unit: '亿元',
             direction: '净流出',
-            shangzheng: -280,
-            shengzheng: -320,
-            trend: '主力资金连续净流出，市场避险情绪升温',
-            analysis: '4月22日主力资金全天净流出超600亿元，主力资金从高位成长股转向防御板块。计算机、通信、电子等前期热门板块遭大幅抛售，煤炭、电力、银行等防御板块获资金青睐。',
+            shangzheng: -100,
+            shengzheng: -120,
+            trend: '主力资金持续净流出，市场避险情绪升温',
+            analysis: '4月22日上午主力资金净流出超200亿元，主力资金从高位成长股转向防御板块。计算机、电子等前期热门板块遭大幅抛售，煤炭、电力、银行等防御板块获资金青睐。英维克业绩爆雷加剧市场对AI算力业绩兑现的担忧。',
             source: 'https://data.eastmoney.com/zjlx/'
         },
         northFund: {
-            value: -32.5,
+            value: 42.68,
             unit: '亿元',
-            direction: '净流出',
-            shengutong: -15,
-            hushenutong: -17.5,
-            trend: '北向资金小幅净流出，外资观望情绪升温',
-            analysis: '北向资金4月22日全天净流出约32.5亿元，连续两日净流出。外资偏好低估值、高股息标的，对科技成长股保持谨慎。',
+            direction: '净流入',
+            shengutong: 25.31,
+            hushenutong: 17.37,
+            trend: '北向资金持续净流入，外资偏好低估值高股息标的',
+            analysis: '北向资金4月22日上午净流入约42.68亿元，连续多日净流入。外资偏好低估值、高股息标的，对金融、消费板块表现出明显偏好。本月累计净流入286.45亿元，今年以来净流入2856.34亿元。',
             source: 'https://data.eastmoney.com/hsgt/'
         },
         // 板块资金流向
         sectorFunds: [
-            { name: '煤炭', inflow: 11.64, outflow: 0, netFlow: 11.64, source: 'https://data.eastmoney.com/zjlx/' },
-            { name: '电力', inflow: 8.65, outflow: 0, netFlow: 8.65, source: 'https://data.eastmoney.com/zjlx/' },
-            { name: '公用事业', inflow: 6.12, outflow: 0, netFlow: 6.12, source: 'https://data.eastmoney.com/zjlx/' },
-            { name: '银行', inflow: 5.40, outflow: 0, netFlow: 5.40, source: 'https://data.eastmoney.com/zjlx/' },
-            { name: '轻工制造', inflow: 4.52, outflow: 0, netFlow: 4.52, source: 'https://data.eastmoney.com/zjlx/' },
-            { name: '建筑材料', inflow: 5.23, outflow: 0, netFlow: 5.23, source: 'https://data.eastmoney.com/zjlx/' },
-            { name: '计算机', inflow: 0, outflow: 93.94, netFlow: -93.94, source: 'https://data.eastmoney.com/zjlx/' },
-            { name: '通信', inflow: 0, outflow: 68.04, netFlow: -68.04, source: 'https://data.eastmoney.com/zjlx/' },
-            { name: '电子', inflow: 0, outflow: 63.20, netFlow: -63.20, source: 'https://data.eastmoney.com/zjlx/' },
-            { name: '国防军工', inflow: 0, outflow: 59.61, netFlow: -59.61, source: 'https://data.eastmoney.com/zjlx/' }
+            { name: '煤炭', inflow: 5.20, outflow: 0, netFlow: 5.20, source: 'https://data.eastmoney.com/zjlx/' },
+            { name: '电力', inflow: 8.90, outflow: 0, netFlow: 8.90, source: 'https://data.eastmoney.com/zjlx/' },
+            { name: '银行', inflow: 5.80, outflow: 0, netFlow: 5.80, source: 'https://data.eastmoney.com/zjlx/' },
+            { name: '公用事业', inflow: 4.50, outflow: 0, netFlow: 4.50, source: 'https://data.eastmoney.com/zjlx/' },
+            { name: '赛马概念', inflow: 0.60, outflow: 0, netFlow: 0.60, source: 'https://data.eastmoney.com/zjlx/' },
+            { name: '石墨电极', inflow: 0.45, outflow: 0, netFlow: 0.45, source: 'https://data.eastmoney.com/zjlx/' },
+            { name: '计算机', inflow: 0, outflow: -85.60, netFlow: -85.60, source: 'https://data.eastmoney.com/zjlx/' },
+            { name: '电子', inflow: 0, outflow: -68.40, netFlow: -68.40, source: 'https://data.eastmoney.com/zjlx/' },
+            { name: '通信', inflow: 0, outflow: -52.30, netFlow: -52.30, source: 'https://data.eastmoney.com/zjlx/' },
+            { name: '国防军工', inflow: 0, outflow: -25.80, netFlow: -25.80, source: 'https://data.eastmoney.com/zjlx/' }
         ],
         // 个股资金流向TOP10
         stockFunds: {
             inflow: [
-                { name: '宁德时代', netFlow: 20.24, reason: '电池板块龙头，受益于新能源产业政策' },
-                { name: '兆易创新', netFlow: 14.29, reason: '半导体国产替代标的' },
-                { name: '中国神华', netFlow: 8.50, reason: '煤炭龙头，高股息防御标的' },
-                { name: '长江电力', netFlow: 7.80, reason: '水电龙头，稳健高股息' },
-                { name: '招商银行', netFlow: 5.20, reason: '银行板块龙头，低估值高股息' }
+                { name: '长江电力', netFlow: 8.50, reason: '水电龙头，稳健高股息，避险资金流入' },
+                { name: '中国神华', netFlow: 5.20, reason: '煤炭龙头，高股息防御标的' },
+                { name: '宁德时代', netFlow: 4.80, reason: '电池板块龙头，受益于新能源政策' },
+                { name: '招商银行', netFlow: 3.60, reason: '银行板块龙头，低估值高股息' },
+                { name: '华能水电', netFlow: 3.20, reason: '水电标的，电力板块受益' }
             ],
             outflow: [
-                { name: '立讯精密', netFlow: -11.26, reason: '消费电子龙头，获利了结' },
-                { name: '润泽科技', netFlow: -9.88, reason: 'AI算力概念，高位回调' },
-                { name: '蓝色光标', netFlow: -9.58, reason: 'AI营销概念，获利了结' },
-                { name: '寒武纪', netFlow: -14.29, reason: 'AI芯片概念，高位回调' },
-                { name: '天孚通信', netFlow: -15.65, reason: '光通信概念，获利了结' }
+                { name: '英维克', netFlow: -8.50, reason: 'AI液冷龙头，一季报业绩爆雷，连续跌停' },
+                { name: '寒武纪', netFlow: -6.80, reason: 'AI芯片概念，高位回调' },
+                { name: '天孚通信', netFlow: -5.90, reason: '光通信概念，业绩不及预期' },
+                { name: '立讯精密', netFlow: -4.50, reason: '消费电子龙头，获利了结' },
+                { name: '中际旭创', netFlow: -4.20, reason: '光模块概念，高位回调' }
             ]
         },
         // 基金资金流向
         fundFlows: [
-            { code: '510300', name: '华泰柏瑞沪深300ETF', inflow: 0, outflow: 15.60, netFlow: -15.60, trend: '4月22日预估净流出约15.6亿元', source: 'https://fund.eastmoney.com/510300.html' },
-            { code: '588000', name: '华夏科创50ETF', inflow: 0, outflow: 8.20, netFlow: -8.20, trend: '4月22日预估净流出约8.2亿元', source: 'https://fund.eastmoney.com/588000.html' },
-            { code: '515080', name: '招商中证红利ETF', inflow: 1.50, outflow: 0, netFlow: 1.50, trend: '近20日累计吸金超11亿元', source: 'https://fund.eastmoney.com/515080.html' },
-            { code: '510500', name: '南方中证500ETF', inflow: 0, outflow: 3.50, netFlow: -3.50, trend: '4月22日预估净流出约3.5亿元', source: 'https://fund.eastmoney.com/510500.html' }
+            { code: '510300', name: '华泰柏瑞沪深300ETF', inflow: 0, outflow: 8.50, netFlow: -8.50, trend: '4月22日上午预估净流出约8.5亿元', source: 'https://fund.eastmoney.com/510300.html' },
+            { code: '588000', name: '华夏科创50ETF', inflow: 0, outflow: 12.80, netFlow: -12.80, trend: '4月22日上午预估净流出约12.8亿元', source: 'https://fund.eastmoney.com/588000.html' },
+            { code: '515080', name: '招商中证红利ETF', inflow: 2.30, outflow: 0, netFlow: 2.30, trend: '防御属性吸引资金流入', source: 'https://fund.eastmoney.com/515080.html' },
+            { code: '510500', name: '南方中证500ETF', inflow: 0, outflow: 5.20, netFlow: -5.20, trend: '4月22日上午预估净流出约5.2亿元', source: 'https://fund.eastmoney.com/510500.html' }
         ]
     },
     
@@ -294,35 +294,35 @@ const SAMPLE_DATA = {
         current: [
             {
                 name: '红利资产',
-                reason: '保险资金持续增配，低利率环境下中证红利股息率约4.96%，比价优势显著。煤炭、电力等防御板块今日逆势走强，资金净流入明显。',
-                inflow: 30.71,
+                reason: '保险资金持续增配，低利率环境下中证红利股息率约4.96%，比价优势显著。煤炭、电力等防御板块今日逆势走强，资金净流入明显。4月21日煤炭板块净流入约4.92亿元。',
+                inflow: 18.60,
                 hotStocks: ['中国神华', '陕西煤业', '长江电力', '华能水电', '中信银行'],
                 sustainability: '强',
                 riskTip: '关注分红持续性和市场风格切换风险',
                 source: 'https://quote.eastmoney.com/center/boardlist.html'
             },
             {
+                name: '电力',
+                reason: '工信部表态推进算电协同政策，为绿电企业打开面向算力需求的增量市场。电力板块今日逆势走强，核电、水电等清洁能源受资金青睐。电力ETF近5日净流入超10亿元。',
+                inflow: 8.90,
+                hotStocks: ['长江电力', '华能水电', '中国核电', '国投电力', '粤电力A'],
+                sustainability: '中强',
+                riskTip: '关注电价政策和来水情况',
+                source: 'https://quote.eastmoney.com/center/boardlist.html'
+            },
+            {
                 name: '银行',
-                reason: '低估值高股息特征明显，作为大盘稳定器吸引资金配置。今日板块逆势走强，主力资金净流入。',
-                inflow: 5.40,
+                reason: '低估值高股息特征明显，作为大盘稳定器吸引资金配置。今日板块逆势走强，主力资金净流入。外资持续加仓银行板块。',
+                inflow: 5.80,
                 hotStocks: ['招商银行', '宁波银行', '兴业银行', '工商银行', '建设银行'],
                 sustainability: '中',
                 riskTip: '关注资产质量变化和净息差收窄压力',
                 source: 'https://quote.eastmoney.com/center/boardlist.html'
             },
             {
-                name: '电力',
-                reason: '电力板块今日逆势走强，核电、水电等清洁能源受资金青睐。政策支持电力改革，行业景气度提升。',
-                inflow: 8.65,
-                hotStocks: ['长江电力', '华能水电', '中国核电', '国投电力', '川投能源'],
-                sustainability: '中强',
-                riskTip: '关注电价政策和来水情况',
-                source: 'https://quote.eastmoney.com/center/boardlist.html'
-            },
-            {
-                name: '人工智能（长期利好）',
-                reason: '工信部发布《人工智能+制造专项行动方案(2026-2028)》，提出制造业AI普及率超60%目标。长期政策利好明确，但短期高位科技股回调压力较大。',
-                inflow: -150,
+                name: '人工智能（长期利好，短期承压）',
+                reason: '工信部发布《人工智能+制造专项行动方案(2026-2028)》，提出制造业AI普及率超60%目标。长期政策利好明确，但短期高位科技股回调压力较大，英维克业绩爆雷加剧市场担忧。',
+                inflow: -206.30,
                 hotStocks: ['科大讯飞', '海康威视', '中科曙光', '用友网络', '金山办公'],
                 sustainability: '长期强',
                 riskTip: '短期高位股回调风险，注意控制仓位',
@@ -360,7 +360,7 @@ const SAMPLE_DATA = {
         rotation: {
             from: ['AI算力', '半导体', '通信设备', '消费电子'],
             to: ['煤炭', '电力', '银行', '公用事业'],
-            analysis: '市场风格正在从高位成长股向防御性板块切换。AI算力、半导体等前期热门科技股遭主力资金大幅抛售，而煤炭、电力、银行等低估值高股息板块获资金青睐。建议关注科技成长与红利价值的均衡配置，控制单一赛道仓位。'
+            analysis: '市场风格正在从高位成长股向防御性板块切换。AI算力、半导体等前期热门科技股遭主力资金大幅抛售，而煤炭、电力、银行等低估值高股息板块获资金青睐。英维克业绩爆雷加剧科技板块回调压力。外资持续买入防御性标的，与内资形成对冲。建议关注科技成长与红利价值的均衡配置，控制单一赛道仓位。'
         }
     },
     
@@ -368,10 +368,10 @@ const SAMPLE_DATA = {
     fundData: {
         '510300': {
             name: '华泰柏瑞沪深300ETF',
-            price: 4.765,
-            change: '-0.55%',
-            changeValue: -0.026,
-            nav: 4.7789,
+            price: 4.760,
+            change: '-0.42%',
+            changeValue: -0.020,
+            nav: 4.7759,
             navDate: '2026-04-21',
             volume: '428.21亿份',
             amount: '2041.73亿',
@@ -379,12 +379,12 @@ const SAMPLE_DATA = {
             scale: '2041.73亿',
             established: '2012-05-04',
             tracking: '沪深300指数',
-            netFlow: -15.60,
+            netFlow: -8.50,
             source: 'https://fund.eastmoney.com/510300.html',
             klineSource: 'https://cn.investing.com/etfs/huatai-pinebridge-csi-300-historical-data',
             navSource: 'https://www.lixinger.com/equity/fund/detail/sh/510300/510300/net-values',
             klineData: [
-                { date: '2026-04-22', open: 4.78, close: 4.765, high: 4.79, low: 4.75 },
+                { date: '2026-04-22', open: 4.78, close: 4.760, high: 4.77, low: 4.74 },
                 { date: '2026-04-21', open: 4.75, close: 4.765, high: 4.78, low: 4.745 },
                 { date: '2026-04-20', open: 4.735, close: 4.765, high: 4.775, low: 4.73 },
                 { date: '2026-04-17', open: 4.74, close: 4.739, high: 4.75, low: 4.73 },
@@ -402,11 +402,10 @@ const SAMPLE_DATA = {
                 { date: '2026-03-31', open: 4.46, close: 4.463, high: 4.47, low: 4.45 },
                 { date: '2026-03-30', open: 4.50, close: 4.50, high: 4.51, low: 4.49 },
                 { date: '2026-03-27', open: 4.51, close: 4.508, high: 4.52, low: 4.50 },
-                { date: '2026-03-26', open: 4.49, close: 4.488, high: 4.50, low: 4.48 },
-                { date: '2026-03-25', open: 4.54, close: 4.544, high: 4.55, low: 4.53 }
+                { date: '2026-03-26', open: 4.49, close: 4.488, high: 4.50, low: 4.48 }
             ],
             navHistory: [
-                { date: '2026-04-21', value: 4.7789 },
+                { date: '2026-04-21', value: 4.7759 },
                 { date: '2026-04-20', value: 4.7681 },
                 { date: '2026-04-17', value: 4.7393 },
                 { date: '2026-04-16', value: 4.7472 },
@@ -430,10 +429,10 @@ const SAMPLE_DATA = {
         },
         '588000': {
             name: '华夏科创50ETF',
-            price: 1.485,
-            change: '-1.78%',
-            changeValue: -0.027,
-            nav: 1.485,
+            price: 1.478,
+            change: '-2.24%',
+            changeValue: -0.034,
+            nav: 1.478,
             navDate: '2026-04-21',
             volume: '471.39亿份',
             amount: '720.42亿',
@@ -441,12 +440,12 @@ const SAMPLE_DATA = {
             scale: '720.42亿',
             established: '2020-09-28',
             tracking: '上证科创板50成份指数',
-            netFlow: -8.20,
+            netFlow: -12.80,
             source: 'https://fund.eastmoney.com/588000.html',
             klineSource: 'https://cn.investing.com/etfs/588000-historical-data',
             navSource: 'https://www.lixinger.com/equity/fund/detail/sh/588000/588000/net-values',
             klineData: [
-                { date: '2026-04-22', open: 1.51, close: 1.485, high: 1.52, low: 1.475 },
+                { date: '2026-04-22', open: 1.51, close: 1.478, high: 1.51, low: 1.465 },
                 { date: '2026-04-21', open: 1.50, close: 1.512, high: 1.52, low: 1.495 },
                 { date: '2026-04-20', open: 1.49, close: 1.512, high: 1.515, low: 1.485 },
                 { date: '2026-04-17', open: 1.50, close: 1.499, high: 1.505, low: 1.495 },
@@ -464,8 +463,7 @@ const SAMPLE_DATA = {
                 { date: '2026-03-31', open: 1.32, close: 1.324, high: 1.36, low: 1.32 },
                 { date: '2026-03-30', open: 1.36, close: 1.359, high: 1.37, low: 1.35 },
                 { date: '2026-03-27', open: 1.37, close: 1.370, high: 1.38, low: 1.33 },
-                { date: '2026-03-26', open: 1.36, close: 1.357, high: 1.386, low: 1.35 },
-                { date: '2026-03-25', open: 1.39, close: 1.385, high: 1.395, low: 1.37 }
+                { date: '2026-03-26', open: 1.36, close: 1.357, high: 1.386, low: 1.35 }
             ],
             navHistory: [
                 { date: '2026-04-21', value: 1.512 },
@@ -492,22 +490,22 @@ const SAMPLE_DATA = {
         },
         '515080': {
             name: '招商中证红利ETF',
-            price: 1.602,
-            change: '+0.63%',
-            changeValue: 0.010,
-            nav: 1.5902,
-            navDate: '2026-04-17',
+            price: 1.608,
+            change: '+0.50%',
+            changeValue: 0.008,
+            nav: 1.5922,
+            navDate: '2026-04-21',
             volume: '93.7亿',
             amount: '93.7亿',
             manager: '王帅',
             scale: '93.7亿',
             established: '2023-03-20',
             tracking: '中证红利指数',
-            netFlow: 1.50,
+            netFlow: 2.30,
             source: 'https://fund.eastmoney.com/515080.html',
             klineData: [
-                { date: '2026-04-22', open: 1.59, close: 1.602, high: 1.61, low: 1.585 },
-                { date: '2026-04-21', open: 1.58, close: 1.592, high: 1.595, low: 1.575 },
+                { date: '2026-04-22', open: 1.60, close: 1.608, high: 1.615, low: 1.595 },
+                { date: '2026-04-21', open: 1.58, close: 1.600, high: 1.605, low: 1.575 },
                 { date: '2026-04-20', open: 1.57, close: 1.58, high: 1.585, low: 1.565 },
                 { date: '2026-04-17', open: 1.56, close: 1.57, high: 1.575, low: 1.555 },
                 { date: '2026-04-16', open: 1.55, close: 1.56, high: 1.565, low: 1.545 },
@@ -524,39 +522,37 @@ const SAMPLE_DATA = {
                 { date: '2026-03-31', open: 1.44, close: 1.45, high: 1.455, low: 1.435 },
                 { date: '2026-03-30', open: 1.43, close: 1.44, high: 1.445, low: 1.425 },
                 { date: '2026-03-27', open: 1.42, close: 1.43, high: 1.435, low: 1.415 },
-                { date: '2026-03-26', open: 1.41, close: 1.42, high: 1.425, low: 1.405 },
-                { date: '2026-03-25', open: 1.40, close: 1.41, high: 1.415, low: 1.395 }
+                { date: '2026-03-26', open: 1.41, close: 1.42, high: 1.425, low: 1.405 }
             ],
             navHistory: [
-                { date: '2026-04-17', value: 1.5902 },
-                { date: '2026-04-16', value: 1.5812 },
-                { date: '2026-04-15', value: 1.5654 },
-                { date: '2026-04-14', value: 1.5532 },
-                { date: '2026-04-13', value: 1.5389 },
-                { date: '2026-04-10', value: 1.5298 },
-                { date: '2026-04-09', value: 1.5187 },
-                { date: '2026-04-08', value: 1.5076 },
-                { date: '2026-04-07', value: 1.4965 },
-                { date: '2026-04-03', value: 1.4854 },
-                { date: '2026-04-02', value: 1.4743 },
-                { date: '2026-04-01', value: 1.4632 },
-                { date: '2026-03-31', value: 1.4521 },
-                { date: '2026-03-30', value: 1.4410 },
-                { date: '2026-03-27', value: 1.4299 },
-                { date: '2026-03-26', value: 1.4188 },
-                { date: '2026-03-25', value: 1.4077 },
-                { date: '2026-03-24', value: 1.3966 },
-                { date: '2026-03-23', value: 1.3855 },
-                { date: '2026-03-20', value: 1.3744 },
-                { date: '2026-03-19', value: 1.3633 }
+                { date: '2026-04-21', value: 1.5922 },
+                { date: '2026-04-20', value: 1.5812 },
+                { date: '2026-04-17', value: 1.5654 },
+                { date: '2026-04-16', value: 1.5532 },
+                { date: '2026-04-15', value: 1.5389 },
+                { date: '2026-04-14', value: 1.5298 },
+                { date: '2026-04-13', value: 1.5187 },
+                { date: '2026-04-10', value: 1.5076 },
+                { date: '2026-04-09', value: 1.4965 },
+                { date: '2026-04-08', value: 1.4854 },
+                { date: '2026-04-07', value: 1.4743 },
+                { date: '2026-04-03', value: 1.4632 },
+                { date: '2026-04-02', value: 1.4521 },
+                { date: '2026-04-01', value: 1.4410 },
+                { date: '2026-03-31', value: 1.4299 },
+                { date: '2026-03-30', value: 1.4188 },
+                { date: '2026-03-27', value: 1.4077 },
+                { date: '2026-03-26', value: 1.3966 },
+                { date: '2026-03-25', value: 1.3855 },
+                { date: '2026-03-24', value: 1.3744 }
             ]
         },
         '510500': {
             name: '南方中证500ETF',
-            price: 8.290,
-            change: '-0.78%',
-            changeValue: -0.065,
-            nav: 8.2856,
+            price: 8.265,
+            change: '-1.08%',
+            changeValue: -0.090,
+            nav: 8.2656,
             navDate: '2026-04-21',
             volume: '12.56亿份',
             amount: '104.12亿',
@@ -564,10 +560,10 @@ const SAMPLE_DATA = {
             scale: '104.12亿',
             established: '2013-02-06',
             tracking: '中证500指数',
-            netFlow: -3.50,
+            netFlow: -5.20,
             source: 'https://fund.eastmoney.com/510500.html',
             klineData: [
-                { date: '2026-04-22', open: 8.36, close: 8.290, high: 8.38, low: 8.25 },
+                { date: '2026-04-22', open: 8.36, close: 8.265, high: 8.36, low: 8.22 },
                 { date: '2026-04-21', open: 8.30, close: 8.355, high: 8.38, low: 8.28 },
                 { date: '2026-04-20', open: 8.25, close: 8.30, high: 8.32, low: 8.22 },
                 { date: '2026-04-17', open: 8.20, close: 8.25, high: 8.28, low: 8.18 },
@@ -585,11 +581,10 @@ const SAMPLE_DATA = {
                 { date: '2026-03-31', open: 7.60, close: 7.65, high: 7.68, low: 7.58 },
                 { date: '2026-03-30', open: 7.55, close: 7.60, high: 7.63, low: 7.53 },
                 { date: '2026-03-27', open: 7.50, close: 7.55, high: 7.58, low: 7.48 },
-                { date: '2026-03-26', open: 7.45, close: 7.50, high: 7.53, low: 7.43 },
-                { date: '2026-03-25', open: 7.40, close: 7.45, high: 7.48, low: 7.38 }
+                { date: '2026-03-26', open: 7.45, close: 7.50, high: 7.53, low: 7.43 }
             ],
             navHistory: [
-                { date: '2026-04-21', value: 8.2856 },
+                { date: '2026-04-21', value: 8.2656 },
                 { date: '2026-04-18', value: 8.2432 },
                 { date: '2026-04-17', value: 8.1956 },
                 { date: '2026-04-16', value: 8.1456 },
@@ -645,8 +640,7 @@ const SAMPLE_DATA = {
                 { date: '2026-03-31', open: 1.244, close: 1.244, high: 1.245, low: 1.243 },
                 { date: '2026-03-28', open: 1.244, close: 1.244, high: 1.245, low: 1.243 },
                 { date: '2026-03-27', open: 1.244, close: 1.244, high: 1.245, low: 1.243 },
-                { date: '2026-03-26', open: 1.244, close: 1.244, high: 1.245, low: 1.243 },
-                { date: '2026-03-25', open: 1.244, close: 1.244, high: 1.245, low: 1.243 }
+                { date: '2026-03-26', open: 1.244, close: 1.244, high: 1.245, low: 1.243 }
             ],
             navHistory: [
                 { date: '2026-04-21', value: 1.2440 },
@@ -705,8 +699,7 @@ const SAMPLE_DATA = {
                 { date: '2026-03-31', open: 1.393, close: 1.393, high: 1.394, low: 1.392 },
                 { date: '2026-03-28', open: 1.393, close: 1.393, high: 1.394, low: 1.392 },
                 { date: '2026-03-27', open: 1.393, close: 1.393, high: 1.394, low: 1.392 },
-                { date: '2026-03-26', open: 1.393, close: 1.393, high: 1.394, low: 1.392 },
-                { date: '2026-03-25', open: 1.393, close: 1.393, high: 1.394, low: 1.392 }
+                { date: '2026-03-26', open: 1.393, close: 1.393, high: 1.394, low: 1.392 }
             ],
             navHistory: [
                 { date: '2026-04-21', value: 1.3930 },
