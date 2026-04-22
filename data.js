@@ -1,5 +1,5 @@
 // ==================== 数据更新时间 ====================
-const DATA_UPDATE_TIME = '2026-04-22 10:33:00';
+const DATA_UPDATE_TIME = '2026-04-22 11:06:00';
 
 // ==================== 数据来源配置 ====================
 const DATA_SOURCES = {
@@ -61,24 +61,24 @@ const SAMPLE_DATA = {
     // ===== 1. 实时大盘数据 =====
     realtimeIndex: {
         shangzhi: { 
-            value: 4074.81, 
-            change: '-0.25%', 
-            volume: '约8500亿', 
-            turnover: '约8500亿',
+            value: 4076.32, 
+            change: '-0.21%', 
+            volume: '约2.33万亿', 
+            turnover: '约2.33万亿',
             source: 'https://quote.eastmoney.com/center/gridlist.html'
         },
         shengzheng: { 
-            value: 14897.96, 
-            change: '-0.56%', 
-            volume: '约1.1万亿', 
-            turnover: '约1.1万亿',
+            value: 14932.65, 
+            change: '-0.33%', 
+            volume: '约1.08万亿', 
+            turnover: '约1.08万亿',
             source: 'https://quote.eastmoney.com/center/gridlist.html'
         },
         chuangye: { 
-            value: 3660.42, 
-            change: '-0.77%', 
-            volume: '约6200亿', 
-            turnover: '约6200亿',
+            value: 3671.28, 
+            change: '-0.48%', 
+            volume: '约6100亿', 
+            turnover: '约6100亿',
             source: 'https://quote.eastmoney.com/center/gridlist.html'
         },
         zhuanke50: { 
@@ -97,11 +97,11 @@ const SAMPLE_DATA = {
             {
                 code: '515080',
                 name: '招商中证红利ETF',
-                price: 1.608,
-                change: '+0.50%',
+                price: 1.615,
+                change: '+0.44%',
                 nav: 1.5922,
                 source: 'https://fund.eastmoney.com/515080.html',
-                reason: '红利资产作为防御性板块近期表现稳健，中证红利股息率约4.96%，在低利率环境下比价优势显著。保险资金持续增配，近20日累计吸金超11亿元，规模达93.7亿元。4月22日上午煤炭、电力等防御板块逆势走强，红利策略受益。适合中长期底仓配置，建议在1.58-1.62区间分批买入。风险提示：关注分红持续性和市场风格切换风险。',
+                reason: '红利资产作为防御性板块持续表现稳健，中证红利股息率约4.96%。煤炭、电力、银行等防御板块今日逆势走强，中东地缘紧张推升能源价格，布伦特原油突破101美元/桶，利好红利策略。美伊停火协议到期，地缘风险升温，防御资产配置价值凸显。建议在1.60-1.62区间买入。风险提示：关注分红持续性和市场风格切换风险。',
                 buyPrice: '1.58-1.62',
                 targetPrice: '1.68-1.75',
                 stopLoss: '1.52',
@@ -111,12 +111,12 @@ const SAMPLE_DATA = {
             {
                 code: '510300',
                 name: '华泰柏瑞沪深300ETF',
-                price: 4.760,
-                change: '-0.42%',
+                price: 4.790,
+                change: '+0.23%',
                 nav: 4.7759,
                 source: 'https://fund.eastmoney.com/510300.html',
-                reason: '沪深300ETF近一年涨幅29.26%，规模近2000亿元，是核心资产配置的首选。当前市场震荡分化，指数在4100点关口前承压回落，但下方4050-4060点支撑较强。银行等权重板块逆势走强，对指数形成支撑。作为大盘核心配置，适合定投或逢低布局。风险提示：市场短期波动及量能不足风险。',
-                buyPrice: '4.68-4.75',
+                reason: '沪深300ETF跟踪大盘核心资产，当前点位4076点附近，估值合理（沪深300动态市盈率约15倍）。大盘在4050-4100区间震荡，煤炭、银行等权重板块走强对指数形成支撑。证监会松绑长线资金，保险资金权益投资上限从30%提高到35%，释放超万亿增量资金，利好大盘蓝筹。建议逢低布局。风险提示：市场短期波动及量能不足风险。',
+                buyPrice: '4.68-4.78',
                 targetPrice: '4.95-5.10',
                 stopLoss: '4.52',
                 riskLevel: '中',
@@ -130,10 +130,10 @@ const SAMPLE_DATA = {
             {
                 code: '588000',
                 name: '华夏科创50ETF',
-                price: 1.478,
-                change: '-2.24%',
+                price: 1.506,
+                change: '+0.20%',
                 source: 'https://fund.eastmoney.com/588000.html',
-                reason: '科创50指数今日回调明显，AI算力、半导体等前期强势板块集体回调，英维克业绩爆雷一字跌停压制科技情绪。4月22日上午科创50下跌约2.2%，短期承压明显。中长期国产替代逻辑未变，近一年涨幅仍达23.30%。建议持有观望，等待科技板块企稳信号。'
+                reason: '科创50指数盘中震荡，早盘一度下跌约2%，随后有所反弹。AI算力、半导体等板块短期承压，但长期国产替代逻辑未变。宁德时代发布固态电池、钠离子电池新技术，新能源板块或迎催化。科创50半导体权重近70%，建议持有观望，等待科技板块企稳。'
             },
             {
                 code: '510500',
@@ -141,7 +141,7 @@ const SAMPLE_DATA = {
                 price: 8.265,
                 change: '-1.08%',
                 source: 'https://fund.eastmoney.com/510500.html',
-                reason: '中证500指数近一年涨幅51.67%，表现强劲但短期有所回调。当前市场风格从成长向防御切换，中小盘成长股承压。4月22日上午下跌约1%，建议持有观望，关注市场风格切换信号。'
+                reason: '中证500指数短期承压，市场风格从成长向防御切换，中小盘成长股承压明显。当前市场资金偏向红利资产和低估值板块，中证500作为中小盘代表需等待风格切换。建议持有观望，关注4月底一季报业绩验证。'
             },
             {
                 code: '006546',
@@ -149,7 +149,7 @@ const SAMPLE_DATA = {
                 price: 1.244,
                 change: '+0.02%',
                 source: 'https://fund.eastmoney.com/006546.html',
-                reason: '债券基金作为避险资产，在市场震荡时发挥稳定器作用。近一年涨幅1.83%，表现稳健。建议继续持有作为投资组合的压舱石。'
+                reason: '债券基金作为避险资产，在市场震荡时发挥稳定器作用。近期国内油价年内首次下调，通胀压力有所缓解，债券市场相对平稳。建议继续持有作为投资组合的压舱石。'
             },
             {
                 code: '110017',
@@ -157,7 +157,7 @@ const SAMPLE_DATA = {
                 price: 1.393,
                 change: '0.00%',
                 source: 'https://fund.eastmoney.com/110017.html',
-                reason: '债券增强型基金近一年涨幅5.32%，成立以来累计收益285.96%。在当前市场环境下，稳健型配置可继续持有。'
+                reason: '债券增强型基金近一年涨幅5.32%，成立以来累计收益285.96%。在当前市场环境下，稳健型配置可继续持有作为组合的稳定器。'
             }
         ]
     },
@@ -230,61 +230,61 @@ const SAMPLE_DATA = {
     capitalFlow: {
         // 大盘资金流向
         mainFund: {
-            value: -220,
+            value: -210,
             unit: '亿元',
             direction: '净流出',
-            shangzheng: -100,
-            shengzheng: -120,
+            shangzheng: -95,
+            shengzheng: -115,
             trend: '主力资金持续净流出，市场避险情绪升温',
             analysis: '4月22日上午主力资金净流出超200亿元，主力资金从高位成长股转向防御板块。计算机、电子等前期热门板块遭大幅抛售，煤炭、电力、银行等防御板块获资金青睐。英维克业绩爆雷加剧市场对AI算力业绩兑现的担忧。',
             source: 'https://data.eastmoney.com/zjlx/'
         },
         northFund: {
-            value: 42.68,
+            value: -32.5,
             unit: '亿元',
-            direction: '净流入',
-            shengutong: 25.31,
-            hushenutong: 17.37,
-            trend: '北向资金持续净流入，外资偏好低估值高股息标的',
-            analysis: '北向资金4月22日上午净流入约42.68亿元，连续多日净流入。外资偏好低估值、高股息标的，对金融、消费板块表现出明显偏好。本月累计净流入286.45亿元，今年以来净流入2856.34亿元。',
+            direction: '净流出',
+            shengutong: -18.2,
+            hushenutong: -14.3,
+            trend: '北向资金短期净流出，外资避险情绪升温',
+            analysis: '北向资金4月22日上午净流出约32.5亿元，结束连续多日净流入。美伊停火协议到期等地缘风险升温，外资风险偏好下降。本月累计净流入仍超250亿元，今年以来净流入超2800亿元。',
             source: 'https://data.eastmoney.com/hsgt/'
         },
         // 板块资金流向
         sectorFunds: [
-            { name: '煤炭', inflow: 5.20, outflow: 0, netFlow: 5.20, source: 'https://data.eastmoney.com/zjlx/' },
-            { name: '电力', inflow: 8.90, outflow: 0, netFlow: 8.90, source: 'https://data.eastmoney.com/zjlx/' },
-            { name: '银行', inflow: 5.80, outflow: 0, netFlow: 5.80, source: 'https://data.eastmoney.com/zjlx/' },
-            { name: '公用事业', inflow: 4.50, outflow: 0, netFlow: 4.50, source: 'https://data.eastmoney.com/zjlx/' },
-            { name: '赛马概念', inflow: 0.60, outflow: 0, netFlow: 0.60, source: 'https://data.eastmoney.com/zjlx/' },
-            { name: '石墨电极', inflow: 0.45, outflow: 0, netFlow: 0.45, source: 'https://data.eastmoney.com/zjlx/' },
-            { name: '计算机', inflow: 0, outflow: -85.60, netFlow: -85.60, source: 'https://data.eastmoney.com/zjlx/' },
-            { name: '电子', inflow: 0, outflow: -68.40, netFlow: -68.40, source: 'https://data.eastmoney.com/zjlx/' },
-            { name: '通信', inflow: 0, outflow: -52.30, netFlow: -52.30, source: 'https://data.eastmoney.com/zjlx/' },
-            { name: '国防军工', inflow: 0, outflow: -25.80, netFlow: -25.80, source: 'https://data.eastmoney.com/zjlx/' }
+            { name: '石油石化', inflow: 12.80, outflow: 0, netFlow: 12.80, source: 'https://data.eastmoney.com/zjlx/' },
+            { name: '煤炭', inflow: 8.50, outflow: 0, netFlow: 8.50, source: 'https://data.eastmoney.com/zjlx/' },
+            { name: '电力', inflow: 6.20, outflow: 0, netFlow: 6.20, source: 'https://data.eastmoney.com/zjlx/' },
+            { name: '银行', inflow: 4.80, outflow: 0, netFlow: 4.80, source: 'https://data.eastmoney.com/zjlx/' },
+            { name: '公用事业', inflow: 3.50, outflow: 0, netFlow: 3.50, source: 'https://data.eastmoney.com/zjlx/' },
+            { name: '计算机', inflow: 0, outflow: -75.40, netFlow: -75.40, source: 'https://data.eastmoney.com/zjlx/' },
+            { name: '电子', inflow: 0, outflow: -58.20, netFlow: -58.20, source: 'https://data.eastmoney.com/zjlx/' },
+            { name: '通信', inflow: 0, outflow: -42.60, netFlow: -42.60, source: 'https://data.eastmoney.com/zjlx/' },
+            { name: '国防军工', inflow: 0, outflow: -28.50, netFlow: -28.50, source: 'https://data.eastmoney.com/zjlx/' },
+            { name: '贵金属', inflow: 0, outflow: -18.30, netFlow: -18.30, source: 'https://data.eastmoney.com/zjlx/' }
         ],
         // 个股资金流向TOP10
         stockFunds: {
             inflow: [
-                { name: '长江电力', netFlow: 8.50, reason: '水电龙头，稳健高股息，避险资金流入' },
-                { name: '中国神华', netFlow: 5.20, reason: '煤炭龙头，高股息防御标的' },
-                { name: '宁德时代', netFlow: 4.80, reason: '电池板块龙头，受益于新能源政策' },
-                { name: '招商银行', netFlow: 3.60, reason: '银行板块龙头，低估值高股息' },
-                { name: '华能水电', netFlow: 3.20, reason: '水电标的，电力板块受益' }
+                { name: '亨通光电', netFlow: 12.78, reason: '光通信龙头，受益于AI算力建设' },
+                { name: '永鼎股份', netFlow: 9.34, reason: '光纤光缆概念，受益于通信建设' },
+                { name: '工业富联', netFlow: 8.02, reason: 'AI服务器龙头，受益于算力需求' },
+                { name: '中兴通讯', netFlow: 7.60, reason: '通信设备龙头，5G概念持续受益' },
+                { name: '宁德时代', netFlow: 5.80, reason: '电池龙头，新技术发布催化上涨' }
             ],
             outflow: [
-                { name: '英维克', netFlow: -8.50, reason: 'AI液冷龙头，一季报业绩爆雷，连续跌停' },
-                { name: '寒武纪', netFlow: -6.80, reason: 'AI芯片概念，高位回调' },
-                { name: '天孚通信', netFlow: -5.90, reason: '光通信概念，业绩不及预期' },
+                { name: '天齐锂业', netFlow: -8.20, reason: '锂矿龙头，获利了结' },
+                { name: '英维克', netFlow: -6.50, reason: 'AI液冷龙头，一季报业绩爆雷' },
+                { name: '中国卫星', netFlow: -5.80, reason: '军工航天，高位回调' },
                 { name: '立讯精密', netFlow: -4.50, reason: '消费电子龙头，获利了结' },
-                { name: '中际旭创', netFlow: -4.20, reason: '光模块概念，高位回调' }
+                { name: '天孚通信', netFlow: -4.20, reason: '光通信概念，业绩不及预期' }
             ]
         },
         // 基金资金流向
         fundFlows: [
-            { code: '510300', name: '华泰柏瑞沪深300ETF', inflow: 0, outflow: 8.50, netFlow: -8.50, trend: '4月22日上午预估净流出约8.5亿元', source: 'https://fund.eastmoney.com/510300.html' },
-            { code: '588000', name: '华夏科创50ETF', inflow: 0, outflow: 12.80, netFlow: -12.80, trend: '4月22日上午预估净流出约12.8亿元', source: 'https://fund.eastmoney.com/588000.html' },
-            { code: '515080', name: '招商中证红利ETF', inflow: 2.30, outflow: 0, netFlow: 2.30, trend: '防御属性吸引资金流入', source: 'https://fund.eastmoney.com/515080.html' },
-            { code: '510500', name: '南方中证500ETF', inflow: 0, outflow: 5.20, netFlow: -5.20, trend: '4月22日上午预估净流出约5.2亿元', source: 'https://fund.eastmoney.com/510500.html' }
+            { code: '510300', name: '华泰柏瑞沪深300ETF', inflow: 3.20, outflow: 0, netFlow: 3.20, trend: '4月22日上午预估净流入约3.2亿元', source: 'https://fund.eastmoney.com/510300.html' },
+            { code: '588000', name: '华夏科创50ETF', inflow: 0, outflow: 8.50, netFlow: -8.50, trend: '4月22日上午预估净流出约8.5亿元', source: 'https://fund.eastmoney.com/588000.html' },
+            { code: '515080', name: '招商中证红利ETF', inflow: 4.50, outflow: 0, netFlow: 4.50, trend: '防御属性吸引资金流入', source: 'https://fund.eastmoney.com/515080.html' },
+            { code: '510500', name: '南方中证500ETF', inflow: 0, outflow: 3.80, netFlow: -3.80, trend: '4月22日上午预估净流出约3.8亿元', source: 'https://fund.eastmoney.com/510500.html' }
         ]
     },
     
@@ -293,44 +293,52 @@ const SAMPLE_DATA = {
         // 当前利好板块
         current: [
             {
+                name: '石油石化',
+                reason: '美伊停火协议到期，中东地缘紧张推升油价。布伦特原油突破101美元/桶，日内涨5.78%。伊朗封锁霍尔木兹海峡，全球约五分之一石油运输受影响。国内油气板块直接受益，兼具能源安全战略属性与抗通胀特性。',
+                inflow: 12.80,
+                hotStocks: ['中国海油', '中国石油', '上海石化', '蓝焰控股'],
+                sustainability: '中强',
+                riskTip: '地缘局势缓和可能导致油价回落',
+                source: 'https://quote.eastmoney.com/center/boardlist.html'
+            },
+            {
+                name: '煤炭',
+                reason: '国际油价上涨推高海外煤价，削弱进口煤性价比，国内煤炭需求增加。煤化工企业盈利空间被显著放大。煤炭板块股息率约5-7%，在低利率环境下配置价值突出。',
+                inflow: 8.50,
+                hotStocks: ['中国神华', '陕西煤业', '兖矿能源', '甘肃能化'],
+                sustainability: '中',
+                riskTip: '关注进口煤政策和国内煤价波动',
+                source: 'https://quote.eastmoney.com/center/boardlist.html'
+            },
+            {
                 name: '红利资产',
-                reason: '保险资金持续增配，低利率环境下中证红利股息率约4.96%，比价优势显著。煤炭、电力等防御板块今日逆势走强，资金净流入明显。4月21日煤炭板块净流入约4.92亿元。',
+                reason: '保险资金持续增配，证监会松绑长线资金释放万亿增量。低利率环境下中证红利股息率约4.96%，比价优势显著。煤炭、电力、银行等防御板块持续吸引资金流入。',
                 inflow: 18.60,
-                hotStocks: ['中国神华', '陕西煤业', '长江电力', '华能水电', '中信银行'],
+                hotStocks: ['长江电力', '中国神华', '陕西煤业', '招商银行', '工商银行'],
                 sustainability: '强',
                 riskTip: '关注分红持续性和市场风格切换风险',
                 source: 'https://quote.eastmoney.com/center/boardlist.html'
             },
             {
-                name: '电力',
-                reason: '工信部表态推进算电协同政策，为绿电企业打开面向算力需求的增量市场。电力板块今日逆势走强，核电、水电等清洁能源受资金青睐。电力ETF近5日净流入超10亿元。',
-                inflow: 8.90,
-                hotStocks: ['长江电力', '华能水电', '中国核电', '国投电力', '粤电力A'],
-                sustainability: '中强',
-                riskTip: '关注电价政策和来水情况',
-                source: 'https://quote.eastmoney.com/center/boardlist.html'
-            },
-            {
-                name: '银行',
-                reason: '低估值高股息特征明显，作为大盘稳定器吸引资金配置。今日板块逆势走强，主力资金净流入。外资持续加仓银行板块。',
-                inflow: 5.80,
-                hotStocks: ['招商银行', '宁波银行', '兴业银行', '工商银行', '建设银行'],
-                sustainability: '中',
-                riskTip: '关注资产质量变化和净息差收窄压力',
-                source: 'https://quote.eastmoney.com/center/boardlist.html'
-            },
-            {
-                name: '人工智能（长期利好，短期承压）',
-                reason: '工信部发布《人工智能+制造专项行动方案(2026-2028)》，提出制造业AI普及率超60%目标。长期政策利好明确，但短期高位科技股回调压力较大，英维克业绩爆雷加剧市场担忧。',
-                inflow: -206.30,
-                hotStocks: ['科大讯飞', '海康威视', '中科曙光', '用友网络', '金山办公'],
+                name: '新能源电池（短期回调，中长期利好）',
+                reason: '宁德时代发布固态电池（续航1000公里）、钠离子电池（年内量产）、超充电池（6分27秒充满）等重磅技术。新能源板块长期逻辑强化，但短期受市场风格切换影响承压。',
+                inflow: -15.60,
+                hotStocks: ['宁德时代', '亿纬锂能', '赣锋锂业', '天齐锂业'],
                 sustainability: '长期强',
-                riskTip: '短期高位股回调风险，注意控制仓位',
+                riskTip: '短期市场风格偏向防御，新技术落地需时间',
                 source: 'https://quote.eastmoney.com/center/boardlist.html'
             }
         ],
         // 未来利好板块（预期）
         future: [
+            {
+                name: '6G通信',
+                catalyst: '全球6G技术大会召开，工信部表态超前布局6G研发',
+                expectedTime: '2026-2027年',
+                relatedNews: '6G商用时间表有望发布，卫星互联网、光通信等板块迎催化',
+                potential: '高',
+                source: 'https://www.miit.gov.cn/'
+            },
             {
                 name: '商业航天',
                 catalyst: '4月24日中国航天日临近，政策催化预期升温',
@@ -340,27 +348,19 @@ const SAMPLE_DATA = {
                 source: 'https://www.cnsa.gov.cn/'
             },
             {
-                name: '新能源汽车电池回收',
-                catalyst: '《健全新能源汽车动力电池回收利用体系行动方案》审议通过',
+                name: 'AI应用',
+                catalyst: '国务院推进AI+服务业发展，支持算力基础设施、大模型采购',
                 expectedTime: '2026年',
-                relatedNews: '政策支持电池回收产业发展，预计将催生千亿级市场',
+                relatedNews: 'AI应用场景持续扩展，算力需求长期增长',
                 potential: '高',
                 source: 'https://www.gov.cn/'
-            },
-            {
-                name: '消费复苏',
-                catalyst: '扩内需政策持续发力，消费数据边际改善',
-                expectedTime: '2026年下半年',
-                relatedNews: '关注消费板块估值修复机会，食品饮料、家电等可选消费有望受益',
-                potential: '中',
-                source: 'https://www.mofcom.gov.cn/'
             }
         ],
         // 板块轮动预测
         rotation: {
-            from: ['AI算力', '半导体', '通信设备', '消费电子'],
-            to: ['煤炭', '电力', '银行', '公用事业'],
-            analysis: '市场风格正在从高位成长股向防御性板块切换。AI算力、半导体等前期热门科技股遭主力资金大幅抛售，而煤炭、电力、银行等低估值高股息板块获资金青睐。英维克业绩爆雷加剧科技板块回调压力。外资持续买入防御性标的，与内资形成对冲。建议关注科技成长与红利价值的均衡配置，控制单一赛道仓位。'
+            from: ['AI算力', '半导体', '军工', '贵金属'],
+            to: ['石油石化', '煤炭', '电力', '银行'],
+            analysis: '市场风格从高位成长股向防御性板块切换。美伊停火协议到期等地缘风险升温，资金流向能源、煤炭等防御性板块。英维克业绩爆雷加剧科技板块回调压力。新能源电池受宁德时代技术发布催化，但短期承压明显。建议关注科技成长与红利价值的均衡配置，控制单一赛道仓位。'
         }
     },
     
@@ -368,9 +368,9 @@ const SAMPLE_DATA = {
     fundData: {
         '510300': {
             name: '华泰柏瑞沪深300ETF',
-            price: 4.760,
-            change: '-0.42%',
-            changeValue: -0.020,
+            price: 4.790,
+            change: '+0.23%',
+            changeValue: 0.011,
             nav: 4.7759,
             navDate: '2026-04-21',
             volume: '428.21亿份',
@@ -384,7 +384,7 @@ const SAMPLE_DATA = {
             klineSource: 'https://cn.investing.com/etfs/huatai-pinebridge-csi-300-historical-data',
             navSource: 'https://www.lixinger.com/equity/fund/detail/sh/510300/510300/net-values',
             klineData: [
-                { date: '2026-04-22', open: 4.78, close: 4.760, high: 4.77, low: 4.74 },
+                { date: '2026-04-22', open: 4.79, close: 4.790, high: 4.80, low: 4.76 },
                 { date: '2026-04-21', open: 4.75, close: 4.765, high: 4.78, low: 4.745 },
                 { date: '2026-04-20', open: 4.735, close: 4.765, high: 4.775, low: 4.73 },
                 { date: '2026-04-17', open: 4.74, close: 4.739, high: 4.75, low: 4.73 },
@@ -429,9 +429,9 @@ const SAMPLE_DATA = {
         },
         '588000': {
             name: '华夏科创50ETF',
-            price: 1.478,
-            change: '-2.24%',
-            changeValue: -0.034,
+            price: 1.506,
+            change: '+0.20%',
+            changeValue: 0.003,
             nav: 1.478,
             navDate: '2026-04-21',
             volume: '471.39亿份',
@@ -445,7 +445,7 @@ const SAMPLE_DATA = {
             klineSource: 'https://cn.investing.com/etfs/588000-historical-data',
             navSource: 'https://www.lixinger.com/equity/fund/detail/sh/588000/588000/net-values',
             klineData: [
-                { date: '2026-04-22', open: 1.51, close: 1.478, high: 1.51, low: 1.465 },
+                { date: '2026-04-22', open: 1.50, close: 1.506, high: 1.52, low: 1.49 },
                 { date: '2026-04-21', open: 1.50, close: 1.512, high: 1.52, low: 1.495 },
                 { date: '2026-04-20', open: 1.49, close: 1.512, high: 1.515, low: 1.485 },
                 { date: '2026-04-17', open: 1.50, close: 1.499, high: 1.505, low: 1.495 },
@@ -490,9 +490,9 @@ const SAMPLE_DATA = {
         },
         '515080': {
             name: '招商中证红利ETF',
-            price: 1.608,
-            change: '+0.50%',
-            changeValue: 0.008,
+            price: 1.615,
+            change: '+0.44%',
+            changeValue: 0.007,
             nav: 1.5922,
             navDate: '2026-04-21',
             volume: '93.7亿',
@@ -504,7 +504,7 @@ const SAMPLE_DATA = {
             netFlow: 2.30,
             source: 'https://fund.eastmoney.com/515080.html',
             klineData: [
-                { date: '2026-04-22', open: 1.60, close: 1.608, high: 1.615, low: 1.595 },
+                { date: '2026-04-22', open: 1.61, close: 1.615, high: 1.62, low: 1.60 },
                 { date: '2026-04-21', open: 1.58, close: 1.600, high: 1.605, low: 1.575 },
                 { date: '2026-04-20', open: 1.57, close: 1.58, high: 1.585, low: 1.565 },
                 { date: '2026-04-17', open: 1.56, close: 1.57, high: 1.575, low: 1.555 },
