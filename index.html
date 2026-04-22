@@ -14,7 +14,7 @@
             <h1>📊 投资看板</h1>
             <div class="update-info">
                 <span id="update-time">数据加载中...</span>
-                <button id="refresh-btn" class="refresh-btn" onclick="location.reload()">🔄 刷新</button>
+                <button id="refresh-btn" class="refresh-btn">🔄 刷新</button>
                 <span class="auto-refresh">
                     <label>
                         <input type="checkbox" id="auto-refresh-toggle" checked> 自动刷新
@@ -26,8 +26,8 @@
                         <option value="300">5分钟</option>
                     </select>
                 </span>
-                <span class="source-link">
-                    <a href="https://data.eastmoney.com/zjlx/" target="_blank" id="main-source-link">数据来源</a>
+                <span class="data-source-info" id="data-source-info" style="color: #4a9eff; font-size: 0.8rem;">
+                    📡 实时数据来源：天天基金
                 </span>
             </div>
         </header>
@@ -218,6 +218,10 @@
                             <span class="info-value" id="modal-fund-nav">--</span>
                         </div>
                         <div class="info-item">
+                            <span class="info-label">实时估值</span>
+                            <span class="info-value" id="modal-fund-gsz">--</span>
+                        </div>
+                        <div class="info-item">
                             <span class="info-label">净值日期</span>
                             <span class="info-value" id="modal-nav-date">--</span>
                         </div>
@@ -267,6 +271,7 @@
     </div>
 
     <script src="data.js"></script>
+    <script src="api-service.js"></script>
     <script src="app.js"></script>
 </body>
 </html>
