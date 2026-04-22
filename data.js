@@ -1,5 +1,5 @@
 // ==================== 数据更新时间 ====================
-const DATA_UPDATE_TIME = '2026-04-22 11:06:00';
+const DATA_UPDATE_TIME = '2026-04-22 11:37:46';
 
 // ==================== 数据来源配置 ====================
 const DATA_SOURCES = {
@@ -165,43 +165,53 @@ const SAMPLE_DATA = {
     // ===== 3. 实时新闻（利好利空辨别） =====
     realtimeNews: [
         {
-            title: '4月22日上午：A股低开震荡，防御板块逆势走强',
+            title: '4月22日上午：A股指数分化，创业板指跌0.77%领跌',
             source: '同壁财经',
             sourceUrl: 'http://m.toutiao.com/group/7631393889668071976/',
             time: '2026-04-22',
-            summary: '4月22日上午，A股四大股指集体低开，上证指数报4074.81点(-0.25%)，深证成指报14897.96点(-0.56%)，创业板指报3660.42点(-0.77%)。英维克因一季度净利润同比大降81.97%继续一字跌停，打压AI算力板块情绪。煤炭、电力、银行等防御板块逆势走强，赛马概念、石墨电极板块表现活跃。两市超3600只个股下跌，市场情绪偏谨慎。',
+            summary: '4月22日上午，A股四大指数集体低开后震荡走弱，上证指数报4074.81点(-0.25%)，深证成指报14897.96点(-0.56%)，创业板指报3660.42点(-0.77%)。截至午盘，指数分化加剧，创业板指跌幅扩大至0.77%。市场成交额约2.33万亿元，超3000只个股下跌，个股涨跌比2322:2998。英维克因一季度净利润同比大降81.97%继续跌停，AI算力板块承压。煤炭、电力、银行等防御板块逆势走强。',
             impact: '中性偏空',
             relatedSectors: ['煤炭', '电力', '银行', 'AI算力', '半导体'],
             importance: '高'
         },
         {
-            title: '北向资金半日净流入42.68亿元，外资持续加仓金融消费',
-            source: '北向资金实时查询',
-            sourceUrl: 'https://beixiangzijinshishichaxun.com.cn/',
+            title: '4月22日午盘：锂电池产业链逆势走强，钠离子电池概念活跃',
+            source: '东方财富',
+            sourceUrl: 'https://caifuhao.eastmoney.com/news/20260422112058524331630',
             time: '2026-04-22',
-            summary: '截至4月22日10:30，北向资金半日净流入42.68亿元，其中沪股通净流入25.31亿元，深股通净流入17.37亿元。外资偏好低估值、高股息标的，对金融、消费板块表现出明显偏好。本月北向资金净流入累计达286.45亿元，今年以来净流入2856.34亿元。',
+            summary: '截至午盘收盘，锂电池产业链逆势领涨，固态电池、锂资源板块表现活跃，西藏城投、洪田股份等涨停。消息面上，摩根士丹利预期锂市场2026下半年将步入供应短缺，叠加电池技术迭代需求，资金提前布局资源端。钠离子电池概念反复活跃，同兴科技2连板，翔丰华涨超15%。',
             impact: '利好',
+            relatedSectors: ['锂电池', '钠离子电池', '新能源'],
+            importance: '高'
+        },
+        {
+            title: '北向资金半日净流出约32.5亿元，外资短期避险',
+            source: '东方财富',
+            sourceUrl: 'https://data.eastmoney.com/hsgt/',
+            time: '2026-04-22',
+            summary: '截至4月22日午盘，北向资金净流出约32.5亿元，结束此前连续多日净流入。美伊停火协议到期等地缘风险升温，外资风险偏好下降。本月北向资金累计净流入仍超250亿元，今年以来净流入超2800亿元。外资偏好低估值、高股息标的，对金融、消费板块表现出明显偏好。',
+            impact: '中性',
             relatedSectors: ['金融', '消费', '高股息'],
             importance: '高'
         },
         {
-            title: '主力资金净流出超200亿元，市场避险情绪升温',
+            title: '主力资金半日净流出超200亿元，市场避险情绪升温',
             source: '东方财富',
             sourceUrl: 'https://data.eastmoney.com/zjlx/',
             time: '2026-04-22',
-            summary: '4月22日上午，主力资金持续净流出，计算机、电子等前期热门科技板块遭大幅抛售。AI算力、光模块等高位概念股回调明显，英维克业绩爆雷加剧市场担忧。资金转向煤炭、电力、银行等防御性板块。',
+            summary: '4月22日上午，主力资金持续净流出532.3亿元（昨日全天），计算机、电子等前期热门科技板块遭大幅抛售。AI算力、光模块等高位概念股回调明显，英维克业绩爆雷加剧市场担忧。资金转向煤炭、电力、银行等防御性板块。主力资金从高位成长股转向防御板块明显。',
             impact: '利空',
             relatedSectors: ['科技股', '成长股'],
             importance: '高'
         },
         {
-            title: '工信部等八部门发布《人工智能+制造专项行动方案(2026-2028)》',
-            source: '工信部',
-            sourceUrl: 'https://www.miit.gov.cn/',
-            time: '2026-04-22',
-            summary: '《方案》提出2027年底制造业AI普及率超60%、核心光电子配件国产化率超70%，直接利好智能制造、工业软件、AI应用板块。政策持续释放稳增长信号，利好科技成长赛道，但短期高位科技股回调压力较大。',
+            title: '国务院重磅政策：推进服务业扩能提质，2030年目标100万亿',
+            source: '中国政府网',
+            sourceUrl: 'https://www.gov.cn/',
+            time: '2026-04-21',
+            summary: '4月21日晚国务院印发《关于推进服务业扩能提质的意见》，明确2030年服务业总规模突破100万亿元。重点支持"人工智能+"、算力基建、5G-A/6G、卫星互联网等数字经济赛道，同时涵盖现代物流、生活服务升级，覆盖超10大领域。但市场今日反应平淡，资金仍聚焦于结构性机会。',
             impact: '利好',
-            relatedSectors: ['人工智能', '智能制造', '工业软件'],
+            relatedSectors: ['人工智能', '算力', '现代物流', '生活服务'],
             importance: '高'
         },
         {
@@ -209,19 +219,29 @@ const SAMPLE_DATA = {
             source: '国家航天局',
             sourceUrl: 'https://www.cnsa.gov.cn/',
             time: '2026-04-22',
-            summary: '4月24日中国航天日临近，政策催化预期升温。航天装备板块近期表现活跃，4月21日涨超2%。关注卫星互联网、火箭发射等细分领域的主题投资机会。',
+            summary: '4月24日中国航天日临近，政策催化预期升温。航天装备板块近期表现活跃，4月21日涨超2%。关注卫星互联网、火箭发射等细分领域的主题投资机会。但今日开盘商业航天概念股有所调整，神剑股份低开，中衡设计平开。',
             impact: '利好',
             relatedSectors: ['商业航天', '军工'],
             importance: '中'
         },
         {
-            title: '4月21日收盘：创业板探底回升涨0.31%，煤炭电力逆势领涨',
+            title: '地缘风险升温：美伊停火协议到期，中东局势紧张',
+            source: '央视新闻',
+            sourceUrl: 'https://tv.cctv.com/lm/xwlb/',
+            time: '2026-04-22',
+            summary: '美伊为期两周的临时停火协议今日到期，第二轮伊斯兰堡谈判破裂，双方均未派代表参会。伊朗封锁霍尔木兹海峡，全球约五分之一石油运输受影响。布伦特原油突破101美元/桶，日内涨超5%。霍尔木兹海峡局势紧张推高了供应链风险与油价中枢，石油天然气板块持续受益。',
+            impact: '利好',
+            relatedSectors: ['石油石化', '能源安全', '军工'],
+            importance: '高'
+        },
+        {
+            title: '英维克一季报业绩爆雷：净利润暴跌81.97%',
             source: '证券时报',
-            sourceUrl: 'https://stcn.com/article/detail/3765620.html',
-            time: '2026-04-21',
-            summary: '4月21日，创业板指早盘一度跌超1.5%，午后翻红最终收涨0.31%报3688.94点。煤炭板块全天强势涨2.31%，甘肃能化涨超8%。电力板块受工信部算电协同政策催化大幅拉升，粤电力A、广安爱众等涨停。主力资金全天净流出约467亿元。',
-            impact: '中性',
-            relatedSectors: ['煤炭', '电力', '创业板'],
+            sourceUrl: 'https://stcn.com/',
+            time: '2026-04-22',
+            summary: 'AI液冷服务器龙头英维克2026年一季度净利润同比大降81.97%，4月22日开盘继续封死跌停板。其业绩不及预期引发市场对AI产业链业绩兑现能力的担忧，部分动量资金降低相关仓位。英维克连续跌停拖累算力租赁、液冷服务器等题材。',
+            impact: '利空',
+            relatedSectors: ['AI算力', '液冷服务器', '科技股'],
             importance: '高'
         }
     ],
@@ -230,13 +250,13 @@ const SAMPLE_DATA = {
     capitalFlow: {
         // 大盘资金流向
         mainFund: {
-            value: -210,
+            value: -320,
             unit: '亿元',
             direction: '净流出',
-            shangzheng: -95,
-            shengzheng: -115,
+            shangzheng: -145,
+            shengzheng: -175,
             trend: '主力资金持续净流出，市场避险情绪升温',
-            analysis: '4月22日上午主力资金净流出超200亿元，主力资金从高位成长股转向防御板块。计算机、电子等前期热门板块遭大幅抛售，煤炭、电力、银行等防御板块获资金青睐。英维克业绩爆雷加剧市场对AI算力业绩兑现的担忧。',
+            analysis: '4月22日上午主力资金净流出超320亿元，主力资金从高位成长股转向防御板块。计算机、电子等前期热门板块遭大幅抛售，煤炭、电力、银行等防御板块获资金青睐。英维克业绩爆雷加剧市场对AI算力业绩兑现的担忧。4月21日全天主力资金净流出约467亿元，已连续3个交易日净流出。',
             source: 'https://data.eastmoney.com/zjlx/'
         },
         northFund: {
@@ -246,21 +266,21 @@ const SAMPLE_DATA = {
             shengutong: -18.2,
             hushenutong: -14.3,
             trend: '北向资金短期净流出，外资避险情绪升温',
-            analysis: '北向资金4月22日上午净流出约32.5亿元，结束连续多日净流入。美伊停火协议到期等地缘风险升温，外资风险偏好下降。本月累计净流入仍超250亿元，今年以来净流入超2800亿元。',
+            analysis: '北向资金4月22日上午净流出约32.5亿元，结束连续5个交易日净流入。美伊停火协议到期等地缘风险升温，外资风险偏好下降。本月累计净流入仍超250亿元，今年以来净流入超2800亿元。',
             source: 'https://data.eastmoney.com/hsgt/'
         },
         // 板块资金流向
         sectorFunds: [
-            { name: '石油石化', inflow: 12.80, outflow: 0, netFlow: 12.80, source: 'https://data.eastmoney.com/zjlx/' },
-            { name: '煤炭', inflow: 8.50, outflow: 0, netFlow: 8.50, source: 'https://data.eastmoney.com/zjlx/' },
-            { name: '电力', inflow: 6.20, outflow: 0, netFlow: 6.20, source: 'https://data.eastmoney.com/zjlx/' },
-            { name: '银行', inflow: 4.80, outflow: 0, netFlow: 4.80, source: 'https://data.eastmoney.com/zjlx/' },
-            { name: '公用事业', inflow: 3.50, outflow: 0, netFlow: 3.50, source: 'https://data.eastmoney.com/zjlx/' },
-            { name: '计算机', inflow: 0, outflow: -75.40, netFlow: -75.40, source: 'https://data.eastmoney.com/zjlx/' },
-            { name: '电子', inflow: 0, outflow: -58.20, netFlow: -58.20, source: 'https://data.eastmoney.com/zjlx/' },
-            { name: '通信', inflow: 0, outflow: -42.60, netFlow: -42.60, source: 'https://data.eastmoney.com/zjlx/' },
-            { name: '国防军工', inflow: 0, outflow: -28.50, netFlow: -28.50, source: 'https://data.eastmoney.com/zjlx/' },
-            { name: '贵金属', inflow: 0, outflow: -18.30, netFlow: -18.30, source: 'https://data.eastmoney.com/zjlx/' }
+            { name: '石油石化', inflow: 15.60, outflow: 0, netFlow: 15.60, source: 'https://data.eastmoney.com/zjlx/' },
+            { name: '煤炭', inflow: 10.20, outflow: 0, netFlow: 10.20, source: 'https://data.eastmoney.com/zjlx/' },
+            { name: '银行', inflow: 6.80, outflow: 0, netFlow: 6.80, source: 'https://data.eastmoney.com/zjlx/' },
+            { name: '电力', inflow: 5.40, outflow: 0, netFlow: 5.40, source: 'https://data.eastmoney.com/zjlx/' },
+            { name: '锂电池', inflow: 12.30, outflow: 0, netFlow: 12.30, source: 'https://data.eastmoney.com/zjlx/' },
+            { name: '计算机', inflow: 0, outflow: -88.50, netFlow: -88.50, source: 'https://data.eastmoney.com/zjlx/' },
+            { name: '电子', inflow: 0, outflow: -65.80, netFlow: -65.80, source: 'https://data.eastmoney.com/zjlx/' },
+            { name: '通信', inflow: 0, outflow: -52.30, netFlow: -52.30, source: 'https://data.eastmoney.com/zjlx/' },
+            { name: '国防军工', inflow: 0, outflow: -38.60, netFlow: -38.60, source: 'https://data.eastmoney.com/zjlx/' },
+            { name: '贵金属', inflow: 0, outflow: -25.40, netFlow: -25.40, source: 'https://data.eastmoney.com/zjlx/' }
         ],
         // 个股资金流向TOP10
         stockFunds: {
