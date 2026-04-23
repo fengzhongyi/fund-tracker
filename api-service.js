@@ -1,10 +1,10 @@
 // ==================== 数据获取配置 ====================
 const API_CONFIG = {
-    // 天天基金实时净值API (JSONP，支持跨域)
-    fundRealtimeUrl: 'http://fundgz.1234567.com.cn/js/{code}.js?rt={timestamp}',
+    // 天天基金实时净值API (HTTPS版本，支持跨域)
+    fundRealtimeUrl: 'https://fundgz.1234567.com.cn/js/{code}.js?rt={timestamp}',
     
-    // 天天基金历史净值API
-    fundHistoryUrl: 'http://fund.eastmoney.com/f10/F10DataApi.aspx?type=lsjz&code={code}&page=1&sdate={start}&edate={end}&per=20',
+    // 东方财富历史净值API (HTTPS版本)
+    fundHistoryUrl: 'https://fundf10.eastmoney.com/F10DataApi.aspx?type=lsjz&code={code}&page=1&sdate={start}&edate={end}&per=20',
     
     // 东方财富大盘指数API (需要特殊处理)
     indexUrl: 'https://push2.eastmoney.com/api/qt/ulist.np/get',
