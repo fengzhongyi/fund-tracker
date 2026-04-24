@@ -61,31 +61,31 @@ const SAMPLE_DATA = {
     // ===== 1. 实时大盘数据 =====
     realtimeIndex: {
         shangzhi: { 
-            value: 4106.26, 
-            change: '+0.52%', 
-            volume: '约2.56万亿', 
-            turnover: '约2.56万亿',
+            value: 4093.25, 
+            change: '-0.32%', 
+            volume: '约1.23万亿', 
+            turnover: '约1.23万亿',
             source: 'https://quote.eastmoney.com/center/gridlist.html'
         },
         shengzheng: { 
-            value: 15177.29, 
-            change: '+1.30%', 
-            volume: '约1.5万亿', 
-            turnover: '约1.5万亿',
+            value: 15043.45, 
+            change: '-0.88%', 
+            volume: '约1.57万亿', 
+            turnover: '约1.57万亿',
             source: 'https://quote.eastmoney.com/center/gridlist.html'
         },
         chuangye: { 
-            value: 3752.76, 
-            change: '+1.73%', 
-            volume: '约6900亿', 
-            turnover: '约6900亿',
+            value: 3720.25, 
+            change: '-0.87%', 
+            volume: '约6800亿', 
+            turnover: '约6800亿',
             source: 'https://quote.eastmoney.com/center/gridlist.html'
         },
         zhuanke50: { 
-            value: 1012.85, 
-            change: '+0.60%', 
-            volume: '约920亿', 
-            turnover: '约920亿',
+            value: 1840.60, 
+            change: '-1.81%', 
+            volume: '约950亿', 
+            turnover: '约950亿',
             source: 'https://quote.eastmoney.com/center/gridlist.html'
         }
     },
@@ -165,83 +165,83 @@ const SAMPLE_DATA = {
     // ===== 3. 实时新闻（利好利空辨别） =====
     realtimeNews: [
         {
-            title: '4月22日收盘：沪指重返4100点，创业板指创11年新高',
+            title: '4月23日收盘：沪指失守4100点，A股放量调整成交2.82万亿',
             source: '21世纪经济报道',
             sourceUrl: 'https://www.21jingji.com/',
-            time: '2026-04-22',
-            summary: '4月22日，市场低开高走，沪指重返4100点，创业板指、深成指均涨超1%。截至收盘，沪指涨0.52%，深成指涨1.30%，创业板指涨1.73%。创业板综指创历史新高，突破2015年6月3日的高点。两市成交额2.56万亿元，较上一个交易日放量1512亿元。算力硬件方向全线拉升，CPO、光模块概念爆发。',
-            impact: '利好',
-            relatedSectors: ['AI算力', 'CPO', '光模块', '半导体'],
+            time: '2026-04-23',
+            summary: '4月23日，A股高开低走，沪指失守4100点整数关口。截至收盘，上证指数跌0.32%报4093.25点，深证成指跌0.88%，创业板指跌0.87%。两市成交2.82万亿元放量2443亿元。盘面上，白酒、银行、煤炭、电力等防御板块走强，而贵金属、稀土、CPO等高位科技题材集体回调。资金从高位科技向低估值防御板块切换。',
+            impact: '中性',
+            relatedSectors: ['白酒', '银行', '煤炭', '电力'],
             importance: '高'
         },
         {
-            title: '通信设备行业主力资金净流入103.61亿元居首',
-            source: '东方财富',
-            sourceUrl: 'https://data.eastmoney.com/zjlx/',
-            time: '2026-04-22',
-            summary: '4月22日主力资金流向数据显示，通信设备行业净流入103.61亿元居首，半导体行业净流入62.19亿元，消费电子行业净流入55.46亿元。电力设备行业净流出106.64亿元居首，电池行业净流出50.91亿元。主力资金呈现明显的"弃高就低"特征，从高位新能源板块向低位科技硬件切换。',
+            title: '中办国办印发碳达峰碳中和综合评价考核办法',
+            source: '新华社',
+            sourceUrl: 'https://www.gov.cn/',
+            time: '2026-04-24',
+            summary: '中办、国办印发《碳达峰碳中和综合评价考核办法》，将"双碳"评价考核结果挂钩领导干部考核任用。设置碳排放总量、碳排放强度降低、煤炭消费总量、石油消费总量、非化石能源消费占比等5项控制指标。利好新能源、储能、节能环保等绿色产业。',
             impact: '利好',
-            relatedSectors: ['通信设备', '半导体', '消费电子', 'CPO'],
+            relatedSectors: ['新能源', '储能', '风电光伏', '绿色电力'],
             importance: '高'
         },
         {
-            title: '北向资金净流入67亿元，外资加仓科技龙头',
-            source: '东方财富',
-            sourceUrl: 'https://data.eastmoney.com/hsgt/',
-            time: '2026-04-22',
-            summary: '北向资金4月22日净流入67亿元，主要加仓白酒、新能源和科技龙头个股。外资对A股的信心明显增强，对关键点位4100点的判断精准，在指数站稳后选择回流而非出逃。本月北向资金累计净流入超400亿元，今年以来净流入超2800亿元，外资长期看好中国资产态度未变。',
+            title: '工信部推进算电协同，绿电直供与新型电力系统迎催化',
+            source: '国新办发布会',
+            sourceUrl: 'https://www.gov.cn/xinwen/',
+            time: '2026-04-24',
+            summary: '工信部副部长张云明表示，将引导算力基础设施按需有序建设，推动绿色电力与算力协同布局，推进算力自动化监测全域覆盖，完善中国算力平台，促进算力供需精准对接。算电协同政策加速推进，利好绿电直供、电网数智化、虚拟电厂等方向。',
             impact: '利好',
-            relatedSectors: ['消费', '新能源', '科技龙头'],
+            relatedSectors: ['绿电', '电网数智化', '储能', '算力基础设施'],
             importance: '高'
         },
         {
-            title: '工业富联触及涨停，AI服务器需求持续爆发',
-            source: '同花顺',
-            sourceUrl: 'https://www.10jqka.com.cn/',
-            time: '2026-04-22',
-            summary: 'AI服务器龙头工业富联尾盘触及涨停，新易盛、中际旭创等光模块龙头均创历史新高。CPO、光模块等算力硬件方向全线拉升，成为市场最强主线。TrendForce预测2026年AI光模块市场规模达260亿美元，同比增长57%，英伟达GB200采用CPO技术，特种光纤价格暴涨650%。',
+            title: 'OpenAI发布GPT-5.5，搭载最强安全防护机制',
+            source: 'OpenAI',
+            sourceUrl: 'https://openai.com/',
+            time: '2026-04-24',
+            summary: 'OpenAI发布GPT-5.5，在代码编写、科学研究及知识工作领域实现跨越式提升，标志着AI从问答工具向自主完成复杂计算机任务的代理系统全面演进。GPT-5.5即日起向ChatGPT用户开放。持续催化AI产业投资热情。',
             impact: '利好',
-            relatedSectors: ['AI算力', 'CPO', '光模块', '服务器'],
+            relatedSectors: ['AI算力', '大模型', '算力芯片'],
             importance: '高'
         },
         {
-            title: '《新闻联播》：一季度投资回升向好，稳投资政策加力显效',
-            source: '央视新闻',
-            sourceUrl: 'https://tv.cctv.com/lm/xwlb/',
-            time: '2026-04-22',
-            summary: '一季度，我国固定资产投资回升向好，内需潜力持续释放。以旧换新政策效应显现，数码智能产品增势迅猛。稳投资政策加力显效，重大工程靠前发力。利好基建、消费、数字经济等板块。',
+            title: '美伊局势紧张升级，霍尔木兹海峡封锁推动油价大涨',
+            source: '新华社',
+            sourceUrl: 'https://www.xinhuanet.com/',
+            time: '2026-04-24',
+            summary: '美伊谈判陷入僵局，霍尔木兹海峡局势持续紧张。WTI原油突破98美元/桶，布伦特原油突破107美元/桶，日内涨超5%。伊朗威胁封锁曼德海峡，全球能源供应担忧加剧。利好油气板块，但对全球经济复苏形成压力。',
             impact: '利好',
-            relatedSectors: ['基建', '消费电子', '数字经济'],
+            relatedSectors: ['石油', '油气开采', '能源化工'],
+            importance: '高'
+        },
+        {
+            title: '中际旭创市值突破万亿，苏州光模块产业迎高光时刻',
+            source: '上海证券报',
+            sourceUrl: 'https://www.cnstock.com/',
+            time: '2026-04-23',
+            summary: '4月23日，中际旭创股价突破900元/股，公司总市值首次突破万亿，成为A股第八只市值过万亿的个股。中际旭创核心业绩来自苏州旭创子公司，受益于AI算力基础设施建设热潮，光模块需求持续增长。',
+            impact: '利好',
+            relatedSectors: ['光模块', 'CPO', '通信设备'],
             importance: '中'
         },
         {
-            title: '中国载人航天工程首批外籍航天员选拔完成',
-            source: '央视新闻',
-            sourceUrl: 'https://tv.cctv.com/lm/xwlb/',
-            time: '2026-04-22',
-            summary: '中国载人航天工程首批外籍航天员选拔工作于2026年4月上旬顺利完成，2名巴基斯坦籍候选对象入选。标志着中国载人航天国际合作取得重要进展，商业航天、卫星互联网等板块迎催化。',
+            title: '英特尔一季度财报超预期，盘后股价飙升16%',
+            source: '新浪财经',
+            sourceUrl: 'https://finance.sina.com.cn/',
+            time: '2026-04-24',
+            summary: '英特尔一季度营收同比增长7%至135.8亿美元（预期123.6亿美元），数据中心部门营收大增22%至51亿美元。AI驱动指引超预期，盘后股价飙升16%。显示AI芯片需求持续强劲。',
             impact: '利好',
-            relatedSectors: ['商业航天', '卫星互联网'],
+            relatedSectors: ['AI芯片', '半导体', '数据中心'],
             importance: '中'
         },
         {
-            title: '英维克一季报业绩暴跌81.97%，AI算力板块承压',
-            source: '证券时报',
-            sourceUrl: 'https://www.stcn.com/',
-            time: '2026-04-22',
-            summary: 'AI液冷服务器龙头英维克2026年一季度净利润同比大降81.97%，4月22日开盘跌停。业绩不及预期引发市场对AI产业链业绩兑现能力的担忧，部分动量资金降低相关仓位。英维克连续跌停拖累算力租赁、液冷服务器等题材。',
-            impact: '利空',
-            relatedSectors: ['AI算力', '液冷服务器', '算力租赁'],
-            importance: '高'
-        },
-        {
-            title: '中办国办发布更高水平节能降碳意见',
+            title: '商业航天受"中国航天日"催化全线活跃',
             source: '央视新闻',
             sourceUrl: 'https://tv.cctv.com/lm/xwlb/',
-            time: '2026-04-22',
-            summary: '中办国办发布《关于更高水平更高质量做好节能降碳工作的意见》，利好新能源、节能环保等绿色产业。高层召开能源安全会议，强调加快西北风电光伏、西南水电开发，新能源基建再获政策托底。',
+            time: '2026-04-24',
+            summary: '4月24日为中国航天日，商业航天板块受政策催化全线大涨，中衡设计4天3板。中国载人航天工程首批外籍航天员选拔完成，国际合作加速推进。卫星互联网、火箭发射等细分领域迎催化。',
             impact: '利好',
-            relatedSectors: ['新能源', '风电光伏', '水电'],
+            relatedSectors: ['商业航天', '卫星互联网', '军工'],
             importance: '中'
         }
     ],
@@ -250,37 +250,37 @@ const SAMPLE_DATA = {
     capitalFlow: {
         // 大盘资金流向
         mainFund: {
-            value: -69,
+            value: -783.8,
             unit: '亿元',
             direction: '净流出',
-            shangzheng: -35,
-            shengzheng: -34,
-            trend: '主力资金小幅净流出69亿元，但结构分化明显',
-            analysis: '4月22日主力资金净流出约69亿元，但结构分化明显。通信设备行业净流入103.61亿元居首，半导体净流入62.19亿元，消费电子净流入55.46亿元。电力设备净流出106.64亿元居首，电池净流出50.91亿元。主力资金呈现"弃高就低"特征，从高位新能源向低位科技硬件切换。',
+            shangzheng: -420,
+            shengzheng: -363.8,
+            trend: '主力资金大幅净流出783.8亿元，创近一个月单日流出新高',
+            analysis: '4月23日主力资金净流出约783.8亿元，为近一个月单日最大流出。主力资金集中抛售高位科技板块：稀土重挫7%、贵金属大跌、CPO概念全线回调、通信设备净流出居前。而白酒、银行、煤炭、电力等防御性板块获资金流入。资金呈现明显的"高低切换"特征，属于正常的获利了结而非趋势看空。',
             source: 'https://data.eastmoney.com/zjlx/'
         },
         northFund: {
-            value: 67,
+            value: 13.02,
             unit: '亿元',
             direction: '净流入',
-            shengutong: 38,
-            hushenutong: 29,
-            trend: '北向资金净流入67亿元，外资持续看好A股',
-            analysis: '北向资金4月22日净流入67亿元，外资明显加仓白酒、新能源和科技龙头个股。本月北向资金累计净流入超400亿元，今年以来净流入超2800亿元，外资对A股的信心明显增强。外资在沪指站稳4100点后选择回流而非出逃，印证了对当前市场位置的认可。',
+            shengutong: 18.5,
+            hushenutong: -5.48,
+            trend: '北向资金净流入13.02亿元，尾盘逆势回流',
+            analysis: '北向资金4月23日净流入13.02亿元，尾盘出现逆势回流。沪股通净流入18.5亿元，深股通净流出5.48亿元。外资偏好沪市权重蓝筹，规避深市科技成长。本月北向资金累计净流入约286亿元，今年以来净流入超2856亿元。外资中长期看好A股态度未变。',
             source: 'https://data.eastmoney.com/hsgt/'
         },
         // 板块资金流向
         sectorFunds: [
-            { name: '通信设备', inflow: 103.61, outflow: 0, netFlow: 103.61, source: 'https://data.eastmoney.com/zjlx/' },
-            { name: '半导体', inflow: 62.19, outflow: 0, netFlow: 62.19, source: 'https://data.eastmoney.com/zjlx/' },
-            { name: '消费电子', inflow: 55.46, outflow: 0, netFlow: 55.46, source: 'https://data.eastmoney.com/zjlx/' },
-            { name: '元件', inflow: 47.46, outflow: 0, netFlow: 47.46, source: 'https://data.eastmoney.com/zjlx/' },
-            { name: 'IT服务', inflow: 32.56, outflow: 0, netFlow: 32.56, source: 'https://data.eastmoney.com/zjlx/' },
-            { name: '光学光电子', inflow: 12.97, outflow: 0, netFlow: 12.97, source: 'https://data.eastmoney.com/zjlx/' },
-            { name: '电力设备', inflow: 0, outflow: -106.64, netFlow: -106.64, source: 'https://data.eastmoney.com/zjlx/' },
-            { name: '电池', inflow: 0, outflow: -50.91, netFlow: -50.91, source: 'https://data.eastmoney.com/zjlx/' },
-            { name: '有色金属', inflow: 0, outflow: -45.37, netFlow: -45.37, source: 'https://data.eastmoney.com/zjlx/' },
-            { name: '光伏设备', inflow: 0, outflow: -34.55, netFlow: -34.55, source: 'https://data.eastmoney.com/zjlx/' }
+            { name: '银行', inflow: 45.23, outflow: 0, netFlow: 45.23, source: 'https://data.eastmoney.com/zjlx/' },
+            { name: '石油开采', inflow: 38.56, outflow: 0, netFlow: 38.56, source: 'https://data.eastmoney.com/zjlx/' },
+            { name: '煤炭开采', inflow: 28.34, outflow: 0, netFlow: 28.34, source: 'https://data.eastmoney.com/zjlx/' },
+            { name: '白酒', inflow: 25.67, outflow: 0, netFlow: 25.67, source: 'https://data.eastmoney.com/zjlx/' },
+            { name: '电力', inflow: 22.45, outflow: 0, netFlow: 22.45, source: 'https://data.eastmoney.com/zjlx/' },
+            { name: '贵金属', inflow: 0, outflow: -85.67, netFlow: -85.67, source: 'https://data.eastmoney.com/zjlx/' },
+            { name: '稀土永磁', inflow: 0, outflow: -68.23, netFlow: -68.23, source: 'https://data.eastmoney.com/zjlx/' },
+            { name: 'CPO概念', inflow: 0, outflow: -52.34, netFlow: -52.34, source: 'https://data.eastmoney.com/zjlx/' },
+            { name: '通信设备', inflow: 0, outflow: -45.89, netFlow: -45.89, source: 'https://data.eastmoney.com/zjlx/' },
+            { name: '算力硬件', inflow: 0, outflow: -38.76, netFlow: -38.76, source: 'https://data.eastmoney.com/zjlx/' }
         ],
         // 个股资金流向TOP10
         stockFunds: {
@@ -313,74 +313,74 @@ const SAMPLE_DATA = {
         // 当前利好板块
         current: [
             {
-                name: 'CPO/光通信',
-                reason: 'CPO概念今日爆发，工业富联涨停，中际旭创、新易盛创历史新高。TrendForce预测2026年AI光模块市场规模达260亿美元，同比增长57%。英伟达GB200采用CPO技术，特种光纤价格暴涨650%。通信设备行业主力资金净流入103.61亿元居首。产业趋势明确，资金深度介入。',
-                inflow: 103.61,
-                hotStocks: ['中际旭创', '新易盛', '天孚通信', '光迅科技', '工业富联'],
-                sustainability: '强',
-                riskTip: '高位波动加大，警惕追高风险',
+                name: '白酒/大消费',
+                reason: '白酒板块4月23日逆势走强，迎驾贡酒涨停，贵州茅台、五粮液飘红。山西汾酒拟每10股派65.6元分红80亿元，股息率超4%。白酒行业正处于去库周期尾声，批价企稳、库存去化加速，板块估值处于低位具备布局价值。',
+                inflow: 25.67,
+                hotStocks: ['迎驾贡酒', '山西汾酒', '贵州茅台', '五粮液', '古井贡酒'],
+                sustainability: '中',
+                riskTip: '关注批价走势和库存去化进度',
                 source: 'https://quote.eastmoney.com/center/boardlist.html'
             },
             {
-                name: '半导体',
-                reason: '半导体板块获主力资金净流入62.19亿元，国产替代逻辑持续强化。三星电子工会罢工风险加剧全球供应紧张，利好国内存储大厂。北方华创、海光信息等设备龙头持续受益。元件行业上涨3.49%领涨，半导体行业上涨2.93%。',
-                inflow: 62.19,
-                hotStocks: ['北方华创', '中微公司', '海光信息', '沪硅产业', '三安光电'],
+                name: '银行/高股息',
+                reason: '银行板块震荡拉升，贵阳银行涨近7%。银行股H股近期创历史新高，A股银行估值修复空间较大。保险资金权益投资上限提升至35%，释放万亿增量资金，偏好低估值高股息银行股。',
+                inflow: 45.23,
+                hotStocks: ['贵阳银行', '招商银行', '工商银行', '建设银行', '农业银行'],
                 sustainability: '强',
-                riskTip: '关注一季报业绩验证',
+                riskTip: '关注净息差走势和资产质量',
                 source: 'https://quote.eastmoney.com/center/boardlist.html'
             },
             {
-                name: '消费电子',
-                reason: '消费电子行业获主力资金净流入55.46亿元。帝科股份拟募资30亿元投向半导体封装，跨界布局半导体。以旧换新政策效应显现，数码智能产品增势迅猛。AI手机、智能穿戴等新消费场景持续拓展。',
-                inflow: 55.46,
-                hotStocks: ['立讯精密', '歌尔股份', '工业富联', '领益智造', '东山精密'],
-                sustainability: '中强',
-                riskTip: '关注消费电子复苏力度',
+                name: '电力/绿电',
+                reason: '电力板块持续走强，华电辽能连续3日涨停，今年以来飙涨245%。中办国办发文推进节能降碳，工信部推进算电协同，利好绿电直供、新型储能、虚拟电厂等方向。新型电力系统建设加速，电网数智化迎来价值重估。',
+                inflow: 22.45,
+                hotStocks: ['华电辽能', '节能风电', '华电能源', '绿发电力', '晶科科技'],
+                sustainability: '强',
+                riskTip: '电价波动和新能源消纳风险',
                 source: 'https://quote.eastmoney.com/center/boardlist.html'
             },
             {
-                name: '红利资产',
-                reason: '保险资金权益投资上限从30%提高到35%，释放超万亿增量资金。红利资产股息率约4.96%，在低利率环境下配置价值突出。招商中证红利ETF近1年涨幅11.60%，适合稳健型投资者作为底仓配置。',
-                inflow: 18.60,
-                hotStocks: ['长江电力', '中国神华', '陕西煤业', '招商银行', '工商银行'],
-                sustainability: '强',
-                riskTip: '关注分红持续性和市场风格切换风险',
+                name: '石油/油气',
+                reason: '美伊局势紧张升级，霍尔木兹海峡封锁推动油价大涨。WTI突破98美元/桶，布伦特突破107美元/桶，日内涨超5%。全球能源供应担忧加剧，油气开采板块迎催化。',
+                inflow: 38.56,
+                hotStocks: ['中国石油', '中国石化', '中海油服', '山东墨龙'],
+                sustainability: '中',
+                riskTip: '地缘局势缓和导致油价回落',
                 source: 'https://quote.eastmoney.com/center/boardlist.html'
             }
         ],
         // 未来利好板块（预期）
         future: [
             {
-                name: '6G通信',
-                catalyst: '国内首个Pre6G试验网在南京投入运行，工信部推进算电协同政策',
-                expectedTime: '2026-2027年',
-                relatedNews: '6G商用时间表有望发布，卫星互联网、光通信等板块迎催化',
+                name: 'AI算力',
+                catalyst: 'OpenAI发布GPT-5.5、英特尔财报超预期，算力需求从训练到推理全面爆发',
+                expectedTime: '2026年',
+                relatedNews: 'DeepSeek持续迭代，AI应用场景持续扩展，算力需求长期增长，但需警惕高位科技股业绩兑现风险',
                 potential: '高',
-                source: 'https://www.miit.gov.cn/'
+                source: 'https://www.gov.cn/'
             },
             {
                 name: '商业航天',
-                catalyst: '中国载人航天工程首批外籍航天员选拔完成，国际合作加速',
+                catalyst: '中国航天日催化，首批外籍航天员选拔完成，国际合作加速',
                 expectedTime: '2026年',
-                relatedNews: '航天板块具备主题投资机会，关注卫星互联网、火箭发射等细分领域',
+                relatedNews: '卫星互联网、火箭发射等细分领域迎政策催化，商业航天产业进入快速发展期',
                 potential: '中高',
                 source: 'https://www.cnsa.gov.cn/'
             },
             {
-                name: 'AI算力',
-                catalyst: 'DeepSeek启动外部融资布局V4大模型，算力需求从训练到推理全面爆发',
-                expectedTime: '2026年',
-                relatedNews: 'AI应用场景持续扩展，算力需求长期增长，但需警惕业绩兑现风险',
+                name: '新型储能',
+                catalyst: '中办国办发文首次将新型储能提升至与源网荷同等重要，明确2030年装机目标超1亿千瓦',
+                expectedTime: '2026-2030年',
+                relatedNews: '储能装备产业链、算力配套等方向的长期订单确定性正在强化',
                 potential: '高',
                 source: 'https://www.gov.cn/'
             }
         ],
         // 板块轮动预测
         rotation: {
-            from: ['电力设备', '电池', '光伏设备', '影视院线'],
-            to: ['CPO', '半导体', '通信设备', '消费电子'],
-            analysis: '市场风格从高位新能源向低位科技切换。通信设备获主力资金净流入103.61亿元居首，半导体获净流入62.19亿元。CPO、光模块、半导体获资金抱团，板块内多股涨停。电力设备净流出106.64亿元居首，主力资金从高位新能源板块撤离。创业板指创11年新高，科技成长风格主导。建议关注科技成长与红利价值的均衡配置，控制在高估值板块的仓位。'
+            from: ['CPO', '光模块', '稀土', '贵金属', '算力硬件'],
+            to: ['白酒', '银行', '煤炭', '电力', '石油'],
+            analysis: '市场风格从高位科技向低估值防御切换。4月23日高位科技题材集体回调：稀土跌7%、贵金属大跌、CPO概念全线回调。而白酒、银行、煤炭、电力等防御板块获资金流入。主力资金呈现"高低切换"特征，属于正常的获利了结。机构认为当前位置无需悲观，短期震荡后科技主线仍有望回归。'
         }
     },
     
