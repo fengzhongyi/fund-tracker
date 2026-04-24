@@ -1,5 +1,5 @@
 // ==================== 数据更新时间 ====================
-const DATA_UPDATE_TIME = '2026-04-23 08:15:00';
+const DATA_UPDATE_TIME = '2026-04-24 13:08:58';
 
 // ==================== 数据来源配置 ====================
 const DATA_SOURCES = {
@@ -54,38 +54,38 @@ const DATA_SOURCES = {
 
 // ==================== 主数据 ====================
 const SAMPLE_DATA = {
-    today: '2026-04-22',
+    today: '2026-04-24',
     isTradingDay: true,
     loadingStatus: 'success',
 
     // ===== 1. 实时大盘数据 =====
     realtimeIndex: {
         shangzhi: { 
-            value: 4093.25, 
-            change: '-0.32%', 
-            volume: '约1.23万亿', 
-            turnover: '约1.23万亿',
+            value: 4069.37, 
+            change: '-0.58%', 
+            volume: '约1.72万亿', 
+            turnover: '约1.72万亿',
             source: 'https://quote.eastmoney.com/center/gridlist.html'
         },
         shengzheng: { 
-            value: 15043.45, 
-            change: '-0.88%', 
-            volume: '约1.57万亿', 
-            turnover: '约1.57万亿',
+            value: 14837.69, 
+            change: '-1.37%', 
+            volume: '约1.97万亿', 
+            turnover: '约1.97万亿',
             source: 'https://quote.eastmoney.com/center/gridlist.html'
         },
         chuangye: { 
-            value: 3720.25, 
-            change: '-0.87%', 
-            volume: '约6800亿', 
-            turnover: '约6800亿',
+            value: 3638.28, 
+            change: '-2.20%', 
+            volume: '约8200亿', 
+            turnover: '约8200亿',
             source: 'https://quote.eastmoney.com/center/gridlist.html'
         },
         zhuanke50: { 
-            value: 1840.60, 
-            change: '-1.81%', 
-            volume: '约950亿', 
-            turnover: '约950亿',
+            value: 1458.31, 
+            change: '+1.80%', 
+            volume: '约980亿', 
+            turnover: '约980亿',
             source: 'https://quote.eastmoney.com/center/gridlist.html'
         }
     },
@@ -165,84 +165,94 @@ const SAMPLE_DATA = {
     // ===== 3. 实时新闻（利好利空辨别） =====
     realtimeNews: [
         {
-            title: '4月23日收盘：沪指失守4100点，A股放量调整成交2.82万亿',
-            source: '21世纪经济报道',
-            sourceUrl: 'https://www.21jingji.com/',
-            time: '2026-04-23',
-            summary: '4月23日，A股高开低走，沪指失守4100点整数关口。截至收盘，上证指数跌0.32%报4093.25点，深证成指跌0.88%，创业板指跌0.87%。两市成交2.82万亿元放量2443亿元。盘面上，白酒、银行、煤炭、电力等防御板块走强，而贵金属、稀土、CPO等高位科技题材集体回调。资金从高位科技向低估值防御板块切换。',
-            impact: '中性',
-            relatedSectors: ['白酒', '银行', '煤炭', '电力'],
+            title: '4月24日午盘：A股加速跳水，创业板指跌超2%，科创50逆势涨1.8%',
+            source: '午盘快报',
+            sourceUrl: 'https://quote.eastmoney.com/',
+            time: '2026-04-24',
+            summary: '4月24日午盘，A股三大指数集体下挫，创业板指跌超2%领跌两市。截至午间收盘，上证指数跌0.58%报4069.37点，失守4100点；深证成指跌1.37%报14837.69点；创业板指大跌2.20%报3638.28点。科创50逆势上涨1.80%报1458.31点，成为唯一红盘核心指数。半日成交额1.73万亿元。AI算力、CPO、影视院线等高位题材集体大跌，半导体、锂矿逆势走强。',
+            impact: '中性偏空',
+            relatedSectors: ['半导体', '锂矿', 'AI算力', 'CPO'],
             importance: '高'
         },
         {
-            title: '中办国办印发碳达峰碳中和综合评价考核办法',
-            source: '新华社',
-            sourceUrl: 'https://www.gov.cn/',
+            title: '北向资金早盘净流入42.68亿元，外资持续看好A股',
+            source: '东方财富',
+            sourceUrl: 'https://data.eastmoney.com/hsgt/',
             time: '2026-04-24',
-            summary: '中办、国办印发《碳达峰碳中和综合评价考核办法》，将"双碳"评价考核结果挂钩领导干部考核任用。设置碳排放总量、碳排放强度降低、煤炭消费总量、石油消费总量、非化石能源消费占比等5项控制指标。利好新能源、储能、节能环保等绿色产业。',
+            summary: '北向资金早盘逆势净流入42.68亿元，其中沪股通净流入25.31亿元，深股通净流入17.37亿元。外资连续多个交易日净流入，显示出对A股中长期走势的看好。尽管今日市场调整，但外资持续买入沪市权重标的。',
             impact: '利好',
-            relatedSectors: ['新能源', '储能', '风电光伏', '绿色电力'],
+            relatedSectors: ['沪市权重', '大盘蓝筹'],
             importance: '高'
         },
         {
-            title: '工信部推进算电协同，绿电直供与新型电力系统迎催化',
-            source: '国新办发布会',
-            sourceUrl: 'https://www.gov.cn/xinwen/',
+            title: '特斯拉第三代人形机器人Optimus V3预计年中亮相',
+            source: '特斯拉官方',
+            sourceUrl: 'https://www.tesla.com/',
             time: '2026-04-24',
-            summary: '工信部副部长张云明表示，将引导算力基础设施按需有序建设，推动绿色电力与算力协同布局，推进算力自动化监测全域覆盖，完善中国算力平台，促进算力供需精准对接。算电协同政策加速推进，利好绿电直供、电网数智化、虚拟电厂等方向。',
+            summary: '特斯拉官方发布消息，第三代人形机器人Optimus V3预计2026年年中亮相，7-8月启动正式投产，产品测试稳步推进，预计2027年投入外部场景应用。中信建投认为2026年将成为具身智能与人形机器人产业的量产元年，万亿级规模赛道正式开启。',
             impact: '利好',
-            relatedSectors: ['绿电', '电网数智化', '储能', '算力基础设施'],
+            relatedSectors: ['机器人', '人形机器人', '特斯拉产业链'],
             importance: '高'
         },
         {
-            title: 'OpenAI发布GPT-5.5，搭载最强安全防护机制',
-            source: 'OpenAI',
-            sourceUrl: 'https://openai.com/',
+            title: '2026北京国际汽车展览会今日开幕',
+            source: '经济观察网',
+            sourceUrl: 'https://www.eeo.com.cn/',
             time: '2026-04-24',
-            summary: 'OpenAI发布GPT-5.5，在代码编写、科学研究及知识工作领域实现跨越式提升，标志着AI从问答工具向自主完成复杂计算机任务的代理系统全面演进。GPT-5.5即日起向ChatGPT用户开放。持续催化AI产业投资热情。',
+            summary: '2026北京国际汽车展览会在中国国际展览中心开幕，本届车展总展览面积达38万平方米，21个国家和地区的近千家车企参展。多款新能源汽车、智能驾驶新技术将亮相，新能源汽车产业链有望持续受益。',
             impact: '利好',
-            relatedSectors: ['AI算力', '大模型', '算力芯片'],
+            relatedSectors: ['新能源汽车', '智能驾驶', '汽车零部件'],
             importance: '高'
         },
         {
-            title: '美伊局势紧张升级，霍尔木兹海峡封锁推动油价大涨',
-            source: '新华社',
-            sourceUrl: 'https://www.xinhuanet.com/',
+            title: '4月24日为中国航天日，商业航天迎重大催化',
+            source: '国家航天局',
+            sourceUrl: 'https://www.cnsa.gov.cn/',
             time: '2026-04-24',
-            summary: '美伊谈判陷入僵局，霍尔木兹海峡局势持续紧张。WTI原油突破98美元/桶，布伦特原油突破107美元/桶，日内涨超5%。伊朗威胁封锁曼德海峡，全球能源供应担忧加剧。利好油气板块，但对全球经济复苏形成压力。',
-            impact: '利好',
-            relatedSectors: ['石油', '油气开采', '能源化工'],
-            importance: '高'
-        },
-        {
-            title: '中际旭创市值突破万亿，苏州光模块产业迎高光时刻',
-            source: '上海证券报',
-            sourceUrl: 'https://www.cnstock.com/',
-            time: '2026-04-23',
-            summary: '4月23日，中际旭创股价突破900元/股，公司总市值首次突破万亿，成为A股第八只市值过万亿的个股。中际旭创核心业绩来自苏州旭创子公司，受益于AI算力基础设施建设热潮，光模块需求持续增长。',
-            impact: '利好',
-            relatedSectors: ['光模块', 'CPO', '通信设备'],
-            importance: '中'
-        },
-        {
-            title: '英特尔一季度财报超预期，盘后股价飙升16%',
-            source: '新浪财经',
-            sourceUrl: 'https://finance.sina.com.cn/',
-            time: '2026-04-24',
-            summary: '英特尔一季度营收同比增长7%至135.8亿美元（预期123.6亿美元），数据中心部门营收大增22%至51亿美元。AI驱动指引超预期，盘后股价飙升16%。显示AI芯片需求持续强劲。',
-            impact: '利好',
-            relatedSectors: ['AI芯片', '半导体', '数据中心'],
-            importance: '中'
-        },
-        {
-            title: '商业航天受"中国航天日"催化全线活跃',
-            source: '央视新闻',
-            sourceUrl: 'https://tv.cctv.com/lm/xwlb/',
-            time: '2026-04-24',
-            summary: '4月24日为中国航天日，商业航天板块受政策催化全线大涨，中衡设计4天3板。中国载人航天工程首批外籍航天员选拔完成，国际合作加速推进。卫星互联网、火箭发射等细分领域迎催化。',
+            summary: '4月24日是第十一个"中国航天日"，主题为"七秩问天路 携手探九霄"，主场活动在成都举办。国家航天局发布深空探测、商业航天以及嫦娥五号月球样品研究最新成果等一系列重大信息，商业航天产业进入快速发展期。',
             impact: '利好',
             relatedSectors: ['商业航天', '卫星互联网', '军工'],
+            importance: '高'
+        },
+        {
+            title: '英特尔财报超预期盘后飙升16%，AI芯片需求强劲',
+            source: '英特尔官方',
+            sourceUrl: 'https://www.intel.com/',
+            time: '2026-04-24',
+            summary: '英特尔一季度营收同比增长7%至135.8亿美元（预期123.6亿美元），数据中心部门营收大增22%至51亿美元，AI驱动指引超预期，盘后股价飙升16%。同时德州仪器财报也超预期大涨19%。显示全球AI芯片需求持续强劲。',
+            impact: '利好',
+            relatedSectors: ['AI芯片', '半导体', '数据中心'],
+            importance: '高'
+        },
+        {
+            title: '高盛大幅上调存储芯片价格预测，供应紧缺超预期',
+            source: '高盛研报',
+            sourceUrl: 'https://www.goldman.com/',
+            time: '2026-04-24',
+            summary: '高盛发布研报大幅上调DRAM和NAND价格预测，指出存储芯片市场紧缺程度远超此前预期。AI和算力需求爆发式增长推动存储芯片需求持续旺盛，利好半导体存储板块。',
+            impact: '利好',
+            relatedSectors: ['存储芯片', '半导体', 'AI算力'],
             importance: '中'
+        },
+        {
+            title: '4家A股公司被证监会立案调查，信息披露违规',
+            source: '证监会',
+            sourceUrl: 'https://www.csrc.gov.cn/',
+            time: '2026-04-24',
+            summary: '*ST数源、傲农生物、欢瑞世纪、兰石重装4家公司因涉嫌信息披露违法违规被证监会立案调查。当前处于一季报最后披露窗口，高位高估值成长股存在业绩不及预期暴雷风险，投资者需警惕相关风险。',
+            impact: '利空',
+            relatedSectors: ['相关个股', '问题股'],
+            importance: '中'
+        },
+        {
+            title: '主力资金早盘净流出超350亿元，风格切换明显',
+            source: '东方财富',
+            sourceUrl: 'https://data.eastmoney.com/zjlx/',
+            time: '2026-04-24',
+            summary: '两市主力资金早盘净流出超350亿元，其中80%来自高位题材板块。资金从AI算力、CPO、影视院线等高位题材撤离，转向半导体硬科技和锂矿等板块。科创50逆势大涨1.8%显示资金正在调仓换股。',
+            impact: '利空',
+            relatedSectors: ['高位题材', 'AI算力', 'CPO'],
+            importance: '高'
         }
     ],
     
@@ -250,61 +260,61 @@ const SAMPLE_DATA = {
     capitalFlow: {
         // 大盘资金流向
         mainFund: {
-            value: -783.8,
+            value: -355.63,
             unit: '亿元',
             direction: '净流出',
-            shangzheng: -420,
-            shengzheng: -363.8,
-            trend: '主力资金大幅净流出783.8亿元，创近一个月单日流出新高',
-            analysis: '4月23日主力资金净流出约783.8亿元，为近一个月单日最大流出。主力资金集中抛售高位科技板块：稀土重挫7%、贵金属大跌、CPO概念全线回调、通信设备净流出居前。而白酒、银行、煤炭、电力等防御性板块获资金流入。资金呈现明显的"高低切换"特征，属于正常的获利了结而非趋势看空。',
+            shangzheng: -180,
+            shengzheng: -175.63,
+            trend: '主力资金早盘净流出355.63亿元，创业板领跌',
+            analysis: '4月24日早盘主力资金净流出约355.63亿元，创业板指大跌2.2%领跌。资金从高位题材（AI算力、CPO、影视院线）撤离，转向半导体、锂矿等硬科技板块。科创50逆势涨1.8%显示市场风格正在切换，从炒作题材向有业绩支撑的硬科技转移。节前避险情绪升温，短线资金持币过节意愿强烈。',
             source: 'https://data.eastmoney.com/zjlx/'
         },
         northFund: {
-            value: 13.02,
+            value: 42.68,
             unit: '亿元',
             direction: '净流入',
-            shengutong: 18.5,
-            hushenutong: -5.48,
-            trend: '北向资金净流入13.02亿元，尾盘逆势回流',
-            analysis: '北向资金4月23日净流入13.02亿元，尾盘出现逆势回流。沪股通净流入18.5亿元，深股通净流出5.48亿元。外资偏好沪市权重蓝筹，规避深市科技成长。本月北向资金累计净流入约286亿元，今年以来净流入超2856亿元。外资中长期看好A股态度未变。',
+            shengutong: 25.31,
+            hushenutong: 17.37,
+            trend: '北向资金早盘净流入42.68亿元，外资逆势买入',
+            analysis: '北向资金早盘逆势净流入42.68亿元，其中沪股通净流入25.31亿元，深股通净流入17.37亿元。外资连续多个交易日净流入，偏好沪市权重和科技龙头。尽管内资主力大幅出逃，但外资持续买入显示对A股中长期走势仍看好。',
             source: 'https://data.eastmoney.com/hsgt/'
         },
         // 板块资金流向
         sectorFunds: [
-            { name: '银行', inflow: 45.23, outflow: 0, netFlow: 45.23, source: 'https://data.eastmoney.com/zjlx/' },
-            { name: '石油开采', inflow: 38.56, outflow: 0, netFlow: 38.56, source: 'https://data.eastmoney.com/zjlx/' },
-            { name: '煤炭开采', inflow: 28.34, outflow: 0, netFlow: 28.34, source: 'https://data.eastmoney.com/zjlx/' },
-            { name: '白酒', inflow: 25.67, outflow: 0, netFlow: 25.67, source: 'https://data.eastmoney.com/zjlx/' },
-            { name: '电力', inflow: 22.45, outflow: 0, netFlow: 22.45, source: 'https://data.eastmoney.com/zjlx/' },
-            { name: '贵金属', inflow: 0, outflow: -85.67, netFlow: -85.67, source: 'https://data.eastmoney.com/zjlx/' },
-            { name: '稀土永磁', inflow: 0, outflow: -68.23, netFlow: -68.23, source: 'https://data.eastmoney.com/zjlx/' },
+            { name: '半导体', inflow: 38.56, outflow: 0, netFlow: 38.56, source: 'https://data.eastmoney.com/zjlx/' },
+            { name: '锂矿', inflow: 25.67, outflow: 0, netFlow: 25.67, source: 'https://data.eastmoney.com/zjlx/' },
+            { name: '机器人', inflow: 18.45, outflow: 0, netFlow: 18.45, source: 'https://data.eastmoney.com/zjlx/' },
+            { name: '青蒿素医药', inflow: 5.24, outflow: 0, netFlow: 5.24, source: 'https://data.eastmoney.com/zjlx/' },
+            { name: '商业航天', inflow: 8.34, outflow: 0, netFlow: 8.34, source: 'https://data.eastmoney.com/zjlx/' },
+            { name: 'AI算力', inflow: 0, outflow: -68.23, netFlow: -68.23, source: 'https://data.eastmoney.com/zjlx/' },
             { name: 'CPO概念', inflow: 0, outflow: -52.34, netFlow: -52.34, source: 'https://data.eastmoney.com/zjlx/' },
-            { name: '通信设备', inflow: 0, outflow: -45.89, netFlow: -45.89, source: 'https://data.eastmoney.com/zjlx/' },
-            { name: '算力硬件', inflow: 0, outflow: -38.76, netFlow: -38.76, source: 'https://data.eastmoney.com/zjlx/' }
+            { name: '影视院线', inflow: 0, outflow: -45.89, netFlow: -45.89, source: 'https://data.eastmoney.com/zjlx/' },
+            { name: '证券', inflow: 0, outflow: -38.76, netFlow: -38.76, source: 'https://data.eastmoney.com/zjlx/' },
+            { name: '航运港口', inflow: 0, outflow: -32.45, netFlow: -32.45, source: 'https://data.eastmoney.com/zjlx/' }
         ],
         // 个股资金流向TOP10
         stockFunds: {
             inflow: [
-                { name: '中际旭创', netFlow: 12.68, reason: '光模块绝对龙头，受益于AI算力建设和CPO技术爆发' },
-                { name: '新易盛', netFlow: 8.35, reason: '高速光模块弹性龙头，CPO概念持续受益' },
-                { name: '工业富联', netFlow: 7.82, reason: 'AI服务器龙头，受益于算力需求爆发，尾盘涨停' },
-                { name: '中兴通讯', netFlow: 6.54, reason: '通信设备龙头，5G/6G概念持续受益' },
-                { name: '北方华创', netFlow: 5.21, reason: '半导体设备龙头，国产替代加速' }
+                { name: '宁德时代', netFlow: 3.62, reason: '锂电龙头，受益锂矿板块反弹' },
+                { name: '天齐锂业', netFlow: 1.95, reason: '锂矿龙头，锂价反弹带动业绩预期' },
+                { name: '赣锋锂业', netFlow: 1.87, reason: '锂业龙头，锂矿板块集体走强' },
+                { name: '中芯国际', netFlow: 1.79, reason: '半导体龙头，受益国产替代加速' },
+                { name: '北方华创', netFlow: 1.68, reason: '半导体设备龙头，业绩超预期' }
             ],
             outflow: [
-                { name: '宁德时代', netFlow: -12.24, reason: '动力电池龙头，短期承压但中长期仍看好' },
-                { name: '隆基绿能', netFlow: -8.56, reason: '光伏龙头，受行业产能过剩影响' },
-                { name: '亿纬锂能', netFlow: -6.89, reason: '锂电池龙头，短期获利了结' },
-                { name: '天齐锂业', netFlow: -5.47, reason: '锂矿龙头，价格波动影响业绩' },
-                { name: '阳光电源', netFlow: -4.23, reason: '光伏逆变器龙头，短期调整' }
+                { name: '东方财富', netFlow: -2.98, reason: '证券板块整体承压' },
+                { name: '中远海控', netFlow: -2.10, reason: '航运港口板块回调' },
+                { name: '新易盛', netFlow: -1.85, reason: 'CPO概念高位回落' },
+                { name: '兆驰股份', netFlow: -1.56, reason: '算力概念集体调整' },
+                { name: '天孚通信', netFlow: -1.23, reason: '光模块板块回调' }
             ]
         },
         // 基金资金流向
         fundFlows: [
-            { code: '510300', name: '华泰柏瑞沪深300ETF', inflow: 6.20, outflow: 0, netFlow: 6.20, trend: '大盘蓝筹获资金青睐，净流入约6.2亿元', source: 'https://fund.eastmoney.com/510300.html' },
-            { code: '588000', name: '华夏科创50ETF', inflow: 2.80, outflow: 0, netFlow: 2.80, trend: '科技板块回暖，净流入约2.8亿元', source: 'https://fund.eastmoney.com/588000.html' },
-            { code: '515080', name: '招商中证红利ETF', inflow: 3.50, outflow: 0, netFlow: 3.50, trend: '防御属性吸引资金流入，净流入约3.5亿元', source: 'https://fund.eastmoney.com/515080.html' },
-            { code: '510500', name: '南方中证500ETF', inflow: -8.85, outflow: 0, netFlow: -8.85, trend: '份额减少2.21亿份，资金净流出约8.85亿元', source: 'https://fund.eastmoney.com/510500.html' }
+            { code: '510300', name: '华泰柏瑞沪深300ETF', inflow: 4.50, outflow: 0, netFlow: 4.50, trend: '大盘蓝筹获外资青睐，净流入约4.5亿元', source: 'https://fund.eastmoney.com/510300.html' },
+            { code: '588000', name: '华夏科创50ETF', inflow: 3.20, outflow: 0, netFlow: 3.20, trend: '科创50逆势上涨，净流入约3.2亿元', source: 'https://fund.eastmoney.com/588000.html' },
+            { code: '515080', name: '招商中证红利ETF', inflow: 2.80, outflow: 0, netFlow: 2.80, trend: '防御属性吸引资金流入，净流入约2.8亿元', source: 'https://fund.eastmoney.com/515080.html' },
+            { code: '510500', name: '南方中证500ETF', inflow: -5.50, outflow: 0, netFlow: -5.50, trend: '中小盘调整，份额减少，净流出约5.5亿元', source: 'https://fund.eastmoney.com/510500.html' }
         ]
     },
     
@@ -313,39 +323,39 @@ const SAMPLE_DATA = {
         // 当前利好板块
         current: [
             {
-                name: '白酒/大消费',
-                reason: '白酒板块4月23日逆势走强，迎驾贡酒涨停，贵州茅台、五粮液飘红。山西汾酒拟每10股派65.6元分红80亿元，股息率超4%。白酒行业正处于去库周期尾声，批价企稳、库存去化加速，板块估值处于低位具备布局价值。',
-                inflow: 25.67,
-                hotStocks: ['迎驾贡酒', '山西汾酒', '贵州茅台', '五粮液', '古井贡酒'],
-                sustainability: '中',
-                riskTip: '关注批价走势和库存去化进度',
-                source: 'https://quote.eastmoney.com/center/boardlist.html'
-            },
-            {
-                name: '银行/高股息',
-                reason: '银行板块震荡拉升，贵阳银行涨近7%。银行股H股近期创历史新高，A股银行估值修复空间较大。保险资金权益投资上限提升至35%，释放万亿增量资金，偏好低估值高股息银行股。',
-                inflow: 45.23,
-                hotStocks: ['贵阳银行', '招商银行', '工商银行', '建设银行', '农业银行'],
-                sustainability: '强',
-                riskTip: '关注净息差走势和资产质量',
-                source: 'https://quote.eastmoney.com/center/boardlist.html'
-            },
-            {
-                name: '电力/绿电',
-                reason: '电力板块持续走强，华电辽能连续3日涨停，今年以来飙涨245%。中办国办发文推进节能降碳，工信部推进算电协同，利好绿电直供、新型储能、虚拟电厂等方向。新型电力系统建设加速，电网数智化迎来价值重估。',
-                inflow: 22.45,
-                hotStocks: ['华电辽能', '节能风电', '华电能源', '绿发电力', '晶科科技'],
-                sustainability: '强',
-                riskTip: '电价波动和新能源消纳风险',
-                source: 'https://quote.eastmoney.com/center/boardlist.html'
-            },
-            {
-                name: '石油/油气',
-                reason: '美伊局势紧张升级，霍尔木兹海峡封锁推动油价大涨。WTI突破98美元/桶，布伦特突破107美元/桶，日内涨超5%。全球能源供应担忧加剧，油气开采板块迎催化。',
+                name: '半导体/存储芯片',
+                reason: '半导体板块早盘逆势走强，科创50涨1.8%领涨。英特尔财报超预期盘后飙升16%，德州仪器大涨19%，高盛大幅上调存储芯片价格预测。AI算力需求爆发推动半导体景气度持续上行，国产替代加速，半导体设备、材料、存储芯片等细分领域迎催化。',
                 inflow: 38.56,
-                hotStocks: ['中国石油', '中国石化', '中海油服', '山东墨龙'],
+                hotStocks: ['北方华创', '中芯国际', '兆易创新', '韦尔股份', '富瀚微'],
+                sustainability: '强',
+                riskTip: '关注业绩兑现和估值消化',
+                source: 'https://quote.eastmoney.com/center/boardlist.html'
+            },
+            {
+                name: '机器人/人形机器人',
+                reason: '特斯拉官宣第三代人形机器人Optimus V3预计年中亮相，7-8月启动正式投产，2027年投入外部场景应用。中信建投认为2026年将成为具身智能与人形机器人产业的量产元年，万亿级规模赛道正式开启。硬件端有望全面升级，利好核心零部件产业链。',
+                inflow: 18.45,
+                hotStocks: ['三联锻造', '拓斯达', '万向钱潮', '绿的谐波', '汇川技术'],
+                sustainability: '强',
+                riskTip: '量产进度不及预期风险',
+                source: 'https://quote.eastmoney.com/center/boardlist.html'
+            },
+            {
+                name: '锂矿/新能源',
+                reason: '锂矿板块早盘逆势走强，金圆股份、融捷股份、江特电机、维科技术等多只个股涨停。锂价前期调整充分，当前价位具备布局价值。特斯拉人形机器人量产带动锂电需求预期提升，叠加新能源汽车销量持续增长，锂矿板块迎反弹契机。',
+                inflow: 25.67,
+                hotStocks: ['天齐锂业', '赣锋锂业', '盐湖股份', '宁德时代', '亿纬锂能'],
                 sustainability: '中',
-                riskTip: '地缘局势缓和导致油价回落',
+                riskTip: '锂价波动和产能过剩风险',
+                source: 'https://quote.eastmoney.com/center/boardlist.html'
+            },
+            {
+                name: '商业航天',
+                reason: '4月24日为中国航天日，国家航天局发布深空探测、商业航天以及嫦娥五号月球样品研究最新成果。商业航天产业进入快速发展期，卫星互联网、火箭发射等细分领域迎政策催化。首批外籍航天员选拔完成，国际合作加速推进。',
+                inflow: 8.34,
+                hotStocks: ['中国卫星', '航天电子', '中天科技', '盟升电子', '振芯科技'],
+                sustainability: '中',
+                riskTip: '政策推进进度和订单落地不及预期',
                 source: 'https://quote.eastmoney.com/center/boardlist.html'
             }
         ],
@@ -353,34 +363,34 @@ const SAMPLE_DATA = {
         future: [
             {
                 name: 'AI算力',
-                catalyst: 'OpenAI发布GPT-5.5、英特尔财报超预期，算力需求从训练到推理全面爆发',
+                catalyst: 'GPT-5.5发布、算力需求从训练到推理全面爆发，H100租约价格大涨40%',
                 expectedTime: '2026年',
-                relatedNews: 'DeepSeek持续迭代，AI应用场景持续扩展，算力需求长期增长，但需警惕高位科技股业绩兑现风险',
+                relatedNews: 'DeepSeek持续迭代，AI应用场景持续扩展，算力需求长期增长，但高位题材短期有调整压力',
                 potential: '高',
                 source: 'https://www.gov.cn/'
             },
             {
-                name: '商业航天',
-                catalyst: '中国航天日催化，首批外籍航天员选拔完成，国际合作加速',
+                name: '新能源汽车',
+                catalyst: '2026北京车展开幕，多款重磅新车亮相，智能驾驶技术持续突破',
                 expectedTime: '2026年',
-                relatedNews: '卫星互联网、火箭发射等细分领域迎政策催化，商业航天产业进入快速发展期',
+                relatedNews: '多款新能源汽车、智能驾驶新技术将亮相，新能源汽车产业链有望持续受益',
                 potential: '中高',
-                source: 'https://www.cnsa.gov.cn/'
+                source: 'https://www.eeo.com.cn/'
             },
             {
-                name: '新型储能',
-                catalyst: '中办国办发文首次将新型储能提升至与源网荷同等重要，明确2030年装机目标超1亿千瓦',
+                name: '节能降碳/算电协同',
+                catalyst: '中办国办发文推进节能降碳，工信部推进算电协同政策研究和标准制定',
                 expectedTime: '2026-2030年',
-                relatedNews: '储能装备产业链、算力配套等方向的长期订单确定性正在强化',
+                relatedNews: '算电协同首次写入政府工作报告，绿电直供、储能、虚拟电厂等方向持续催化',
                 potential: '高',
                 source: 'https://www.gov.cn/'
             }
         ],
         // 板块轮动预测
         rotation: {
-            from: ['CPO', '光模块', '稀土', '贵金属', '算力硬件'],
-            to: ['白酒', '银行', '煤炭', '电力', '石油'],
-            analysis: '市场风格从高位科技向低估值防御切换。4月23日高位科技题材集体回调：稀土跌7%、贵金属大跌、CPO概念全线回调。而白酒、银行、煤炭、电力等防御板块获资金流入。主力资金呈现"高低切换"特征，属于正常的获利了结。机构认为当前位置无需悲观，短期震荡后科技主线仍有望回归。'
+            from: ['AI算力', 'CPO', '影视院线', '6G', '通信设备'],
+            to: ['半导体', '锂矿', '机器人', '商业航天', '医药'],
+            analysis: '市场风格从高位题材向硬科技切换。4月24日AI算力、CPO、影视院线等高位题材集体大跌，半导体、锂矿、机器人等硬科技板块逆势走强。资金从高位兑现转向有业绩支撑的板块。一季报业绩披露窗口期，高位无业绩支撑的题材股面临调整压力。建议关注半导体设备材料、机器人产业链、商业航天等硬科技方向。'
         }
     },
     
@@ -761,18 +771,20 @@ const SAMPLE_DATA = {
     
     // ===== 6. 每日市场简报 =====
     dailyReport: {
-        date: '2026-04-22',
-        summary: 'A股低开高走，沪指重返4100点，创业板指创11年新高。两市成交额2.56万亿元放量突破，CPO、光模块等算力硬件全线爆发，工业富联涨停。主力资金呈现"弃高就低"特征，从高位新能源向低位科技切换。北向资金净流入67亿元，外资持续看好A股。',
+        date: '2026-04-24',
+        summary: 'A股午盘加速跳水，创业板指跌超2%，科创50逆势涨1.8%。两市半日成交1.73万亿元，个股涨跌比1:3，超3900只个股飘绿。AI算力、CPO、影视院线等高位题材集体大跌，半导体、锂矿、机器人等硬科技逆势走强。主力资金净流出355亿元，外资逆势净流入42亿元。特斯拉机器人、北京车展、中国航天日等事件催化多个板块。',
         keyPoints: [
-            '沪指涨0.52%报4106.26点，创业板指涨1.73%创2015年6月以来11年新高',
-            '两市成交额2.56万亿元，较昨日放量1512亿元，量价配合健康',
-            '通信设备主力资金净流入103.61亿元居首，半导体净流入62.19亿元',
-            'CPO、光模块概念爆发，中际旭创、新易盛创历史新高',
-            '工业富联尾盘涨停，AI服务器需求持续爆发',
-            '电力设备净流出106.64亿元居首，主力资金从高位新能源撤离',
-            '北向资金净流入67亿元，外资加仓白酒、新能源和科技龙头',
-            '英维克一季报业绩暴跌81.97%跌停，拖累AI算力板块'
+            '上证指数跌0.58%报4069.37点，失守4100点整数关口',
+            '创业板指大跌2.20%报3638.28点，科创50逆势涨1.80%报1458.31点',
+            '两市半日成交额1.73万亿元，较昨日同期缩量2200亿元',
+            '主力资金净流出355.63亿元，北向资金逆势净流入42.68亿元',
+            '半导体、锂矿、机器人板块资金净流入居前',
+            'AI算力、CPO、影视院线等高位题材资金大幅净流出',
+            '特斯拉Optimus V3人形机器人年中亮相，2026年7-8月量产',
+            '2026北京车展开幕，多款新能源车型亮相',
+            '4月24日为中国航天日，商业航天迎政策催化',
+            '英特尔财报超预期盘后飙升16%，高盛上调存储芯片价格预测'
         ],
-        marketOutlook: '沪指放量突破4100点，技术面形成放量突破形态，上方空间打开。科技成长风格主导，CPO、半导体等硬核科技具备产业趋势支撑。但需注意创业板指RSI接近超买，短期可能震荡整固。建议关注量能持续性，在控制仓位前提下布局科技主线，同时持有红利ETF和债券基金作为底仓配置。'
+        marketOutlook: '今日市场加速跳水，属于五连阳后的正常技术性回调。创业板指大跌2.2%但科创50逆势涨1.8%，显示资金正在从高位题材向硬科技切换。节前避险情绪升温，叠加一季报业绩暴雷风险，短线市场承压。但北向资金逆势净流入，外资持续看好A股中长期走势。建议控制仓位，关注半导体设备材料、机器人产业链、商业航天等有业绩支撑的硬科技方向，回避高位题材股。'
     }
 };
