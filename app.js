@@ -86,8 +86,11 @@ async function initApp() {
 // ==================== 渲染所有数据 ====================
 function renderAllData() {
     renderRealtimeIndex();
-    renderMyFunds();
+    renderCapitalFlow();
+    renderFavorableSectors();
     renderRecommendFunds();
+    renderRealtimeNews();
+    renderMyFunds();
 }
 
 // ==================== 渲染静态数据（后备） ====================
