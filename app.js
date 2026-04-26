@@ -568,6 +568,10 @@ function renderSectorFlow() {
     const inflowList = document.getElementById('inflow-sectors');
     const outflowList = document.getElementById('outflow-sectors');
     
+    // 清空容器
+    inflowList.innerHTML = '';
+    outflowList.innerHTML = '';
+    
     if (SAMPLE_DATA.capitalFlow.sectorFunds) {
         const inflows = SAMPLE_DATA.capitalFlow.sectorFunds.filter(s => s.netFlow > 0).sort((a, b) => b.netFlow - a.netFlow).slice(0, 10);
         inflows.forEach(sector => {
@@ -603,6 +607,9 @@ function renderSectorFlow() {
 function renderFundFlow() {
     const container = document.getElementById('fund-flow-list');
     
+    // 清空容器
+    container.innerHTML = '';
+    
     const fundCodes = ['510300', '588000', '515080', '510500'];
     
     fundCodes.forEach(code => {
@@ -636,6 +643,9 @@ function renderFavorableSectors() {
     const currentList = document.getElementById('current-favorable-list');
     const current = SAMPLE_DATA.favorableSectors.current || [];
     
+    // 清空容器
+    currentList.innerHTML = '';
+    
     current.forEach(sector => {
         const item = document.createElement('div');
         item.className = 'favorable-item';
@@ -656,12 +666,15 @@ function renderFavorableSectors() {
     });
     
     if (currentList.children.length === 0) {
-        currentList.innerHTML = '<div class="empty-state"><p>暂无数据</p></div>';
+        currentList.innerHTML = '<div class="empty-state"><p>暂无数据</p></li>';
     }
     
     // 未来利好板块
     const futureList = document.getElementById('future-favorable-list');
     const future = SAMPLE_DATA.favorableSectors.future || [];
+    
+    // 清空容器
+    futureList.innerHTML = '';
     
     future.forEach(sector => {
         const item = document.createElement('div');
@@ -682,7 +695,7 @@ function renderFavorableSectors() {
     });
     
     if (futureList.children.length === 0) {
-        futureList.innerHTML = '<div class="empty-state"><p>暂无数据</p></div>';
+        futureList.innerHTML = '<div class="empty-state"><p>暂无数据</p></li>';
     }
     
     // 板块轮动
@@ -695,6 +708,9 @@ function renderFavorableSectors() {
 function renderRealtimeNews() {
     const container = document.getElementById('realtime-news');
     const news = SAMPLE_DATA.realtimeNews || [];
+    
+    // 清空容器
+    container.innerHTML = '';
     
     if (news.length === 0) {
         container.innerHTML = '<div class="empty-state"><p>等待数据更新...</p></div>';
