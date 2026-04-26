@@ -116,9 +116,16 @@ async function renderRealtimeIndex() {
         const changeEl = document.getElementById(`${index}-change`);
         const volumeEl = document.getElementById(`${index}-volume`);
         
-        if (indexData && indexData[index]) {
-            const data = indexData[index];
-            valueEl.textContent = data.value !== '--' ? parseFloat(data.value).toFixed(2) : '--';
+        // 优先使用实时数据，如果无效则使用SAMPLE_DATA的静态数据
+        const realtimeData = indexData?.[index];
+        const staticData = SAMPLE_DATA.realtimeIndex?.[index];
+        
+        // 判断实时数据是否有效（不是 '--'）
+        const hasValidRealtime = realtimeData && realtimeData.value && realtimeData.value !== '--';
+        const data = hasValidRealtime ? realtimeData : staticData;
+        
+        if (data) {
+            valueEl.textContent = parseFloat(data.value).toFixed(2);
             changeEl.textContent = data.change;
             volumeEl.textContent = data.volume || '';
             
@@ -126,20 +133,6 @@ async function renderRealtimeIndex() {
             const changeValue = parseFloat(data.change);
             setColorClass(valueEl, changeValue);
             setColorClass(changeEl, changeValue);
-        } else {
-            // 使用默认数据
-            const defaultData = {
-                shangzhi: { value: 3285, change: 0 },
-                shengzheng: { value: 10800, change: 0 },
-                chuangye: { value: 2200, change: 0 },
-                zhuanke50: { value: 1350, change: 0 }
-            };
-            const data = defaultData[index];
-            valueEl.textContent = data.value.toFixed(2);
-            changeEl.textContent = '0.00%';
-            volumeEl.textContent = '--';
-            valueEl.className = 'index-value neutral';
-            changeEl.className = 'index-change neutral';
         }
     });
 }
