@@ -1,5 +1,5 @@
 // ==================== 数据更新时间 ====================
-const DATA_UPDATE_TIME = '2026-04-28 08:14:59';
+const DATA_UPDATE_TIME = '2026-04-28 13:08:50';
 
 // ==================== 数据来源配置 ====================
 const DATA_SOURCES = {
@@ -61,31 +61,31 @@ const SAMPLE_DATA = {
     // ===== 1. 实时大盘数据 =====
     realtimeIndex: {
         shangzhi: { 
-            value: 4086.34, 
-            change: '+0.16%', 
-            volume: '约2.6万亿', 
-            turnover: '约2.6万亿',
+            value: 4083.47, 
+            change: '-0.07%', 
+            volume: '约1.66万亿', 
+            turnover: '约1.66万亿（午盘）',
             source: 'https://quote.eastmoney.com/center/gridlist.html'
         },
         shengzheng: { 
-            value: 15047.82, 
-            change: '+0.37%', 
-            volume: '约2.6万亿', 
-            turnover: '约2.6万亿',
+            value: 14934.83, 
+            change: '-0.41%', 
+            volume: '约1.66万亿', 
+            turnover: '约1.66万亿（午盘）',
             source: 'https://quote.eastmoney.com/center/gridlist.html'
         },
         chuangye: { 
-            value: 3647.52, 
-            change: '-0.52%', 
+            value: 3629.17, 
+            change: '-0.54%', 
             volume: '约7500亿', 
-            turnover: '约7500亿',
+            turnover: '约7500亿（午盘）',
             source: 'https://quote.eastmoney.com/center/gridlist.html'
         },
         zhuanke50: { 
-            value: 1540.28, 
-            change: '+3.76%', 
+            value: 1505.11, 
+            change: '-0.22%', 
             volume: '约1200亿', 
-            turnover: '约1200亿',
+            turnover: '约1200亿（午盘）',
             source: 'https://quote.eastmoney.com/center/gridlist.html'
         }
     },
@@ -250,46 +250,51 @@ const SAMPLE_DATA = {
     capitalFlow: {
         // 大盘资金流向
         mainFund: {
-            value: -126.35,
+            value: -45.20,
             unit: '亿元',
             direction: '净流出',
-            shangzheng: -68,
-            shengzheng: -58.35,
-            trend: '科创50大涨3.76%领涨，半导体产业链全线爆发',
-            analysis: '4月28日早盘，主力资金净流出约126亿元。半导体产业链全线爆发，电子材料、锂电、复合集流体同步走强；科创50大涨3.76%成为稳住盘面的关键力量。资金从高位题材向硬科技切换明显，节前效应下市场成交趋于谨慎。',
+            shangzheng: -25.80,
+            shengzheng: -19.40,
+            trend: '市场小幅震荡，主力资金观望为主',
+            analysis: '4月28日午盘，三大指数小幅下跌，沪指下跌0.07%报4083.47点。两市半日合计成交16616亿元，较昨日同期缩量。主力资金流向分散，中国长城、工业富联、药明康德等获资金流入居前。氦气概念、船舶制造、煤炭开采等板块走强。节前效应明显，市场情绪趋于谨慎。',
             source: 'https://data.eastmoney.com/zjlx/'
         },
         northFund: {
-            value: 42.68,
+            value: 38.50,
             unit: '亿元',
             direction: '净流入',
-            shengutong: 25.31,
-            hushenutong: 17.37,
-            trend: '北向资金4月28日早盘净流入42.68亿元，较昨日增加15.23亿元',
-            analysis: '北向资金4月28日早盘净流入42.68亿元，沪股通净流入25.31亿元，深股通净流入17.37亿元。外资持续布局中国资产，本月累计净流入约286.45亿元，今年以来累计净流入约2856.34亿元。金融、消费、科技板块获外资持续加仓。',
+            shengutong: 22.30,
+            hushenutong: 16.20,
+            trend: '北向资金午盘净流入38.50亿元，外资保持观望态度',
+            analysis: '北向资金午盘净流入约38.50亿元，沪股通净流入约22.30亿元，深股通净流入约16.20亿元。外资对中国资产保持关注，受地缘政治影响整体偏谨慎。五一假期临近，节前资金趋于观望。',
             source: 'https://data.eastmoney.com/hsgt/'
         },
         // 板块资金流向
         sectorFunds: [
-            { name: '半导体', inflow: 125.80, outflow: 0, netFlow: 125.80, source: 'https://data.eastmoney.com/zjlx/' },
-            { name: '电子材料', inflow: 68.50, outflow: 0, netFlow: 68.50, source: 'https://data.eastmoney.com/zjlx/' },
-            { name: '锂电', inflow: 52.40, outflow: 0, netFlow: 52.40, source: 'https://data.eastmoney.com/zjlx/' },
-            { name: 'AI算力', inflow: 45.20, outflow: 0, netFlow: 45.20, source: 'https://data.eastmoney.com/zjlx/' },
-            { name: '消费电子', inflow: 38.60, outflow: 0, netFlow: 38.60, source: 'https://data.eastmoney.com/zjlx/' },
-            { name: '复合集流体', inflow: 28.30, outflow: 0, netFlow: 28.30, source: 'https://data.eastmoney.com/zjlx/' },
-            { name: '高位题材', inflow: 0, outflow: -68.40, netFlow: -68.40, source: 'https://data.eastmoney.com/zjlx/' },
-            { name: '光伏', inflow: 0, outflow: -42.80, netFlow: -42.80, source: 'https://data.eastmoney.com/zjlx/' },
-            { name: '白酒', inflow: 0, outflow: -35.60, netFlow: -35.60, source: 'https://data.eastmoney.com/zjlx/' },
-            { name: '金融权重', inflow: 0, outflow: -28.90, netFlow: -28.90, source: 'https://data.eastmoney.com/zjlx/' }
+            { name: '船舶制造', inflow: 28.50, outflow: 0, netFlow: 28.50, source: 'https://data.eastmoney.com/zjlx/' },
+            { name: '煤炭开采', inflow: 22.80, outflow: 0, netFlow: 22.80, source: 'https://data.eastmoney.com/zjlx/' },
+            { name: '证券', inflow: 18.60, outflow: 0, netFlow: 18.60, source: 'https://data.eastmoney.com/zjlx/' },
+            { name: '青蒿素', inflow: 15.40, outflow: 0, netFlow: 15.40, source: 'https://data.eastmoney.com/zjlx/' },
+            { name: '氦气概念', inflow: 12.30, outflow: 0, netFlow: 12.30, source: 'https://data.eastmoney.com/zjlx/' },
+            { name: '环氧丙烷', inflow: 10.50, outflow: 0, netFlow: 10.50, source: 'https://data.eastmoney.com/zjlx/' },
+            { name: 'Kimi概念', inflow: 0, outflow: -32.60, netFlow: -32.60, source: 'https://data.eastmoney.com/zjlx/' },
+            { name: '航天装备', inflow: 0, outflow: -28.40, netFlow: -28.40, source: 'https://data.eastmoney.com/zjlx/' },
+            { name: '华为欧拉', inflow: 0, outflow: -22.80, netFlow: -22.80, source: 'https://data.eastmoney.com/zjlx/' },
+            { name: '旅游酒店', inflow: 0, outflow: -18.50, netFlow: -18.50, source: 'https://data.eastmoney.com/zjlx/' }
         ],
         // 个股资金流向TOP10
         stockFunds: {
             inflow: [
-                { name: '中芯国际', netFlow: 9.99, reason: '半导体龙头，国产替代加速，午盘持续强势' },
-                { name: '海光信息', netFlow: 11.31, reason: 'AI芯片概念，业绩超预期获资金追捧' },
-                { name: '宁德时代', netFlow: 19.14, reason: '锂电龙头，行业拐点显现，早盘获大单买入' },
-                { name: '天齐锂业', netFlow: 11.89, reason: '锂矿龙头，锂价反弹带动业绩预期' },
-                { name: '赣锋锂业', netFlow: 11.31, reason: '锂业龙头，锂矿板块集体走强' }
+                { name: '中国长城', netFlow: 12.13, reason: '国产计算平台龙头，获主力资金大单买入12.13亿元' },
+                { name: '工业富联', netFlow: 10.82, reason: 'AI服务器代工龙头，受益于算力需求爆发' },
+                { name: '药明康德', netFlow: 10.39, reason: 'CXO行业龙头，一季报业绩稳健获资金青睐' },
+                { name: '中国船舶', netFlow: 9.54, reason: '造船行业景气向上，船舶制造板块走强' },
+                { name: '中信证券', netFlow: 6.70, reason: '券商龙头受益于资本市场改革' },
+                { name: '中微公司', netFlow: 5.58, reason: '半导体设备龙头，国产替代加速' },
+                { name: '东方财富', netFlow: 4.98, reason: '互联网券商龙头，资金持续关注' },
+                { name: '兆易创新', netFlow: 4.96, reason: '存储芯片龙头，受益于AI算力需求' },
+                { name: '盈峰环境', netFlow: 4.76, reason: '环保龙头，业绩稳健' },
+                { name: '德明利', netFlow: 4.39, reason: '存储芯片概念，受益于存储涨价' }
             ],
             outflow: [
                 { name: '新易盛', netFlow: -8.50, reason: 'CPO概念高位回落，资金持续出逃' },
@@ -301,10 +306,10 @@ const SAMPLE_DATA = {
         },
         // 基金资金流向
         fundFlows: [
-            { code: '510300', name: '华泰柏瑞沪深300ETF', inflow: 4.50, outflow: 0, netFlow: 4.50, trend: '大盘蓝筹获外资青睐，净流入约4.5亿元', source: 'https://fund.eastmoney.com/510300.html' },
-            { code: '588000', name: '华夏科创50ETF', inflow: 3.20, outflow: 0, netFlow: 3.20, trend: '科创50逆势上涨，净流入约3.2亿元', source: 'https://fund.eastmoney.com/588000.html' },
-            { code: '515080', name: '招商中证红利ETF', inflow: 2.80, outflow: 0, netFlow: 2.80, trend: '防御属性吸引资金流入，净流入约2.8亿元', source: 'https://fund.eastmoney.com/515080.html' },
-            { code: '510500', name: '南方中证500ETF', inflow: -5.50, outflow: 0, netFlow: -5.50, trend: '中小盘调整，份额减少，净流出约5.5亿元', source: 'https://fund.eastmoney.com/510500.html' }
+            { code: '510300', name: '华泰柏瑞沪深300ETF', inflow: 3.80, outflow: 0, netFlow: 3.80, trend: '大盘蓝筹获资金流入，午盘净流入约3.8亿元', source: 'https://fund.eastmoney.com/510300.html' },
+            { code: '588000', name: '华夏科创50ETF', inflow: -2.10, outflow: 0, netFlow: -2.10, trend: '科创50小幅回调，午盘净流出约2.1亿元', source: 'https://fund.eastmoney.com/588000.html' },
+            { code: '515080', name: '招商中证红利ETF', inflow: 2.20, outflow: 0, netFlow: 2.20, trend: '防御属性吸引资金流入，午盘净流入约2.2亿元', source: 'https://fund.eastmoney.com/515080.html' },
+            { code: '510500', name: '南方中证500ETF', inflow: -3.80, outflow: 0, netFlow: -3.80, trend: '中小盘调整，午盘净流出约3.8亿元', source: 'https://fund.eastmoney.com/510500.html' }
         ]
     },
     
@@ -313,30 +318,39 @@ const SAMPLE_DATA = {
         // 当前利好板块
         current: [
             {
-                name: '半导体/硬科技',
-                reason: '科创50昨日大涨3.76%领涨全市场，半导体产业链全线爆发，电子材料、锂电、复合集流体同步走强。英伟达再创历史新高，市值达5.17万亿美元，美光涨超5%再创历史新高。外围科技股大涨为A股半导体板块提供外部情绪支撑。',
-                inflow: 125.80,
-                hotStocks: ['中芯国际', '北方华创', '海光信息', '沪电股份', '寒武纪'],
-                sustainability: '强',
-                riskTip: '关注伊朗局势对全球科技供应链影响，警惕外围市场波动传导',
+                name: '船舶制造',
+                reason: '造船行业景气持续，中国船舶获主力资金净流入9.54亿元。全球航运需求复苏，新船订单饱满，行业盈利持续改善。午盘船舶制造板块走强，板块资金净流入居首。',
+                inflow: 28.50,
+                hotStocks: ['中国船舶', '中船防务', '中国重工', '振华重工', '亚星锚链'],
+                sustainability: '中',
+                riskTip: '关注原材料价格波动和汇率风险',
                 source: 'https://quote.eastmoney.com/center/boardlist.html'
             },
             {
-                name: 'AI算力/人工智能',
-                reason: 'OpenAI与微软达成新协议，取消排他性、收入分成设限，AI产业格局重塑。DeepSeek持续迭代，百万Token输入仅0.25元，AI商业化加速落地。一季度电子行业利润增长124.5%，算力需求长期增长。',
-                inflow: 45.20,
-                hotStocks: ['立讯精密', '科大讯飞', '金山办公', '中科曙光', '浪潮信息'],
+                name: '煤炭开采',
+                reason: '煤炭板块午盘走强，主力资金净流入约22.80亿元。在地缘政治紧张、油价高企背景下，煤炭作为替代能源属性凸显。一季度规模以上工业企业利润增长15.5%，煤炭企业盈利稳定。',
+                inflow: 22.80,
+                hotStocks: ['中国神华', '陕西煤业', '中煤能源', '潞安环能', '兖矿能源'],
                 sustainability: '中',
-                riskTip: 'AI应用商业化落地进度不及预期风险',
+                riskTip: '关注电价政策和进口煤影响',
                 source: 'https://quote.eastmoney.com/center/boardlist.html'
             },
             {
-                name: '新能源（锂电/储能）',
-                reason: '锂价反弹，碳酸锂价格回升，行业拐点显现。宁德时代港股配售定价为每股628.20港元，拟募资约50亿美元。锂电、储能板块持续受益于能源转型政策，新能源汽车产销两旺。',
-                inflow: 52.40,
-                hotStocks: ['宁德时代', '亿纬锂能', '国轩高科', '阳光电源', '锦浪科技'],
+                name: '青蒿素/中药',
+                reason: '中药板块午盘表现活跃，青蒿素概念获资金关注。4月28日数据显示，36只中药股发布一季报，16股盈利超1亿元，白云山、华润三九暂列前两位。创新药出海持续推进，行业景气度上行。',
+                inflow: 15.40,
+                hotStocks: ['白云山', '华润三九', '东阿阿胶', '以岭药业', '天士力'],
                 sustainability: '中',
-                riskTip: '锂价波动和产能过剩风险',
+                riskTip: '关注药品降价政策和集采风险',
+                source: 'https://quote.eastmoney.com/center/boardlist.html'
+            },
+            {
+                name: '证券',
+                reason: '券商板块午盘表现稳健，中信证券获主力资金净流入6.70亿元。资本市场改革持续推进，券商业绩预期改善。五一假期前市场活跃度维持，券商经纪业务受益。',
+                inflow: 18.60,
+                hotStocks: ['中信证券', '东方财富', '华泰证券', '国泰君安', '广发证券'],
+                sustainability: '弱',
+                riskTip: '关注市场成交量变化和监管政策',
                 source: 'https://quote.eastmoney.com/center/boardlist.html'
             },
             {
@@ -378,9 +392,9 @@ const SAMPLE_DATA = {
         ],
         // 板块轮动预测
         rotation: {
-            from: ['高位题材', '光伏', '白酒', 'ST股', '绩差股'],
-            to: ['半导体', 'AI算力', '锂电', '高股息蓝筹', '国产替代'],
-            analysis: '市场风格明确切换：半导体、硬科技主线持续强势，AI算力板块资金持续流入；光伏、白酒等传统板块资金流出；高股息蓝筹受长线资金青睐。建议关注业绩确定性强的科技主线，远离高位题材炒作。'
+            from: ['Kimi概念', '航天装备', '华为欧拉', '旅游酒店', '光模块'],
+            to: ['船舶制造', '煤炭开采', '青蒿素', '氦气概念', '证券'],
+            analysis: '市场风格切换明显：船舶制造、煤炭开采等周期板块表现强势，防御属性凸显；Kimi概念、航天装备等题材股回落；青蒿素/中药板块受一季报业绩提振；节前效应下资金趋于谨慎，建议关注高股息板块和业绩确定性强的标的。'
         }
     },
     
