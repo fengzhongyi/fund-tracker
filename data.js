@@ -1,5 +1,5 @@
 // ==================== 数据更新时间 ====================
-const DATA_UPDATE_TIME = '2026-04-29 08:15:00';
+const DATA_UPDATE_TIME = '2026-04-29 13:08:46';
 
 // ==================== 数据来源配置 ====================
 const DATA_SOURCES = {
@@ -61,31 +61,31 @@ const SAMPLE_DATA = {
     // ===== 1. 实时大盘数据 =====
     realtimeIndex: {
         shangzhi: { 
-            value: 4069.58, 
-            change: '-0.22%', 
-            volume: '约2.4万亿', 
-            turnover: '约2.4万亿（早盘低开后震荡）',
+            value: 4085.00, 
+            change: '+0.40%', 
+            volume: '约5800亿', 
+            turnover: '约5800亿（午盘V型反弹，低开高走）',
             source: 'https://quote.eastmoney.com/center/gridlist.html'
         },
         shengzheng: { 
-            value: 14791.02, 
-            change: '-0.27%', 
-            volume: '约2.4万亿', 
-            turnover: '约2.4万亿（早盘低开后震荡）',
+            value: 14751.42, 
+            change: '-0.53%', 
+            volume: '约5800亿', 
+            turnover: '约5800亿（早盘低开后震荡）',
             source: 'https://quote.eastmoney.com/center/gridlist.html'
         },
         chuangye: { 
-            value: 3586.95, 
-            change: '-0.27%', 
-            volume: '约7000亿', 
-            turnover: '约7000亿（早盘低开后震荡）',
+            value: 3680.00, 
+            change: '+2.27%', 
+            volume: '约3500亿', 
+            turnover: '约3500亿（强势反弹，创日内新高）',
             source: 'https://quote.eastmoney.com/center/gridlist.html'
         },
         zhuanke50: { 
-            value: 1515.18, 
-            change: '-0.10%', 
-            volume: '约1100亿', 
-            turnover: '约1100亿（早盘小幅低开）',
+            value: 1500.00, 
+            change: '+0.80%', 
+            volume: '约1200亿', 
+            turnover: '约1200亿（科技股回暖带动）',
             source: 'https://quote.eastmoney.com/center/gridlist.html'
         }
     },
@@ -195,12 +195,12 @@ const SAMPLE_DATA = {
             importance: '高'
         },
         {
-            title: '比亚迪一季度净利润同比下降55.38%',
+            title: '比亚迪一季度净利润同比下降55.38%，午盘强势反弹',
             source: '新华财经',
             sourceUrl: 'https://www.cnfin.com/',
             time: '2026-04-29',
-            summary: '比亚迪第一季度营业收入1502.25亿元，同比下降11.82%；归属于上市公司股东的净利润40.85亿元，同比下降55.38%；扣非净利润41.48亿元，同比下降49.24%。',
-            impact: '利空',
+            summary: '比亚迪第一季度营业收入1502.25亿元，同比下降11.82%；归母净利润40.85亿元，同比下降55.38%。但午盘比亚迪强势反弹，主力资金净流入14.93亿元，市场对其二季度业绩修复预期增强。',
+            impact: '中性',
             relatedSectors: ['新能源汽车', '汽车整车', '比亚迪产业链'],
             importance: '中'
         },
@@ -235,12 +235,62 @@ const SAMPLE_DATA = {
             importance: '高'
         },
         {
-            title: '4月29日为五一节前倒数第二个交易日，节前避险情绪升温',
+            title: 'A股午盘V型反弹：创业板大涨2.27%，超4000只个股上涨',
+            source: '东方财富',
+            sourceUrl: 'https://caifuhao.eastmoney.com/news/20260429114330361986190',
+            time: '2026-04-29',
+            summary: '4月29日午盘，A股经历剧烈波动后全面反弹。上证指数低开高走涨0.4%，创业板指强势翻红大涨2.27%，科创50指数同步上行。稀土永磁、锂电池概念集体爆发掀涨停潮，AI通信、光模块持续活跃。市场情绪显著回暖，超4000只个股上涨，赚钱效应显著增强。',
+            impact: '利好',
+            relatedSectors: ['科技成长', '新能源', '稀土永磁', 'AI概念'],
+            importance: '高'
+        },
+        {
+            title: '北向资金净流入超150亿元，外资低位抢筹优质资产',
+            source: '财联社',
+            sourceUrl: 'https://m.cls.cn/detail/1663364',
+            time: '2026-04-29',
+            summary: '截至4月29日收盘，北向资金净流入超150亿元，其中沪股通净流入超71亿元，深股通净流入超78亿元。早盘探底4073点时北向逆势买入约15亿，明显在4070点附近护盘。外资对中国资产保持关注，结束连续流出低位抢筹优质核心资产。',
+            impact: '利好',
+            relatedSectors: ['大盘整体', '蓝筹股', '外资重仓股'],
+            importance: '高'
+        },
+        {
+            title: '源杰科技成为A股第一高价股，股价站上1520元超越茅台',
+            source: '东方财富',
+            sourceUrl: 'https://caifuhao.eastmoney.com/news/20260429112900043567860',
+            time: '2026-04-29',
+            summary: '4月29日，源杰科技盘中涨超5%，股价站上1520元/股，正式超越贵州茅台成为A股第一高价股，总市值突破1300亿元。公司2026年Q1营收3.55亿元，同比增长321%，归母净利润1.79亿元，同比增长1153%，单季净利率高达50.51%。',
+            impact: '利好',
+            relatedSectors: ['光芯片', 'AI算力', '科技股'],
+            importance: '高'
+        },
+        {
+            title: '中际旭创一季度净利润大增262%，高盛上调目标价至1187元',
+            source: '东方财富',
+            sourceUrl: 'https://caifuhao.eastmoney.com/news/20260429112900043567860',
+            time: '2026-04-29',
+            summary: '中际旭创Q1营收194.96亿元，同比+192%；归母净利润57.35亿元，同比+262%；毛利率46.06%，净利率32.40%创新高。高盛将目标价从791元大幅上调至1187元，预测光互联可寻址市场将从约150亿美元扩张至1540亿美元，增幅约9倍。',
+            impact: '利好',
+            relatedSectors: ['光模块', 'AI算力', '光通信'],
+            importance: '高'
+        },
+        {
+            title: '一季度工业企业利润同比大增15.5%，基本面支撑A股',
+            source: '财富早参',
+            sourceUrl: 'http://m.163.com/dy/article/KRLUNMR505568W0A.html',
+            time: '2026-04-29',
+            summary: '国家统计局数据显示，一季度全国规模以上工业企业利润同比超预期大增15.5%，营业收入利润率达到5.11%，为2023年以来同期最高水平。电子、有色、光纤制造等多个行业利润翻倍式增长，为A股牛市提供最强劲支撑。',
+            impact: '利好',
+            relatedSectors: ['大盘整体', '制造业', '科技股', '有色金属'],
+            importance: '高'
+        },
+        {
+            title: '4月29日为五一节前倒数第二个交易日，市场V型反转',
             source: '市场观察',
             sourceUrl: 'https://www.eastmoney.com/',
             time: '2026-04-29',
-            summary: '今日是五一假期前倒数第二个交易日，早盘三大指数集体低开，上证指数低开0.21%。节前效应明显，市场观望情绪浓厚，成交量较前一交易日同期萎缩。关注明日节前最后交易日的市场表现。',
-            impact: '中性',
+            summary: '今日是五一假期前倒数第二个交易日，早盘三大指数集体低开，上证指数一度下探4073点。但随后市场V型反转，创业板指大涨2.27%，个股普涨。节前抛压出清，赚钱效应显著，节后行情可期。',
+            impact: '利好',
             relatedSectors: ['市场整体'],
             importance: '中'
         }
@@ -250,66 +300,66 @@ const SAMPLE_DATA = {
     capitalFlow: {
         // 大盘资金流向
         mainFund: {
-            value: -68.50,
+            value: 42.30,
             unit: '亿元',
-            direction: '净流出',
-            shangzheng: -38.20,
-            shengzheng: -30.30,
-            trend: '节前避险情绪浓厚，主力资金持续净流出',
-            analysis: '4月29日早盘，三大指数集体低开，沪指低开0.21%考验4070点支撑。节前倒数第二个交易日，市场观望情绪浓厚，成交量较前一交易日同期明显萎缩。主力资金偏向防御，高股息、军工等板块获少量资金关注。民爆概念逆势走强，半导体板块早盘有护盘迹象。整体市场以震荡整固为主，等待节后方向选择。',
+            direction: '净流入',
+            shangzheng: 25.80,
+            shengzheng: 16.50,
+            trend: '午盘主力资金净流入，创业板大幅反弹',
+            analysis: '4月29日午盘，A股市场V型反转，创业板指大涨2.27%。早盘探底4073点后资金护盘明显，半导体、算力、券商三大板块主力合计净流入58亿。北向资金持续流入，外资对中国资产保持关注。节前效应仍在，但市场做多意愿增强，超4000只个股上涨，赚钱效应显著。',
             source: 'https://data.eastmoney.com/zjlx/'
         },
         northFund: {
-            value: 28.60,
+            value: 150.00,
             unit: '亿元',
             direction: '净流入',
-            shengutong: 15.80,
-            hushenutong: 12.80,
-            trend: '北向资金早盘净流入，外资保持关注',
-            analysis: '北向资金早盘净流入约28.60亿元，沪股通净流入约15.80亿元，深股通净流入约12.80亿元。外资对中国资产保持关注，但受地缘政治和中东局势影响，整体偏谨慎。五一假期临近，节前最后两个交易日资金趋于观望。关注明日外资动向。',
+            shengutong: 71.00,
+            hushenutong: 78.00,
+            trend: '北向资金大幅净流入超150亿，外资积极布局',
+            analysis: '北向资金今日净流入超150亿元，其中沪股通净流入超71亿元，深股通净流入超78亿元。早盘探底时北向逆势买入约15亿，明显在4070点附近护盘。外资对中国资产保持关注，结束连续流出低位抢筹优质核心资产。关注节后外资持续动向。',
             source: 'https://data.eastmoney.com/hsgt/'
         },
         // 板块资金流向
         sectorFunds: [
-            { name: '民爆概念', inflow: 18.60, outflow: 0, netFlow: 18.60, source: 'https://data.eastmoney.com/zjlx/' },
-            { name: '半导体', inflow: 15.40, outflow: 0, netFlow: 15.40, source: 'https://data.eastmoney.com/zjlx/' },
-            { name: '军工', inflow: 12.80, outflow: 0, netFlow: 12.80, source: 'https://data.eastmoney.com/zjlx/' },
-            { name: '高股息蓝筹', inflow: 10.20, outflow: 0, netFlow: 10.20, source: 'https://data.eastmoney.com/zjlx/' },
-            { name: '稀土永磁', inflow: 8.50, outflow: 0, netFlow: 8.50, source: 'https://data.eastmoney.com/zjlx/' },
-            { name: 'AI软件', inflow: 0, outflow: -25.40, netFlow: -25.40, source: 'https://data.eastmoney.com/zjlx/' },
-            { name: '新能源车', inflow: 0, outflow: -22.80, netFlow: -22.80, source: 'https://data.eastmoney.com/zjlx/' },
-            { name: '光模块', inflow: 0, outflow: -18.60, netFlow: -18.60, source: 'https://data.eastmoney.com/zjlx/' },
-            { name: '白酒', inflow: 0, outflow: -15.30, netFlow: -15.30, source: 'https://data.eastmoney.com/zjlx/' },
-            { name: '电力', inflow: 0, outflow: -12.40, netFlow: -12.40, source: 'https://data.eastmoney.com/zjlx/' }
+            { name: '稀土永磁', inflow: 35.60, outflow: 0, netFlow: 35.60, source: 'https://data.eastmoney.com/zjlx/' },
+            { name: 'AI通信/光模块', inflow: 48.20, outflow: 0, netFlow: 48.20, source: 'https://data.eastmoney.com/zjlx/' },
+            { name: '新能源汽车', inflow: 22.70, outflow: 0, netFlow: 22.70, source: 'https://data.eastmoney.com/zjlx/' },
+            { name: '机械设备', inflow: 18.50, outflow: 0, netFlow: 18.50, source: 'https://data.eastmoney.com/zjlx/' },
+            { name: '房地产', inflow: 17.00, outflow: 0, netFlow: 17.00, source: 'https://data.eastmoney.com/zjlx/' },
+            { name: '消费电子', inflow: 0, outflow: -45.30, netFlow: -45.30, source: 'https://data.eastmoney.com/zjlx/' },
+            { name: '半导体', inflow: 0, outflow: -35.60, netFlow: -35.60, source: 'https://data.eastmoney.com/zjlx/' },
+            { name: '银行', inflow: 0, outflow: -18.50, netFlow: -18.50, source: 'https://data.eastmoney.com/zjlx/' },
+            { name: '石油石化', inflow: 0, outflow: -15.20, netFlow: -15.20, source: 'https://data.eastmoney.com/zjlx/' },
+            { name: '白酒', inflow: 0, outflow: -12.80, netFlow: -12.80, source: 'https://data.eastmoney.com/zjlx/' }
         ],
         // 个股资金流向TOP10
         stockFunds: {
             inflow: [
-                { name: '北方稀土', netFlow: 8.65, reason: '牛散章建平新进十大股东，稀土板块获资金关注' },
-                { name: '晓程科技', netFlow: 6.82, reason: '民爆概念龙头，受益于能源安全需求' },
-                { name: '北方华创', netFlow: 5.98, reason: '半导体设备龙头，国产替代持续推进' },
-                { name: '中国船舶', netFlow: 5.12, reason: '造船行业景气持续，业绩确定性强' },
-                { name: '中国神华', netFlow: 4.56, reason: '高股息蓝筹代表，稳定现金流吸引资金' },
-                { name: '中航沈飞', netFlow: 4.23, reason: '军工龙头，地缘局势催化订单预期' },
-                { name: '长江电力', netFlow: 3.89, reason: '水电龙头，高股息防御属性突出' },
-                { name: '兆易创新', netFlow: 3.45, reason: '存储芯片龙头，受益于AI算力需求' },
-                { name: '中芯国际', netFlow: 3.12, reason: '晶圆代工龙头，业绩拐点显现' },
-                { name: '宁德时代', netFlow: 2.78, reason: '动力电池龙头，外资持续增持' }
+                { name: '北方稀土', netFlow: 29.73, reason: '稀土永磁板块龙头，牛散章建平持仓超35亿，午盘涨停' },
+                { name: '胜宏科技', netFlow: 21.83, reason: 'AI算力概念，一季度净利润同比增40%，业绩超预期' },
+                { name: '中际旭创', netFlow: 15.69, reason: '光模块全球龙头，一季度净利润大增262%，高盛上调目标价至1187元' },
+                { name: '比亚迪', netFlow: 14.93, reason: '新能源整车龙头，智能化战略布局预期，午后强势反弹' },
+                { name: '格力电器', netFlow: 10.59, reason: '白色家电龙头，低估值高股息吸引资金配置' },
+                { name: '华工科技', netFlow: 9.14, reason: 'AI光模块订单饱满，午盘强势涨停' },
+                { name: '剑桥科技', netFlow: 8.07, reason: '光模块业务持续放量，CPO概念持续活跃' },
+                { name: '阳光电源', netFlow: 7.25, reason: '光伏逆变器龙头，赛道迎来资金回流' },
+                { name: '新易盛', netFlow: 7.15, reason: '高速光模块业务高景气，持续获得资金加码' },
+                { name: '豫能控股', netFlow: 6.91, reason: '参股算力+绿电双业务，电力赛道优质标的' }
             ],
             outflow: [
-                { name: '比亚迪', netFlow: -12.50, reason: '一季度净利润下降55%，业绩承压' },
-                { name: '中际旭创', netFlow: -8.20, reason: '光模块高位回落，资金获利了结' },
-                { name: '天孚通信', netFlow: -6.80, reason: 'CPO概念调整，短线资金出逃' },
-                { name: '贵州茅台', netFlow: -5.60, reason: '白酒板块整体走弱，资金观望' },
-                { name: '宁德时代', netFlow: -4.90, reason: '新能源车板块调整，获利盘回吐' }
+                { name: '工业富联', netFlow: -28.26, reason: '消费电子龙头，获利盘集中了结' },
+                { name: '招商银行', netFlow: -13.60, reason: '银行板块调整，资金阶段性撤离' },
+                { name: '信维通信', netFlow: -8.03, reason: '消费电子调整，获利资金出逃' },
+                { name: '澜起科技', netFlow: -6.15, reason: '半导体高位回落，资金观望' },
+                { name: '中芯国际', netFlow: -6.08, reason: '半导体板块分化，短线资金出逃' }
             ]
         },
         // 基金资金流向
         fundFlows: [
-            { code: '510300', name: '华泰柏瑞沪深300ETF', inflow: 2.50, outflow: 0, netFlow: 2.50, trend: '大盘蓝筹早盘小幅流入，高股息标的受关注', source: 'https://fund.eastmoney.com/510300.html' },
-            { code: '588000', name: '华夏科创50ETF', inflow: 1.80, outflow: 0, netFlow: 1.80, trend: '科创50早盘小幅流入，硬科技主线获资金关注', source: 'https://fund.eastmoney.com/588000.html' },
-            { code: '515080', name: '招商中证红利ETF', inflow: 3.20, outflow: 0, netFlow: 3.20, trend: '防御属性吸引资金流入，高股息策略持续受宠', source: 'https://fund.eastmoney.com/515080.html' },
-            { code: '510500', name: '南方中证500ETF', inflow: 0, outflow: -2.30, netFlow: -2.30, trend: '中小盘调整，早盘净流出约2.3亿元', source: 'https://fund.eastmoney.com/510500.html' }
+            { code: '510300', name: '华泰柏瑞沪深300ETF', inflow: 4.80, outflow: 0, netFlow: 4.80, trend: '大盘蓝筹获资金流入，权重股护盘明显', source: 'https://fund.eastmoney.com/510300.html' },
+            { code: '588000', name: '华夏科创50ETF', inflow: 3.50, outflow: 0, netFlow: 3.50, trend: '科技股回暖，科创50反弹明显', source: 'https://fund.eastmoney.com/588000.html' },
+            { code: '515080', name: '招商中证红利ETF', inflow: 2.80, outflow: 0, netFlow: 2.80, trend: '防御属性吸引资金流入，高股息策略持续受宠', source: 'https://fund.eastmoney.com/515080.html' },
+            { code: '510500', name: '南方中证500ETF', inflow: 3.20, outflow: 0, netFlow: 3.20, trend: '中小盘科技股反弹，成长风格占优', source: 'https://fund.eastmoney.com/510500.html' }
         ]
     },
     
@@ -318,17 +368,35 @@ const SAMPLE_DATA = {
         // 当前利好板块
         current: [
             {
-                name: '民爆概念',
-                reason: '能源安全需求提升，民爆行业受益于能源基础设施建设的持续推进。叠加节前避险情绪，防御性板块获得资金关注。民爆概念早盘逆势走强，晓程科技等个股表现突出。',
-                inflow: 18.60,
-                hotStocks: ['晓程科技', '雅化集团', '高争民爆', '壶化股份', '金奥博'],
+                name: '稀土永磁',
+                reason: '北方稀土午盘涨停，牛散章建平持仓超35亿成第四大股东。新能源汽车、风电等下游需求持续增长，稀土战略资源属性凸显。一季度工业企业利润大增15.5%，稀土行业受益明显。',
+                inflow: 35.60,
+                hotStocks: ['北方稀土', '中国稀土', '盛和资源', '五矿稀土', '广晟有色'],
+                sustainability: '强',
+                riskTip: '关注稀土价格波动和出口政策',
+                source: 'https://quote.eastmoney.com/center/boardlist.html'
+            },
+            {
+                name: 'AI通信/光模块',
+                reason: '中际旭创一季度净利润大增262%，高盛上调目标价至1187元。光模块需求爆发，高速光模块租赁价格上涨74%。算力需求持续扩张，AI基础设施建设加速。',
+                inflow: 48.20,
+                hotStocks: ['中际旭创', '剑桥科技', '华工科技', '新易盛', '天孚通信'],
+                sustainability: '强',
+                riskTip: '关注美股AI概念波动和算力需求变化',
+                source: 'https://quote.eastmoney.com/center/boardlist.html'
+            },
+            {
+                name: '新能源汽车',
+                reason: '比亚迪午后强势反弹，新能源汽车产业链需求复苏预期增强。光伏、半导体、消费电子等赛道股同步反弹，显示资金对景气度边际改善的认可。',
+                inflow: 22.70,
+                hotStocks: ['比亚迪', '宁德时代', '阳光电源', '亿纬锂能', '欣旺达'],
                 sustainability: '中',
-                riskTip: '关注政策变化和原材料价格波动',
+                riskTip: '关注原材料价格波动和行业竞争加剧',
                 source: 'https://quote.eastmoney.com/center/boardlist.html'
             },
             {
                 name: '半导体/硬科技',
-                reason: '工信部开展"人工智能+软件"专项行动，国产替代进程加速。半导体设备龙头北方华创、存储芯片龙头兆易创新持续获资金关注。科创50早盘小幅低开后企稳，显示科技主线韧性。',
+                reason: '工信部开展"人工智能+软件"专项行动，国产替代进程加速。AI算力产业从"主题概念"向"业绩兑现"阶段过渡，市场资金选择向高景气赛道集中。',
                 inflow: 15.40,
                 hotStocks: ['北方华创', '中芯国际', '兆易创新', '中微公司', '华虹半导体'],
                 sustainability: '强',
@@ -336,30 +404,12 @@ const SAMPLE_DATA = {
                 source: 'https://quote.eastmoney.com/center/boardlist.html'
             },
             {
-                name: '军工',
-                reason: '中东局势持续紧张，地缘风险升温刺激军工板块。伊朗武装部队已完成作战装备全面更新，地缘催化效应持续。军工板块早盘获资金流入，中航沈飞等龙头表现稳健。',
-                inflow: 12.80,
-                hotStocks: ['中航沈飞', '中航西飞', '航发动力', '中国船舶', '中国重工'],
+                name: '房地产',
+                reason: '政治局会议强调稳定房地产，早盘房地产板块净流入17亿。万科A净买入7.12亿成为板块内资金买入核心标的。政策支持预期升温。',
+                inflow: 17.00,
+                hotStocks: ['万科A', '保利发展', '招商蛇口', '金地集团', '华侨城A'],
                 sustainability: '中',
-                riskTip: '关注地缘局势变化和政策催化力度',
-                source: 'https://quote.eastmoney.com/center/boardlist.html'
-            },
-            {
-                name: '高股息/低估值蓝筹',
-                reason: '政治局会议强调保持流动性充裕，货币政策前瞻性灵活性针对性增强。高股息、低估值蓝筹在市场震荡时具备防御属性，长江电力、中国神华等持续获资金流入。',
-                inflow: 10.20,
-                hotStocks: ['长江电力', '中国神华', '工商银行', '招商银行', '中国平安'],
-                sustainability: '强',
-                riskTip: '关注利率变动对高股息板块的影响',
-                source: 'https://quote.eastmoney.com/center/boardlist.html'
-            },
-            {
-                name: '稀土永磁',
-                reason: '北方稀土一季报显示知名牛散章建平新进十大股东，稀土板块获资金关注。新能源汽车、风电等下游需求持续增长，稀土战略资源属性凸显。',
-                inflow: 8.50,
-                hotStocks: ['北方稀土', '盛和资源', '五矿稀土', '广晟有色', '中科三环'],
-                sustainability: '中',
-                riskTip: '关注稀土价格波动和出口政策',
+                riskTip: '关注政策力度和销售数据改善情况',
                 source: 'https://quote.eastmoney.com/center/boardlist.html'
             }
         ],
@@ -392,9 +442,9 @@ const SAMPLE_DATA = {
         ],
         // 板块轮动预测
         rotation: {
-            from: ['AI软件', '新能源车', '光模块', '白酒', '电力'],
-            to: ['民爆概念', '军工', '半导体', '高股息蓝筹', '稀土永磁'],
-            analysis: '市场风格切换明显：民爆概念、军工等防御板块表现强势，地缘风险催化避险需求；半导体等硬科技主线获资金关注；高股息蓝筹持续吸引配置资金；AI软件、新能源车等前期强势板块回调。节前效应下资金趋于谨慎，建议关注防御性板块和业绩确定性强的标的。'
+            from: ['消费电子', '半导体高位', '银行', '石油石化', '白酒'],
+            to: ['稀土永磁', 'AI通信/光模块', '新能源汽车', '房地产', '机械设备'],
+            analysis: '市场风格明显切换：稀土永磁、锂电池概念集体爆发，掀涨停潮；AI通信、光模块持续获资金流入；新能源汽车产业链反弹；房地产板块受政策预期带动走强。消费电子、半导体高位个股遭资金抛售。中小盘科技股活跃，市场赚钱效应显著改善。'
         }
     },
     
