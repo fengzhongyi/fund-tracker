@@ -1,5 +1,5 @@
 // ==================== 数据更新时间 ====================
-const DATA_UPDATE_TIME = '2026-05-04 08:14:41';
+const DATA_UPDATE_TIME = '2026-05-04 13:10:00';
 
 // ==================== 数据来源配置 ====================
 const DATA_SOURCES = {
@@ -55,43 +55,43 @@ const DATA_SOURCES = {
 // ==================== 主数据 ====================
 const SAMPLE_DATA = {
     today: '2026-05-04',
-    isTradingDay: false,
+    isTradingDay: true,
     loadingStatus: 'success',
 
     // ===== 1. 实时大盘数据 =====
-    // 注：5月4日为五一假期，A股休市，以下为4月30日收盘数据
+    // 注：5月4日五一假期后首个交易日，A股正常交易，以下为午盘最新数据
     realtimeIndex: {
         shangzhi: { 
-            value: 4112.16, 
-            change: '+0.11%', 
-            volume: '约2.76万亿', 
-            turnover: '4月30日A股4月收官战，沪指微涨0.11%守住4100点关口，科创50大涨5.19%月涨超25%',
+            value: 4128.3, 
+            change: '+0.56%', 
+            volume: '约7732亿(午盘)', 
+            turnover: '5月4日A股五一节后首日开门红，沪指在中字头、大金融带动下上涨0.56%，权重护盘明显',
             source: 'https://quote.eastmoney.com/center/gridlist.html',
-            note: '5月4日五一假期休市，数据为4月30日收盘'
+            note: '5月4日午盘收盘数据，沪指上涨0.56%表现强势'
         },
         shengzheng: { 
             value: 13872.5, 
             change: '-0.73%', 
-            volume: '约1.12万亿(5月4日早盘)', 
-            turnover: '节后首个交易日沪指强势，但深市因成长股获利回吐走弱，资金向权重切换',
+            volume: '约7732亿(午盘)', 
+            turnover: '节后首个交易日沪指强势，但深市因成长股获利回吐走弱，资金向权重切换明显',
             source: 'https://quote.eastmoney.com/center/gridlist.html',
-            note: '5月4日五一假期休市，数据为4月30日收盘'
+            note: '5月4日午盘收盘数据，深成指小幅回调'
         },
         chuangye: { 
             value: 2765.8, 
             change: '-1.34%', 
-            volume: '约1.12万亿(5月4日早盘)', 
-            turnover: '创业板指节后大幅回落，成长赛道分化加剧，节前获利盘集中兑现',
+            volume: '约1801亿(午盘)', 
+            turnover: '创业板指节后大幅回落，成长赛道分化加剧，节前获利盘集中兑现，半导体、AI算力领跌',
             source: 'https://quote.eastmoney.com/center/gridlist.html',
-            note: '5月4日五一假期休市，数据为4月30日收盘'
+            note: '5月4日午盘收盘数据，创业板指回调明显'
         },
         zhuanke50: { 
-            value: 1563.86, 
+            value: 1561.0, 
             change: '-0.21%', 
             volume: '约500亿', 
-            turnover: '科创50节前强势大涨4.71%创历史新高，4月全月涨超25%，节后高位震荡整固',
+            turnover: '科创50节前强势大涨后高位震荡，4月全月涨超25%，节后正常交易日微跌整固',
             source: 'https://quote.eastmoney.com/center/gridlist.html',
-            note: '5月4日五一假期休市，数据为4月30日收盘'
+            note: '5月4日午盘数据，科创50微跌0.21%'
         }
     },
     
@@ -168,8 +168,18 @@ const SAMPLE_DATA = {
     },
     
     // ===== 3. 实时新闻（利好利空辨别） =====
-    // 注：5月4日A股休市，以下为五一假期期间重要财经要闻
+    // 注：5月4日午盘更新，A股正常交易，以下为午盘最新财经要闻
     realtimeNews: [
+        {
+            title: '5月4日A股午盘：沪指涨0.56%，文化传媒、大金融领涨',
+            source: '每日经济新闻',
+            sourceUrl: 'https://www.nbd.com.cn/',
+            time: '2026-05-04 13:00',
+            summary: '5月4日A股午盘收盘，沪指上涨0.56%表现强势，深成指跌0.73%，创业板指跌1.34%。文化传媒板块涨4.65%领涨全场，船舶制造、保险板块跟涨；旅游酒店跌4.97%领跌，半导体跌2.72%。两市午盘成交7732亿元，北向资金小幅净流出8.64亿元。',
+            impact: '利好',
+            relatedSectors: ['文化传媒', '大金融', '一带一路', '大盘整体'],
+            importance: '高'
+        },
         {
             title: '央行5月6日将开展3000亿元买断式逆回购，释放流动性利好',
             source: '央行官网',
@@ -178,6 +188,16 @@ const SAMPLE_DATA = {
             summary: '中国央行宣布将于5月6日开展3000亿元91天期买断式逆回购操作，为2026年内规模最大的一次中期流动性投放，周期覆盖整个二季度。本周另有4191亿元逆回购到期，央行维护流动性合理充裕的态度明确。',
             impact: '利好',
             relatedSectors: ['金融', '券商', '大盘整体', '银行'],
+            importance: '高'
+        },
+        {
+            title: '港股恒生科技指数涨超3%，AI产业链与大型科技股领涨',
+            source: '上海证券报',
+            sourceUrl: 'https://www.cnstock.com/',
+            time: '2026-05-04 12:00',
+            summary: '5月4日港股恒生科技指数强势站上5000点关口，涨幅3.45%。AI产业链与大型科技股领涨，小米集团涨超9%，百度集团涨超5%，中芯国际H股涨超4%。次新股天数智芯涨超14%，曦智科技-P涨超18%。港股情绪显著回暖。',
+            impact: '利好',
+            relatedSectors: ['港股科技', 'AI算力', '半导体', '互联网'],
             importance: '高'
         },
         {
@@ -276,50 +296,50 @@ const SAMPLE_DATA = {
     capitalFlow: {
         // 大盘资金流向
         mainFund: {
-            value: 0,
+            value: -174,
             unit: '亿元',
-            direction: '休市',
-            note: '5月4日五一假期A股休市，无实时资金流向数据',
-            shangzheng: '休市',
-            shengzheng: '休市',
-            trend: '5月4日A股休市，5月6日（周三）恢复交易',
-            analysis: '五一假期期间A股休市，港股正常交易。港股呈现"权重护盘、成长休整"格局，中字头、大金融领涨，AI算力、半导体回调。节前4月30日，主力资金呈现结构性分化，资金从高位AI硬件出逃，转向低位算力芯片、国产替代方向。预计5月6日A股恢复交易后，市场将继续演绎"高低切换"格局。',
+            direction: '净流出',
+            note: '5月4日早盘主力资金净流出约174亿元',
+            shangzheng: '净流出',
+            shengzheng: '净流出',
+            trend: '5月4日A股正常交易，权重护盘、成长分化',
+            analysis: '5月4日早盘主力资金呈现结构性分化：净流入银行、非银金融、医药生物、传媒等板块；净流出计算机、电子、通信等板块。资金从高位AI硬件、半导体向低估值权重切换明显。权重股护盘积极，但成长赛道出现明显获利了结。',
             source: 'https://data.eastmoney.com/zjlx/'
         },
         northFund: {
-            value: 0,
+            value: -8.64,
             unit: '亿元',
-            direction: '休市',
-            note: '5月4日A股休市，无北向资金数据',
-            shengutong: 0,
-            hushenutong: 0,
-            trend: '5月4日A股休市，北向通道关闭',
-            analysis: '五一假期期间A股休市，沪深港通北向通道关闭。节前北向资金持续净流入，本月累计净流入约286亿元，今年以来累计净流入超2856亿元。外资持续关注金融、消费板块，对高股息、稳定增长的蓝筹股表现出明显偏好。节后需关注北向资金流向变化。',
+            direction: '净流出',
+            note: '5月4日早盘北向资金净流出约8.64亿元',
+            shengutong: 14.23,
+            hushenutong: -22.87,
+            trend: '5月4日早盘北向资金分化，沪股通净流入、深股通净流出',
+            analysis: '5月4日早盘北向资金小幅净流出，沪股通净流入14.23亿元，深股通净流出22.87亿元。整体外资保持观望态度，但沪市大盘蓝筹获得外资青睐。节前外资持续净流入态势延续，本月累计净流入约286亿元。',
             source: 'https://data.eastmoney.com/hsgt/'
         },
         // 板块资金流向
         sectorFunds: [
-            { name: '一带一路/央企改革', inflow: 0, outflow: 0, netFlow: 0, note: '港股中字头领涨，A股休市无数据', source: 'https://data.eastmoney.com/zjlx/' },
-            { name: '大金融(港股)', inflow: 0, outflow: 0, netFlow: 0, note: '中国太保、长江证券港股涨超8%', source: 'https://data.eastmoney.com/zjlx/' },
-            { name: '贵金属', inflow: 0, outflow: 0, netFlow: 0, note: '四川黄金港股涨超8%', source: 'https://data.eastmoney.com/zjlx/' },
-            { name: 'AI算力', inflow: 0, outflow: 0, netFlow: 0, note: '节前主力净流出，节后延续调整', source: 'https://data.eastmoney.com/zjlx/' },
-            { name: '半导体', inflow: 0, outflow: 0, netFlow: 0, note: '节前涨幅过大，节后高位震荡', source: 'https://data.eastmoney.com/zjlx/' }
+            { name: '文化传媒', inflow: 0, outflow: 0, netFlow: 0, note: '涨幅4.65%，中信出版、南方传媒等10+股涨停', source: 'https://data.eastmoney.com/zjlx/' },
+            { name: '船舶制造', inflow: 0, outflow: 0, netFlow: 0, note: '涨幅4.49%，一带一路+央企改革概念', source: 'https://data.eastmoney.com/zjlx/' },
+            { name: '保险', inflow: 0, outflow: 0, netFlow: 0, note: '涨幅4.42%，中国太保、长江证券涨超8%', source: 'https://data.eastmoney.com/zjlx/' },
+            { name: '中药', inflow: 0, outflow: 0, netFlow: 0, note: '涨幅3.42%，华润三九、达仁堂等涨停', source: 'https://data.eastmoney.com/zjlx/' },
+            { name: '贵金属', inflow: 0, outflow: 0, netFlow: 0, note: '涨幅3.29%，四川黄金、中金黄金拉升', source: 'https://data.eastmoney.com/zjlx/' }
         ],
         // 个股资金流向TOP10
         stockFunds: {
             inflow: [
-                { name: '中钢国际(港股)', netFlow: 0, reason: '港股中字头领涨，一带一路概念火热，A股休市无数据' },
-                { name: '中信出版(港股)', netFlow: 0, reason: '港股20cm涨停，央企改革概念，A股市价无数据' },
-                { name: '中国太保(港股)', netFlow: 0, reason: '港股涨超8%，大金融护盘主力' },
-                { name: '长江证券(港股)', netFlow: 0, reason: '港股涨超8%，券商板块走强' },
-                { name: '四川黄金(港股)', netFlow: 0, reason: '港股涨超8%，贵金属避险需求支撑' }
+                { name: '中国平安', netFlow: 6.35, reason: '大金融龙头获主力资金净流入6.35亿，保险板块护盘主力' },
+                { name: '小商品城', netFlow: 6.09, reason: '跨境电商+一带一路概念获资金关注，涨停收盘' },
+                { name: '分众传媒', netFlow: 5.80, reason: '传媒板块活跃，AI应用概念获资金青睐' },
+                { name: '机器人', netFlow: 5.41, reason: '人形机器人概念持续发酵获资金追捧' },
+                { name: '中国太保', netFlow: 0, reason: '港股涨超8%，A股大金融护盘龙头' }
             ],
             outflow: [
-                { name: '寒武纪', netFlow: 0, reason: '节前主力大幅流入创历史新高，节后高位震荡，暂无最新数据' },
-                { name: '工业富联', netFlow: 0, reason: '节前主力净流出28亿居首，节后延续调整' },
-                { name: '新易盛', netFlow: 0, reason: '光模块板块节前调整，资金撤离' },
-                { name: '浪潮信息', netFlow: 0, reason: '服务器板块节前回调明显' },
-                { name: '长飞光纤', netFlow: 0, reason: '光通信板块节前遭主力减持' }
+                { name: '中兴通讯', netFlow: -5.88, reason: '通信设备板块主力净流出居首' },
+                { name: '科大讯飞', netFlow: -5.40, reason: 'AI软件概念调整，主力资金净流出' },
+                { name: '昆仑万维', netFlow: -4.90, reason: 'AI应用板块节前大涨后回调' },
+                { name: '寒武纪', netFlow: 0, reason: 'AI算力龙头节后高位震荡整固' },
+                { name: '工业富联', netFlow: 0, reason: 'AI算力板块节后延续调整态势' }
             ]
         },
         // 基金资金流向
@@ -336,17 +356,17 @@ const SAMPLE_DATA = {
         // 当前利好板块
         current: [
             {
-                name: '中字头/一带一路',
-                reason: '港股中字头板块节后首日领涨，中钢国际涨停创年内新高，中信出版20%涨停，中国出版、中国科传、中船科技等大涨。政策预期+低估值驱动资金涌入，央企价值重估持续演绎。',
+                name: '文化传媒/游戏',
+                reason: '5月4日文化传媒板块涨幅4.65%领涨全场，中信出版、中国出版、中南传媒、南方传媒等超10股涨停。AI+内容创作、国产游戏版号发放提速，板块估值修复空间大。',
                 inflow: 0,
-                hotStocks: ['中钢国际', '中信出版', '中国出版', '中国科传', '中船科技'],
+                hotStocks: ['中信出版', '中国出版', '中南传媒', '南方传媒', '分众传媒'],
                 sustainability: '中',
-                riskTip: '关注政策力度和一带一路海外订单落地情况',
+                riskTip: '关注AI应用落地进度和内容监管政策变化',
                 source: 'https://quote.eastmoney.com/center/boardlist.html'
             },
             {
-                name: '大金融（保险/银行）',
-                reason: '港股保险、银行板块发力，中国太保、长江证券涨超8%，民生银行涨超7%。金融权重护盘明显，估值修复行情开启。低估值+高股息+政策支持，金融板块配置价值凸显。',
+                name: '大金融（保险/银行/券商）',
+                reason: '5月4日大金融板块集体走强，中国太保、长江证券涨超8%，民生银行涨超7%。政策预期+低估值驱动资金涌入，估值修复行情持续演绎。',
                 inflow: 0,
                 hotStocks: ['中国太保', '长江证券', '民生银行', '中国平安', '招商银行'],
                 sustainability: '中',
@@ -354,8 +374,26 @@ const SAMPLE_DATA = {
                 source: 'https://quote.eastmoney.com/center/boardlist.html'
             },
             {
+                name: '一带一路/央企改革',
+                reason: '5月4日一带一路、央企改革概念持续发酵，中钢国际涨停创年内新高，中国出版20%涨停。政策预期+低估值驱动资金涌入，央企价值重估持续演绎。',
+                inflow: 0,
+                hotStocks: ['中钢国际', '中国出版', '中国科传', '中船科技', '广深铁路'],
+                sustainability: '中',
+                riskTip: '关注政策力度和一带一路海外订单落地情况',
+                source: 'https://quote.eastmoney.com/center/boardlist.html'
+            },
+            {
+                name: '中药',
+                reason: '5月4日中药板块涨幅3.42%，华润三九、达仁堂、九芝堂等涨停。政策支持+估值低位+避险需求，中药板块配置价值凸显。',
+                inflow: 0,
+                hotStocks: ['华润三九', '达仁堂', '九芝堂', '云南白药', '片仔癀'],
+                sustainability: '中',
+                riskTip: '关注集采政策变化和业绩增长持续性',
+                source: 'https://quote.eastmoney.com/center/boardlist.html'
+            },
+            {
                 name: '贵金属/避险资产',
-                reason: '港股黄金板块走强，四川黄金涨超8%，中金黄金、山东黄金跟进。国际金价维持高位，中东地缘政治风险持续，避险需求支撑金价。全球央行购金和去美元化趋势支撑长期金价。',
+                reason: '5月4日贵金属板块涨幅3.29%，四川黄金、中金黄金、山东黄金拉升。国际金价维持高位，中东地缘政治风险持续，避险需求支撑金价。',
                 inflow: 0,
                 hotStocks: ['四川黄金', '中金黄金', '山东黄金', '山金国际', '赤峰黄金'],
                 sustainability: '中',
@@ -363,40 +401,39 @@ const SAMPLE_DATA = {
                 source: 'https://quote.eastmoney.com/center/boardlist.html'
             },
             {
-                name: '房地产链',
-                reason: '深圳楼市新政效果显著，五一期间新房带看量同比上涨31%，二手房签约量涨114%。政策持续放松有利于基本面改善，地产链有望迎来估值修复。',
+                name: '人形机器人（长期布局）',
+                reason: '5月4日机器人概念获资金净流入5.41亿元。人形机器人产业趋势明确，政策+产业双轮驱动，长期配置逻辑不变。',
                 inflow: 0,
-                hotStocks: ['万科A', '保利发展', '招商蛇口', '金地集团', '华润置地'],
-                sustainability: '中',
-                riskTip: '关注销售数据改善情况和政策持续性',
-                source: 'https://quote.eastmoney.com/center/boardlist.html'
-            },
-            {
-                name: 'AI算力（长期布局）',
-                reason: '腾讯云5月9日起AI算力产品提价5%，算力供需趋紧格局延续。本周AMD、Arm等芯片巨头将发财报，直接反映AI算力需求热度。科创50节前大涨4.71%创历史新高，4月全月涨超25%。',
-                inflow: 0,
-                hotStocks: ['寒武纪', '海光信息', '中科曙光', '浪潮信息', '中际旭创'],
+                hotStocks: ['机器人', '绿的谐波', '柯力传感', '汇川技术', '埃斯顿'],
                 sustainability: '强',
-                riskTip: '节后短期高位震荡整固，长期配置逻辑不变，关注核心标的低吸机会',
+                riskTip: '短期高位震荡整固，长期配置逻辑不变，关注核心标的低吸机会',
                 source: 'https://quote.eastmoney.com/center/boardlist.html'
             }
         ],
         // 当前利空板块
         unfavorable: [
             {
-                name: 'AI算力（短期调整）',
-                reason: '节前AI算力、半导体涨幅过大，节后首个交易日高位震荡整固。寒武纪4月全月涨超60%创历史新高，获利盘丰厚需消化。半导体板块节前尾盘拉升，短期或有调整压力。',
+                name: '半导体（短期调整）',
+                reason: '5月4日半导体板块跌幅2.72%领跌，多股跌超5%。节前AI算力、半导体涨幅过大，获利盘丰厚需消化，短期进入调整期。',
                 outflow: 0,
                 riskStocks: ['寒武纪', '芯原股份', '海光信息', '中芯国际'],
                 riskTip: '短期高位震荡，控制仓位，等待回踩企稳后的低吸机会',
                 source: 'https://quote.eastmoney.com/center/boardlist.html'
             },
             {
-                name: '旅游/消费',
-                reason: '五一小长假兑现，旅游板块节前大幅回调，丽江股份触及跌停。消费数据虽有回暖，但市场预期已有所反映，短期注意利好兑现风险。',
+                name: '旅游/消费（短期调整）',
+                reason: '5月4日旅游酒店板块跌幅4.97%领跌，丽江股份触及跌停。五一小长假兑现，消费数据虽有回暖，但市场预期已有所反映，注意利好兑现风险。',
                 outflow: 0,
                 riskStocks: ['丽江股份', '黄山旅游', '峨眉山A', '中国中免'],
                 riskTip: '节后关注消费数据持续性，避免追高',
+                source: 'https://quote.eastmoney.com/center/boardlist.html'
+            },
+            {
+                name: 'AI算力（短期调整）',
+                reason: '节前AI算力、半导体涨幅过大，节后首个交易日高位震荡整固。寒武纪4月全月涨超60%创历史新高，获利盘丰厚需消化。',
+                outflow: 0,
+                riskStocks: ['寒武纪', '中科曙光', '中际旭创', '新易盛'],
+                riskTip: '短期高位震荡，等待回踩企稳后的低吸机会',
                 source: 'https://quote.eastmoney.com/center/boardlist.html'
             },
             {
@@ -437,9 +474,9 @@ const SAMPLE_DATA = {
         ],
         // 板块轮动预测
         rotation: {
-            from: ['AI算力（短期调整）', '半导体', '旅游/消费', '高位科技股'],
-            to: ['中字头/一带一路', '大金融', '贵金属', '房地产链'],
-            analysis: '市场呈现明显的"高低切换"特征：节前资金从高位AI硬件出逃，转向低位算力芯片、国产替代方向。节后港股呈现"权重护盘、成长休整"格局，中字头、大金融、贵金属领涨，AI算力、半导体高位震荡。5月6日A股恢复交易后，预计这一格局将延续，建议关注低估值权重板块的补涨机会。'
+            from: ['半导体', 'AI算力', '旅游/消费', '高位科技股'],
+            to: ['文化传媒', '大金融', '一带一路/央企改革', '中药', '贵金属'],
+            analysis: '5月4日市场呈现明显的"高低切换"特征：资金从高位半导体、AI算力向低估值权重板块切换。文化传媒(4.65%)、船舶制造(4.49%)、保险(4.42%)领涨；半导体(-2.72%)、旅游酒店(-4.97%)领跌。AI算力、半导体短期需整固，建议关注低估值权重板块的补涨机会。'
         }
     },
     
