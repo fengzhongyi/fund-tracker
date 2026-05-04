@@ -1,13 +1,28 @@
 // ==================== 数据获取配置 ====================
 const API_CONFIG = {
+    // CORS代理服务（解决跨域问题）
+    corsProxy: 'https://corsproxy.io/?url=',
+    
     // 天天基金实时净值API (HTTPS版本，支持跨域)
     fundRealtimeUrl: 'https://fundgz.1234567.com.cn/js/{code}.js?rt={timestamp}',
     
     // 东方财富历史净值API (HTTPS版本)
     fundHistoryUrl: 'https://fundf10.eastmoney.com/F10DataApi.aspx?type=lsjz&code={code}&page=1&sdate={start}&edate={end}&per=20',
     
-    // 东方财富大盘指数API (需要特殊处理)
-    indexUrl: 'https://push2.eastmoney.com/api/qt/ulist.np/get',
+    // 东方财富大盘指数API (需要CORS代理)
+    indexUrl: 'https://push2.eastmoney.com/api/qt/ulist.np/get?fltt=2&secids={secids}&fields=f2,f3,f4,f5,f8,f12,f13,f14',
+    
+    // 东方财富主力资金流向API (需要CORS代理)
+    capitalFlowUrl: 'https://push2.eastmoney.com/api/qt/clist/get?pn=1&pz=10&po=1&np=1&fields=f12,f13,f14,f62&fid=f62&fs=m:90+t:2&ut=b2884a393a59ad64002292a3e90d46f5',
+    
+    // 东方财富板块资金流向API (需要CORS代理)
+    sectorFlowUrl: 'https://push2.eastmoney.com/api/qt/clist/get?pn=1&pz=50&po=1&np=1&fields=f12,f13,f14,f62&fid=f62&fs=m:90+t:2+f:!50&ut=b2884a393a59ad64002292a3e90d46f5',
+    
+    // 东方财富新闻API (需要CORS代理)
+    newsUrl: 'https://newsapi.eastmoney.com/kuaixun/v1/getlist_102_AjaxHandler.ashx?type=0&pageindex=1&pagesize=20&_={timestamp}',
+    
+    // 新浪财经大盘API (备选)
+    sinaIndexUrl: 'http://hq.sinajs.cn/list={codes}',
     
     // 指数代码映射
     indexCodes: {
@@ -182,22 +197,76 @@ const ApiService = {
         const m = String(date.getMonth() + 1).padStart(2, '0');
         const d = String(date.getDate()).padStart(2, '0');
         return `${y}-${m}-${d}`;
+    },
+    
+    // 使用CORS代理获取数据
+    async fetchWithCorsProxy(url) {
+        const proxyUrl = API_CONFIG.corsProxy + encodeURIComponent(url);
+        try {
+            const response = await fetch(proxyUrl);
+            if (!response.ok) throw new Error(`HTTP ${response.status}`);
+            return await response.json();
+        } catch (error) {
+            console.warn('CORS代理请求失败，尝试直接请求:', error);
+            // 备选方案：直接请求（可能会被CORS阻止）
+            try {
+                const response = await fetch(url);
+                if (!response.ok) throw new Error(`HTTP ${response.status}`);
+                return await response.json();
+            } catch (e) {
+                throw new Error(`网络请求失败: ${e.message}`);
+            }
+        }
     }
 };
 
 // ==================== 指数数据获取 ====================
-// 由于东方财富/新浪等接口需要特定headers才能跨域，
-// 这里使用天天基金的大盘数据来估算指数变化
 const IndexService = {
-    // 模拟指数数据（基于基金估算）
+    // 获取大盘指数实时数据（从东方财富API）
     async getIndexData() {
         const cacheKey = 'index_data';
         const cached = DataCache.get(cacheKey);
         if (cached) return cached;
         
         try {
-            // 获取主要ETF的实时数据来估算大盘
-            const fundData = await ApiService.getBatchFundRealtime(['510300', '588000']);
+            // 构建指数代码列表
+            const secids = Object.values(API_CONFIG.indexCodes).join(',');
+            const url = API_CONFIG.indexUrl.replace('{secids}', secids);
+            
+            const response = await ApiService.fetchWithCorsProxy(url);
+            const result = {};
+            
+            if (response?.data?.diff) {
+                const indexKeyMap = Object.keys(API_CONFIG.indexCodes);
+                const indexValues = Object.values(API_CONFIG.indexCodes);
+                
+                response.data.diff.forEach((item, idx) => {
+                    const key = indexKeyMap[indexValues.indexOf(`${item.f13}.${item.f12}`)];
+                    if (key) {
+                        result[key] = {
+                            name: item.f14,
+                            value: item.f2,           // 最新价
+                            change: item.f3,         // 涨跌幅
+                            changeAmount: item.f4,   // 涨跌额
+                            volume: this.formatVolume(item.f5),  // 成交量
+                            turnover: item.f8        // 成交额
+                        };
+                    }
+                });
+            }
+            
+            DataCache.set(cacheKey, result);
+            return result;
+        } catch (error) {
+            console.warn('获取大盘指数失败，使用基金估算:', error);
+            return await this.getIndexDataFromFund();
+        }
+    },
+    
+    // 备选：从基金数据估算大盘
+    async getIndexDataFromFund() {
+        // 获取主要ETF的实时数据来估算大盘
+        const fundData = await ApiService.getBatchFundRealtime(['510300', '588000']);
             
             const data = {
                 shangzhi: { name: '上证指数', value: '--', change: '--', volume: '--' },
@@ -228,6 +297,181 @@ const IndexService = {
             console.error('获取指数数据失败:', error);
             return null;
         }
+    },
+    
+    // 格式化成交量
+    formatVolume(volume) {
+        if (!volume) return '--';
+        if (volume >= 100000000) {
+            return (volume / 100000000).toFixed(2) + '亿';
+        } else if (volume >= 10000) {
+            return (volume / 10000).toFixed(2) + '万';
+        }
+        return volume.toString();
+    }
+};
+
+// ==================== 资金流向服务 ====================
+const CapitalFlowService = {
+    async getCapitalFlow() {
+        const cacheKey = 'capital_flow';
+        const cached = DataCache.get(cacheKey);
+        if (cached) return cached;
+        
+        try {
+            const url = API_CONFIG.capitalFlowUrl;
+            const response = await ApiService.fetchWithCorsProxy(url);
+            
+            const result = {
+                mainFund: { value: 0, analysis: '数据加载中' },
+                northFund: { value: 0, analysis: '数据加载中' }
+            };
+            
+            if (response?.data?.diff) {
+                // 解析主力资金数据
+                const mainFundItem = response.data.diff.find(item => 
+                    item.f14 && item.f14.includes('主力')
+                );
+                if (mainFundItem) {
+                    result.mainFund = {
+                        value: this.formatAmount(mainFundItem.f62),
+                        analysis: this.getFlowAnalysis(mainFundItem.f62)
+                    };
+                }
+            }
+            
+            DataCache.set(cacheKey, result);
+            return result;
+        } catch (error) {
+            console.warn('获取资金流向失败:', error);
+            return this.getFallbackCapitalFlow();
+        }
+    },
+    
+    async getSectorFlow() {
+        const cacheKey = 'sector_flow';
+        const cached = DataCache.get(cacheKey);
+        if (cached) return cached;
+        
+        try {
+            const url = API_CONFIG.sectorFlowUrl;
+            const response = await ApiService.fetchWithCorsProxy(url);
+            
+            const result = { inflow: [], outflow: [] };
+            
+            if (response?.data?.diff) {
+                const sectors = response.data.diff.map(item => ({
+                    name: item.f14,
+                    code: item.f12,
+                    netInflow: item.f62,
+                    netInflowStr: this.formatAmount(item.f62)
+                }));
+                
+                // 按净流入排序
+                sectors.sort((a, b) => b.netInflow - a.netInflow);
+                result.inflow = sectors.slice(0, 10);
+                result.outflow = sectors.slice(-10).reverse();
+            }
+            
+            DataCache.set(cacheKey, result);
+            return result;
+        } catch (error) {
+            console.warn('获取板块资金流向失败:', error);
+            return { inflow: [], outflow: [] };
+        }
+    },
+    
+    formatAmount(amount) {
+        if (!amount) return '--';
+        const abs = Math.abs(amount);
+        const sign = amount >= 0 ? '+' : '-';
+        
+        if (abs >= 100000000) {
+            return sign + (abs / 100000000).toFixed(2) + '亿';
+        } else if (abs >= 10000) {
+            return sign + (abs / 10000).toFixed(2) + '万';
+        }
+        return sign + abs.toString();
+    },
+    
+    getFlowAnalysis(amount) {
+        if (amount > 1000000000) return '大幅流入，市场情绪积极';
+        if (amount > 0) return '小幅流入，市场观望';
+        if (amount > -1000000000) return '小幅流出，注意风险';
+        return '大幅流出，谨慎操作';
+    },
+    
+    getFallbackCapitalFlow() {
+        return {
+            mainFund: { value: '--', analysis: '数据暂不可用' },
+            northFund: { value: '--', analysis: '数据暂不可用' }
+        };
+    }
+};
+
+// ==================== 新闻服务 ====================
+const NewsService = {
+    async getNews() {
+        const cacheKey = 'news_data';
+        const cached = DataCache.get(cacheKey);
+        if (cached) return cached;
+        
+        try {
+            const timestamp = Date.now();
+            const url = API_CONFIG.newsUrl.replace('{timestamp}', timestamp);
+            const response = await ApiService.fetchWithCorsProxy(url);
+            
+            const result = [];
+            
+            if (response?.data) {
+                const newsList = Array.isArray(response.data) ? response.data : [];
+                newsList.forEach(item => {
+                    result.push({
+                        title: item.title || item.news_title || '',
+                        summary: item.content || item.summary || '',
+                        time: item.time || item.news_time || '',
+                        source: item.source || item.media || '东方财富',
+                        type: this.classifyNews(item)
+                    });
+                });
+            }
+            
+            DataCache.set(cacheKey, result);
+            return result;
+        } catch (error) {
+            console.warn('获取新闻失败:', error);
+            return this.getFallbackNews();
+        }
+    },
+    
+    classifyNews(item) {
+        const title = (item.title || item.news_title || '').toLowerCase();
+        const content = (item.content || item.summary || '').toLowerCase();
+        const fullText = title + ' ' + content;
+        
+        const positiveKeywords = ['涨', '利好', '增长', '盈利', '突破', '创历史新高', '增持', '回购'];
+        const negativeKeywords = ['跌', '利空', '亏损', '下滑', '减持', '暴跌', '风险', '处罚'];
+        
+        let positiveScore = 0;
+        let negativeScore = 0;
+        
+        positiveKeywords.forEach(kw => {
+            if (fullText.includes(kw)) positiveScore++;
+        });
+        
+        negativeKeywords.forEach(kw => {
+            if (fullText.includes(kw)) negativeScore++;
+        });
+        
+        if (positiveScore > negativeScore) return 'positive';
+        if (negativeScore > positiveScore) return 'negative';
+        return 'neutral';
+    },
+    
+    getFallbackNews() {
+        return [
+            { title: '市场数据更新中', summary: '正在获取最新财经资讯...', time: '', source: '系统', type: 'neutral' }
+        ];
     }
 };
 
@@ -236,8 +480,17 @@ const DataManager = {
     // 实时基金数据
     realtimeFunds: {},
     
-    // K线数据
-    klineData: {},
+    // 指数数据
+    indexData: null,
+    
+    // 资金流向数据
+    capitalFlowData: null,
+    
+    // 板块流向数据
+    sectorFlowData: null,
+    
+    // 新闻数据
+    newsData: null,
     
     // 是否正在加载
     isLoading: false,
@@ -248,21 +501,44 @@ const DataManager = {
         this.updateStatus('正在加载实时数据...');
         
         try {
-            // 批量获取基金实时数据
-            const results = await ApiService.getBatchFundRealtime(API_CONFIG.watchFunds);
+            // 并行获取所有数据
+            const [fundResults, indexData, capitalFlow, sectorFlow, newsData] = await Promise.all([
+                // 批量获取基金实时数据
+                ApiService.getBatchFundRealtime(API_CONFIG.watchFunds),
+                // 获取指数数据
+                IndexService.getIndexData(),
+                // 获取资金流向
+                CapitalFlowService.getCapitalFlow(),
+                // 获取板块流向
+                CapitalFlowService.getSectorFlow(),
+                // 获取新闻
+                NewsService.getNews()
+            ].map(p => p.catch(e => {
+                console.warn('部分数据加载失败:', e);
+                return null;
+            })));
             
-            results.forEach((result, code) => {
-                if (result.success) {
-                    this.realtimeFunds[code] = result.data;
-                }
-            });
+            // 处理基金数据
+            if (fundResults) {
+                Object.entries(fundResults).forEach(([code, result]) => {
+                    if (result.success) {
+                        this.realtimeFunds[code] = result.data;
+                    }
+                });
+            }
             
-            this.updateStatus(`数据加载完成 ${new Date().toLocaleString()}`);
+            this.indexData = indexData;
+            this.capitalFlowData = capitalFlow;
+            this.sectorFlowData = sectorFlow;
+            this.newsData = newsData;
+            
+            this.updateStatus(`数据更新时间：${new Date().toLocaleString()}（实时数据来自东方财富、天天基金）`);
+            this.updateDataSourceInfo();
             this.isLoading = false;
             return true;
         } catch (error) {
             console.error('初始化数据失败:', error);
-            this.updateStatus('数据加载失败');
+            this.updateStatus('数据加载失败，请刷新重试');
             this.isLoading = false;
             return false;
         }
@@ -282,9 +558,38 @@ const DataManager = {
         }
     },
     
+    // 更新数据源信息
+    updateDataSourceInfo() {
+        const infoEl = document.getElementById('data-source-info');
+        if (infoEl) {
+            infoEl.innerHTML = '📡 实时数据来源：东方财富API + 天天基金API (CORS代理)';
+            infoEl.style.color = '#52c41a';
+        }
+    },
+    
     // 获取单个基金数据
     getFund(code) {
         return this.realtimeFunds[code] || null;
+    },
+    
+    // 获取指数数据
+    getIndex() {
+        return this.indexData;
+    },
+    
+    // 获取资金流向数据
+    getCapitalFlow() {
+        return this.capitalFlowData;
+    },
+    
+    // 获取板块流向数据
+    getSectorFlow() {
+        return this.sectorFlowData;
+    },
+    
+    // 获取新闻数据
+    getNews() {
+        return this.newsData;
     }
 };
 
@@ -292,5 +597,7 @@ const DataManager = {
 window.DataManager = DataManager;
 window.ApiService = ApiService;
 window.IndexService = IndexService;
+window.CapitalFlowService = CapitalFlowService;
+window.NewsService = NewsService;
 window.DataCache = DataCache;
 window.API_CONFIG = API_CONFIG;

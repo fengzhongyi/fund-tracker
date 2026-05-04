@@ -108,25 +108,19 @@ function renderStaticData() {
 async function renderRealtimeIndex() {
     const indices = ['shangzhi', 'shengzheng', 'chuangye', 'zhuanke50'];
     
-    // 尝试从实时数据获取
-    const indexData = await IndexService.getIndexData();
+    // 从DataManager获取实时数据
+    const indexData = DataManager.getIndex();
     
     indices.forEach(index => {
         const valueEl = document.getElementById(`${index}-value`);
         const changeEl = document.getElementById(`${index}-change`);
         const volumeEl = document.getElementById(`${index}-volume`);
         
-        // 优先使用实时数据，如果无效则使用SAMPLE_DATA的静态数据
-        const realtimeData = indexData?.[index];
-        const staticData = SAMPLE_DATA.realtimeIndex?.[index];
+        const data = indexData?.[index];
         
-        // 判断实时数据是否有效（不是 '--'）
-        const hasValidRealtime = realtimeData && realtimeData.value && realtimeData.value !== '--';
-        const data = hasValidRealtime ? realtimeData : staticData;
-        
-        if (data) {
+        if (data && data.value && data.value !== '--') {
             valueEl.textContent = parseFloat(data.value).toFixed(2);
-            changeEl.textContent = data.change;
+            changeEl.textContent = (data.change >= 0 ? '+' : '') + data.change + '%';
             volumeEl.textContent = data.volume || '';
             
             // 设置颜色
@@ -532,39 +526,36 @@ function bindEvents() {
         await DataManager.refresh();
         renderAllData();
         document.getElementById('update-time').textContent = 
-            `数据更新时间：${new Date().toLocaleString()}（实时数据来自天天基金）`;
+            `数据更新时间：${new Date().toLocaleString()}（实时数据来自东方财富API）`;
     });
 }
 
-// ==================== 渲染其他静态数据模块 ====================
-// 这些模块暂时使用静态数据
+// ==================== 渲染资金流向（使用实时数据） ====================
 function renderCapitalFlow() {
-    const mainFund = SAMPLE_DATA.capitalFlow.mainFund;
-    const northFund = SAMPLE_DATA.capitalFlow.northFund;
+    const capitalFlow = DataManager.getCapitalFlow();
+    const sectorFlow = DataManager.getSectorFlow();
     
-    if (mainFund.value !== 0) {
+    // 主力资金
+    if (capitalFlow?.mainFund) {
         const mainValueEl = document.getElementById('main-fund-value');
         const mainAnalysisEl = document.getElementById('main-fund-analysis');
-        const prefix = mainFund.value > 0 ? '+' : '';
-        mainValueEl.textContent = `${prefix}${mainFund.value} ${mainFund.unit}`;
-        mainValueEl.className = mainFund.value > 0 ? 'capital-value positive' : 'capital-value negative';
-        mainAnalysisEl.textContent = mainFund.analysis || mainFund.trend || '';
+        mainValueEl.textContent = capitalFlow.mainFund.value || '--';
+        mainAnalysisEl.textContent = capitalFlow.mainFund.analysis || '数据更新中';
     }
     
-    if (northFund.value !== 0) {
+    // 北向资金
+    if (capitalFlow?.northFund) {
         const northValueEl = document.getElementById('north-fund-value');
         const northAnalysisEl = document.getElementById('north-fund-analysis');
-        const prefix = northFund.value > 0 ? '+' : '';
-        northValueEl.textContent = `${prefix}${northFund.value} ${northFund.unit}`;
-        northValueEl.className = northFund.value > 0 ? 'capital-value positive' : 'capital-value negative';
-        northAnalysisEl.textContent = northFund.analysis || northFund.trend || '';
+        northValueEl.textContent = capitalFlow.northFund.value || '--';
+        northAnalysisEl.textContent = capitalFlow.northFund.analysis || '数据更新中';
     }
     
-    renderSectorFlow();
+    renderSectorFlow(sectorFlow);
     renderFundFlow();
 }
 
-function renderSectorFlow() {
+function renderSectorFlow(sectorFlow) {
     const inflowList = document.getElementById('inflow-sectors');
     const outflowList = document.getElementById('outflow-sectors');
     
@@ -572,24 +563,32 @@ function renderSectorFlow() {
     inflowList.innerHTML = '';
     outflowList.innerHTML = '';
     
-    if (SAMPLE_DATA.capitalFlow.sectorFunds) {
-        const inflows = SAMPLE_DATA.capitalFlow.sectorFunds.filter(s => s.netFlow > 0).sort((a, b) => b.netFlow - a.netFlow).slice(0, 10);
-        inflows.forEach(sector => {
+    // 优先使用实时数据，否则使用静态数据
+    const inflows = sectorFlow?.inflow || SAMPLE_DATA.capitalFlow.sectorFunds?.filter(s => s.netFlow > 0).sort((a, b) => b.netFlow - a.netFlow);
+    const outflows = sectorFlow?.outflow || SAMPLE_DATA.capitalFlow.sectorFunds?.filter(s => s.netFlow < 0).sort((a, b) => a.netFlow - b.netFlow);
+    
+    // 渲染流入榜
+    if (inflows && inflows.length > 0) {
+        inflows.slice(0, 5).forEach(sector => {
             const li = document.createElement('li');
+            const amount = sector.netInflowStr || `+${sector.netFlow}亿`;
             li.innerHTML = `
                 <span class="sector-name">${sector.name}</span>
-                <span class="sector-amount positive">+${sector.netFlow}亿</span>
+                <span class="sector-amount positive">${amount}</span>
             `;
             li.addEventListener('click', () => openSectorLink(sector.name));
             inflowList.appendChild(li);
         });
-        
-        const outflows = SAMPLE_DATA.capitalFlow.sectorFunds.filter(s => s.netFlow < 0).sort((a, b) => a.netFlow - b.netFlow).slice(0, 10);
-        outflows.forEach(sector => {
+    }
+    
+    // 渲染流出榜
+    if (outflows && outflows.length > 0) {
+        outflows.slice(0, 5).forEach(sector => {
             const li = document.createElement('li');
+            const amount = sector.netInflowStr || `${sector.netFlow}亿`;
             li.innerHTML = `
                 <span class="sector-name">${sector.name}</span>
-                <span class="sector-amount negative">${sector.netFlow}亿</span>
+                <span class="sector-amount negative">${amount}</span>
             `;
             li.addEventListener('click', () => openSectorLink(sector.name));
             outflowList.appendChild(li);
@@ -597,10 +596,10 @@ function renderSectorFlow() {
     }
     
     if (inflowList.children.length === 0) {
-        inflowList.innerHTML = '<li class="empty-state"><p>暂无数据</p></li>';
+        inflowList.innerHTML = '<li class="empty-state"><p>数据更新中...</p></li>';
     }
     if (outflowList.children.length === 0) {
-        outflowList.innerHTML = '<li class="empty-state"><p>暂无数据</p></li>';
+        outflowList.innerHTML = '<li class="empty-state"><p>数据更新中...</p></li>';
     }
 }
 
@@ -707,51 +706,48 @@ function renderFavorableSectors() {
 
 function renderRealtimeNews() {
     const container = document.getElementById('realtime-news');
-    const news = SAMPLE_DATA.realtimeNews || [];
+    // 优先使用实时数据，否则使用静态数据
+    const news = DataManager.getNews() || SAMPLE_DATA.realtimeNews || [];
     
     // 清空容器
     container.innerHTML = '';
     
     if (news.length === 0) {
-        container.innerHTML = '<div class="empty-state"><p>等待数据更新...</p></div>';
+        container.innerHTML = '<div class="empty-state"><p>数据更新中...</p></div>';
         return;
     }
     
     news.forEach(item => {
         const newsItem = document.createElement('div');
+        // 兼容两种数据格式
+        const impact = item.impact || item.type || 'neutral';
+        const title = item.title || item.newsTitle || '';
+        const summary = item.summary || item.content || '';
+        const time = item.time || item.publishTime || '';
+        const source = item.source || '';
+        
         let impactClass = 'neutral';
-        if (item.impact.includes('利好')) {
+        if (impact.includes('利好') || impact === 'positive') {
             impactClass = 'positive-news';
-        } else if (item.impact.includes('利空')) {
+        } else if (impact.includes('利空') || impact === 'negative') {
             impactClass = 'negative-news';
         }
         
         newsItem.className = `news-item ${impactClass}`;
-        newsItem.dataset.impact = item.impact.includes('利好') ? 'positive' : item.impact.includes('利空') ? 'negative' : 'neutral';
+        newsItem.dataset.impact = impact.includes('利好') || impact === 'positive' ? 'positive' : 
+                                  impact.includes('利空') || impact === 'negative' ? 'negative' : 'neutral';
         
         newsItem.innerHTML = `
             <div class="news-header">
-                <span class="news-title">${item.title}</span>
-                <span class="news-time">${item.time}</span>
+                <span class="news-title">${title}</span>
+                <span class="news-time">${time}</span>
             </div>
             <div class="news-meta">
-                <span>来源：${item.source}</span>
-                <span class="news-impact ${getImpactClass(item.impact)}">${item.impact}</span>
-                ${item.importance === '高' ? '<span class="news-importance">重要</span>' : ''}
+                <span>来源：${source || '东方财富'}</span>
+                <span class="news-impact ${getImpactClass(impact)}">${impact === 'positive' ? '利好' : impact === 'negative' ? '利空' : impact}</span>
             </div>
-            <div class="news-summary">${item.summary}</div>
-            ${item.relatedSectors && item.relatedSectors.length > 0 ? `
-                <div class="news-sectors">
-                    ${item.relatedSectors.map(s => `<span class="sector-tag">${s}</span>`).join('')}
-                </div>
-            ` : ''}
+            <div class="news-summary">${summary}</div>
         `;
-        
-        newsItem.addEventListener('click', () => {
-            if (item.sourceUrl) {
-                window.open(item.sourceUrl, '_blank');
-            }
-        });
         
         container.appendChild(newsItem);
     });
