@@ -1,7 +1,13 @@
 // ==================== 数据获取配置 ====================
 const API_CONFIG = {
-    // CORS代理服务（解决跨域问题）
-    corsProxy: 'https://corsproxy.io/?url=',
+    // CORS代理服务列表（多个备用，解决跨域问题）
+    corsProxies: [
+        'https://api.allorigins.win/raw?url=',
+        'https://corsproxy.io/?url=',
+        'https://thingproxy.freeboard.io/fetch/'
+    ],
+    // 当前使用的代理索引
+    currentProxyIndex: 0,
     
     // 天天基金实时净值API (HTTPS版本，支持跨域)
     fundRealtimeUrl: 'https://fundgz.1234567.com.cn/js/{code}.js?rt={timestamp}',
@@ -199,23 +205,45 @@ const ApiService = {
         return `${y}-${m}-${d}`;
     },
     
-    // 使用CORS代理获取数据
+    // 使用CORS代理获取数据（支持多个代理自动切换）
     async fetchWithCorsProxy(url) {
-        const proxyUrl = API_CONFIG.corsProxy + encodeURIComponent(url);
+        // 尝试所有代理
+        for (let i = 0; i < API_CONFIG.corsProxies.length; i++) {
+            const proxyUrl = API_CONFIG.corsProxies[i] + encodeURIComponent(url);
+            try {
+                // 使用AbortController实现超时
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 10000);
+                
+                const response = await fetch(proxyUrl, { signal: controller.signal });
+                clearTimeout(timeoutId);
+                
+                if (response.ok) {
+                    const text = await response.text();
+                    try {
+                        return JSON.parse(text);
+                    } catch (e) {
+                        // 如果JSON解析失败，试试其他代理
+                        console.warn(`代理${i}返回非JSON格式，尝试下一个`);
+                        continue;
+                    }
+                }
+            } catch (error) {
+                console.warn(`代理${i}请求失败，尝试下一个:`, error.message);
+                continue;
+            }
+        }
+        
+        // 所有代理都失败，尝试直接请求（可能会被CORS阻止）
         try {
-            const response = await fetch(proxyUrl);
+            console.warn('所有CORS代理都失败，尝试直接请求');
+            const response = await fetch(url);
             if (!response.ok) throw new Error(`HTTP ${response.status}`);
             return await response.json();
-        } catch (error) {
-            console.warn('CORS代理请求失败，尝试直接请求:', error);
-            // 备选方案：直接请求（可能会被CORS阻止）
-            try {
-                const response = await fetch(url);
-                if (!response.ok) throw new Error(`HTTP ${response.status}`);
-                return await response.json();
-            } catch (e) {
-                throw new Error(`网络请求失败: ${e.message}`);
-            }
+        } catch (e) {
+            console.warn('直接请求也失败，将使用静态数据');
+            // 返回null，让调用方知道应该使用静态数据
+            return null;
         }
     }
 };
@@ -234,6 +262,13 @@ const IndexService = {
             const url = API_CONFIG.indexUrl.replace('{secids}', secids);
             
             const response = await ApiService.fetchWithCorsProxy(url);
+            
+            // 如果返回null，表示API失败，使用静态数据
+            if (!response) {
+                console.log('API请求失败，使用静态指数数据');
+                return null;
+            }
+            
             const result = {};
             
             if (response?.data?.diff) {
@@ -258,8 +293,8 @@ const IndexService = {
             DataCache.set(cacheKey, result);
             return result;
         } catch (error) {
-            console.warn('获取大盘指数失败，使用基金估算:', error);
-            return await this.getIndexDataFromFund();
+            console.warn('获取大盘指数失败，使用静态数据:', error);
+            return null;
         }
     },
     
@@ -322,6 +357,9 @@ const CapitalFlowService = {
             const url = API_CONFIG.capitalFlowUrl;
             const response = await ApiService.fetchWithCorsProxy(url);
             
+            // API失败，返回null使用静态数据
+            if (!response) return null;
+            
             const result = {
                 mainFund: { value: 0, analysis: '数据加载中' },
                 northFund: { value: 0, analysis: '数据加载中' }
@@ -343,8 +381,8 @@ const CapitalFlowService = {
             DataCache.set(cacheKey, result);
             return result;
         } catch (error) {
-            console.warn('获取资金流向失败:', error);
-            return this.getFallbackCapitalFlow();
+            console.warn('获取资金流向失败，使用静态数据:', error);
+            return null;
         }
     },
     
@@ -356,6 +394,9 @@ const CapitalFlowService = {
         try {
             const url = API_CONFIG.sectorFlowUrl;
             const response = await ApiService.fetchWithCorsProxy(url);
+            
+            // API失败，返回null使用静态数据
+            if (!response) return null;
             
             const result = { inflow: [], outflow: [] };
             
@@ -376,8 +417,8 @@ const CapitalFlowService = {
             DataCache.set(cacheKey, result);
             return result;
         } catch (error) {
-            console.warn('获取板块资金流向失败:', error);
-            return { inflow: [], outflow: [] };
+            console.warn('获取板块资金流向失败，使用静态数据:', error);
+            return null;
         }
     },
     
@@ -421,6 +462,9 @@ const NewsService = {
             const url = API_CONFIG.newsUrl.replace('{timestamp}', timestamp);
             const response = await ApiService.fetchWithCorsProxy(url);
             
+            // API失败，返回null使用静态数据
+            if (!response) return null;
+            
             const result = [];
             
             if (response?.data) {
@@ -439,8 +483,8 @@ const NewsService = {
             DataCache.set(cacheKey, result);
             return result;
         } catch (error) {
-            console.warn('获取新闻失败:', error);
-            return this.getFallbackNews();
+            console.warn('获取新闻失败，使用静态数据:', error);
+            return null;
         }
     },
     
@@ -559,11 +603,19 @@ const DataManager = {
     },
     
     // 更新数据源信息
-    updateDataSourceInfo() {
+    updateDataSourceInfo(status) {
         const infoEl = document.getElementById('data-source-info');
-        if (infoEl) {
-            infoEl.innerHTML = '📡 实时数据来源：东方财富API + 天天基金API (CORS代理)';
-            infoEl.style.color = '#52c41a';
+        if (!infoEl) return;
+        
+        if (status === 'success') {
+            infoEl.innerHTML = '📡 实时数据来源：东方财富API + 天天基金API';
+            infoEl.style.color = '#52c41a'; // 绿色
+        } else if (status === 'partial') {
+            infoEl.innerHTML = '⚠️ 部分数据使用本地缓存，基金数据实时更新';
+            infoEl.style.color = '#faad14'; // 黄色
+        } else {
+            infoEl.innerHTML = '📋 部分数据使用静态数据，基金数据实时更新（CORS代理不稳定）';
+            infoEl.style.color = '#fa8c16'; // 橙色
         }
     },
     
