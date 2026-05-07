@@ -1,5 +1,5 @@
 // ==================== 数据更新时间
-const DATA_UPDATE_TIME = '2026-04-11 15:30:00';
+const DATA_UPDATE_TIME = '2026-05-08 15:00:00';
 
 // ==================== 示例数据
 const SAMPLE_DATA = {
@@ -7,38 +7,38 @@ const SAMPLE_DATA = {
     index: {
         shangzhi: {
             name: '上证指数',
-            value: '3,156.28',
-            change: '+12.35 (+0.39%)',
-            changePercent: 0.39
+            value: '4,192.76',
+            change: '+12.67 (+0.30%)',
+            changePercent: 0.30
         },
         shengzheng: {
             name: '深证成指',
-            value: '9,875.62',
-            change: '+45.82 (+0.47%)',
-            changePercent: 0.47
+            value: '15,725.43',
+            change: '+83.54 (+0.53%)',
+            changePercent: 0.53
         },
         chuangye: {
             name: '创业板指',
-            value: '1,928.56',
-            change: '+8.72 (+0.45%)',
-            changePercent: 0.45
+            value: '3,856.21',
+            change: '+23.15 (+0.60%)',
+            changePercent: 0.60
         },
         zhuanke50: {
             name: '科创50',
-            value: '892.35',
-            change: '-3.21 (-0.36%)',
-            changePercent: -0.36
+            value: '1,692.35',
+            change: '+17.93 (+1.07%)',
+            changePercent: 1.07
         }
     },
     
     // 资金流向
     capital: {
         mainFund: {
-            value: '-85.63亿',
-            isPositive: false
+            value: '+212.57亿',
+            isPositive: true
         },
         northFund: {
-            value: '+42.18亿',
+            value: '+68.32亿',
             isPositive: true
         }
     },
@@ -46,83 +46,83 @@ const SAMPLE_DATA = {
     // 板块排行
     sectors: {
         inflow: [
-            { name: '半导体', value: '+28.56亿' },
-            { name: '新能源', value: '+22.34亿' },
-            { name: '医药生物', value: '+18.92亿' },
-            { name: '白酒', value: '+15.67亿' },
-            { name: '军工', value: '+12.45亿' },
-            { name: '券商', value: '+10.23亿' },
-            { name: '光伏', value: '+8.76亿' },
-            { name: '5G', value: '+6.54亿' }
+            { name: '通信设备', value: '+90.10亿' },
+            { name: '机械设备', value: '+63.85亿' },
+            { name: '建筑装饰', value: '+16.40亿' },
+            { name: '传媒', value: '+12.84亿' },
+            { name: '汽车', value: '+11.08亿' },
+            { name: '国防军工', value: '+8.76亿' },
+            { name: '环保', value: '+2.19亿' },
+            { name: '交通运输', value: '+1.43亿' }
         ],
         outflow: [
-            { name: '银行', value: '-32.45亿' },
-            { name: '房地产', value: '-25.67亿' },
-            { name: '煤炭', value: '-18.23亿' },
-            { name: '钢铁', value: '-15.34亿' },
-            { name: '石油', value: '-12.56亿' },
-            { name: '建材', value: '-9.87亿' },
-            { name: '建筑', value: '-7.65亿' },
-            { name: '电力', value: '-5.43亿' }
+            { name: '电力设备', value: '-113.56亿' },
+            { name: '有色金属', value: '-88.10亿' },
+            { name: '基础化工', value: '-59.31亿' },
+            { name: '医药生物', value: '-27.46亿' },
+            { name: '非银金融', value: '-26.55亿' },
+            { name: '石油石化', value: '-26.33亿' },
+            { name: '计算机', value: '-12.85亿' },
+            { name: '煤炭', value: '-10.01亿' }
         ]
     },
     
     // 财经新闻
     news: [
         {
-            title: '央行宣布降准0.25个百分点，释放长期资金约5000亿',
-            time: '15:20',
-            summary: '中国人民银行决定下调金融机构存款准备金率0.25个百分点，此次降准旨在优化金融机构资金结构，增强金融机构支持实体经济的能力。',
+            title: 'A股普涨行情延续，超3500只个股飘红，科技主线持续走强',
+            time: '15:00',
+            summary: '5月8日A股延续强势格局，上证指数稳步逼近4200点整数关口，盘中最高触及4198.35点。两市全天成交2.87万亿元，承接昨日缩量蓄力走势，今日温和放量，属于健康的增量资金进场节奏。',
             impact: 'positive',
             url: 'https://finance.eastmoney.com/'
         },
         {
-            title: '新能源汽车销量创新高，产业链持续受益',
-            time: '14:45',
-            summary: '最新数据显示，国内新能源汽车销量同比增长超35%，市场渗透率持续提升，产业链相关企业业绩亮眼。',
+            title: '北向资金连续9日净流入，累计加仓超600亿元，坚定布局核心资产',
+            time: '14:30',
+            summary: '北向资金今日净流入68.32亿元，已连续9个交易日保持净流入状态，外资持续坚定布局A股核心赛道。场内主力资金全天净流入212.57亿元，在指数临近压力位时依旧主动加仓，做多意愿明确且坚决。',
             impact: 'positive',
             url: 'https://finance.eastmoney.com/'
         },
         {
-            title: '半导体行业迎来政策利好，国产替代加速推进',
-            time: '14:10',
-            summary: '国家出台多项支持政策，推动半导体产业发展，芯片国产化进程加快，相关板块表现活跃。',
+            title: 'AI算力产业链持续爆发，光模块、通信设备领涨两市',
+            time: '13:45',
+            summary: '通信设备板块今日主力资金净流入90.10亿元居首，新易盛、中天科技、永鼎股份等个股表现活跃。AI算力需求持续爆发，光模块、服务器、存储芯片订单排期至2027年，上游工业金属供需偏紧。',
             impact: 'positive',
             url: 'https://finance.eastmoney.com/'
         },
         {
-            title: '房地产市场持续调整，多地出台稳楼市政策',
-            time: '13:30',
-            summary: '多地陆续出台稳楼市政策，包括放宽限购、降低首付比例等措施，市场反应有待观察。',
+            title: '低位板块轮动补涨，有色、储能、高端制造全线走强',
+            time: '12:30',
+            summary: '今日市场呈现明显的高低切换特征，高位科技龙头震荡休整，场内获利资金主动流出，布局前期调整充分、估值处于历史低位的滞涨板块，包括有色、储能、高端制造、超跌消费医药等。',
             impact: 'neutral',
             url: 'https://finance.eastmoney.com/'
         },
         {
-            title: '美联储维持利率不变，符合市场预期',
-            time: '12:15',
-            summary: '美联储宣布维持联邦基金利率不变，市场反应平稳，全球资本市场波动不大。',
+            title: '机构一致看好后市，认为当前上涨逻辑稳固，短期震荡不改上行趋势',
+            time: '11:15',
+            summary: '国内多家头部券商、公募机构收盘后同步发布市场观点，普遍认为当前A股上涨逻辑稳固，硬科技依旧是贯穿全年的绝对主线，算力、半导体、国产CPU具备长期成长逻辑。',
+            impact: 'positive',
+            url: 'https://finance.eastmoney.com/'
+        },
+        {
+            title: '央行释放流动性维稳，市场资金面充裕，无流动性收紧担忧',
+            time: '10:40',
+            summary: '央行持续推进1.2万亿科创再贷款落地，市场整体流动性保持合理充裕，场内资金充裕，没有流动性收紧带来的恐慌情绪，为指数稳步上行提供了稳定的货币环境。',
+            impact: 'positive',
+            url: 'https://finance.eastmoney.com/'
+        },
+        {
+            title: '政策红利持续释放，新一代信息技术与高端制造升级专项方案落地',
+            time: '09:30',
+            summary: '工信部批复的新一代信息技术与高端制造升级专项方案持续发酵，算力基础设施、半导体国产替代、工业智能装备三大赛道迎来持续政策催化，企业订单饱满、业绩确定性强。',
+            impact: 'positive',
+            url: 'https://finance.eastmoney.com/'
+        },
+        {
+            title: '外围市场平稳，美联储偏鸽信号持续发酵，全球风险偏好提升',
+            time: '08:15',
+            summary: '隔夜海外市场走势平稳，美联储前期释放的偏鸽信号持续发酵，美元指数、美债收益率维持偏弱运行，外围成长资产表现稳定，没有利空消息冲击A股，市场外部环境友好。',
             impact: 'neutral',
-            url: 'https://finance.eastmoney.com/'
-        },
-        {
-            title: '医药集采政策落地，医药板块迎来调整',
-            time: '11:40',
-            summary: '新一轮药品集中采购结果公布，部分药品价格降幅较大，医药板块承压。',
-            impact: 'negative',
-            url: 'https://finance.eastmoney.com/'
-        },
-        {
-            title: '煤炭价格持续下行，煤炭板块承压',
-            time: '10:55',
-            summary: '受供需关系变化，煤炭价格持续下行，相关上市公司业绩面临压力。',
-            impact: 'negative',
-            url: 'https://finance.eastmoney.com/'
-        },
-        {
-            title: '银行股集体走弱，市场情绪偏谨慎',
-            time: '10:20',
-            summary: '银行板块今日集体走弱，市场情绪偏谨慎，成交量有所萎缩。',
-            impact: 'negative',
             url: 'https://finance.eastmoney.com/'
         }
     ],
@@ -132,58 +132,58 @@ const SAMPLE_DATA = {
         {
             code: '510300',
             name: '沪深300ETF',
-            value: '4.1256',
-            change: '+0.85%',
-            changePercent: 0.85
+            value: '4.912',
+            change: '+0.38%',
+            changePercent: 0.38
         },
         {
             code: '159915',
             name: '创业板ETF',
-            value: '2.2345',
-            change: '+1.23%',
-            changePercent: 1.23
+            value: '2.215',
+            change: '+0.72%',
+            changePercent: 0.72
         },
         {
             code: '510500',
             name: '中证500ETF',
-            value: '5.6789',
-            change: '+0.56%',
-            changePercent: 0.56
-        },
-        {
-            code: '588000',
-            name: '科创50ETF',
-            value: '1.1234',
-            change: '-0.34%',
-            changePercent: -0.34
-        },
-        {
-            code: '161725',
-            name: '招商中证白酒',
-            value: '1.4567',
-            change: '+0.92%',
-            changePercent: 0.92
-        },
-        {
-            code: '005827',
-            name: '易方达蓝筹精选',
-            value: '2.3456',
+            value: '6.823',
             change: '+0.45%',
             changePercent: 0.45
         },
         {
+            code: '588000',
+            name: '科创50ETF',
+            value: '1.589',
+            change: '+1.12%',
+            changePercent: 1.12
+        },
+        {
+            code: '161725',
+            name: '招商中证白酒',
+            value: '1.523',
+            change: '+0.28%',
+            changePercent: 0.28
+        },
+        {
+            code: '005827',
+            name: '易方达蓝筹精选',
+            value: '2.412',
+            change: '+0.35%',
+            changePercent: 0.35
+        },
+        {
             code: '000001',
             name: '华夏成长混合',
-            value: '3.2345',
-            change: '-0.12%',
-            changePercent: -0.12
+            value: '3.289',
+            change: '+0.18%',
+            changePercent: 0.18
         },
         {
             code: '110011',
             name: '易方达中小盘',
-            value: '5.6789',
-            change: '+0.67%',
-            changePercent: 0.67
+            value: '5.734',
+            change: '+0.42%',
+            changePercent: 0.42
         }
     ]
 };
