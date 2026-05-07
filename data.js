@@ -1,138 +1,189 @@
-// 投资看板静态数据 - 2026年5月7日更新
-// 如果API请求失败，将使用这里的数据作为后备
+// ==================== 数据更新时间
+const DATA_UPDATE_TIME = '2026-04-11 15:30:00';
 
-const DATA_UPDATE_TIME = '2026-05-07 08:30:00';
-
+// ==================== 示例数据
 const SAMPLE_DATA = {
-    today: '2026-05-07',
-    isTradingDay: true,
-    
-    // 实时大盘指数
-    realtimeIndex: {
+    // 大盘指数
+    index: {
         shangzhi: {
             name: '上证指数',
-            value: 3186.52,
-            change: 0.85,
-            volume: '3250亿'
+            value: '3,156.28',
+            change: '+12.35 (+0.39%)',
+            changePercent: 0.39
         },
         shengzheng: {
             name: '深证成指',
-            value: 10256.78,
-            change: 1.23,
-            volume: '4120亿'
+            value: '9,875.62',
+            change: '+45.82 (+0.47%)',
+            changePercent: 0.47
         },
         chuangye: {
             name: '创业板指',
-            value: 2135.46,
-            change: 1.56,
-            volume: '1850亿'
+            value: '1,928.56',
+            change: '+8.72 (+0.45%)',
+            changePercent: 0.45
         },
         zhuanke50: {
             name: '科创50',
-            value: 925.68,
-            change: 1.89,
-            volume: '520亿'
+            value: '892.35',
+            change: '-3.21 (-0.36%)',
+            changePercent: -0.36
         }
     },
     
     // 资金流向
-    capitalFlow: {
+    capital: {
         mainFund: {
-            value: '+156.78亿',
-            analysis: '主力资金大幅流入，市场情绪回暖'
+            value: '-85.63亿',
+            isPositive: false
         },
         northFund: {
-            value: '+68.35亿',
-            analysis: '北向资金连续净流入，外资看好A股'
-        },
-        sectorFunds: [
-            { name: '人工智能', netFlow: 89.56 },
-            { name: '半导体', netFlow: 65.23 },
-            { name: '新能源', netFlow: 42.18 },
-            { name: '创新药', netFlow: 35.67 },
-            { name: '军工', netFlow: 28.92 },
-            { name: '银行', netFlow: -12.34 },
-            { name: '地产', netFlow: -8.56 },
-            { name: '煤炭', netFlow: -5.23 },
-            { name: '钢铁', netFlow: -3.45 },
-            { name: '石油', netFlow: -2.18 }
-        ]
-    },
-    
-    // 利好/利空板块
-    favorableSectors: {
-        current: [
-            { name: '人工智能', sustainability: '强', reason: 'AI大模型持续突破，算力需求旺盛', inflow: 89.56, hotStocks: ['科大讯飞', '寒武纪', '海光信息'] },
-            { name: '半导体', sustainability: '强', reason: '国产替代加速，AI芯片需求爆发', inflow: 65.23, hotStocks: ['中芯国际', '北方华创', '韦尔股份'] },
-            { name: '新能源', sustainability: '中', reason: '产业链价格企稳，需求逐步恢复', inflow: 42.18, hotStocks: ['宁德时代', '比亚迪', '阳光电源'] },
-            { name: '创新药', sustainability: '中', reason: '医保谈判落地，创新药出海进程加速', inflow: 35.67, hotStocks: ['恒瑞医药', '药明康德', '百济神州'] }
-        ],
-        future: [
-            { name: '量子计算', potential: '高', catalyst: '技术突破在即，商用化进程加速', expectedTime: '2026Q3' },
-            { name: '人形机器人', potential: '高', catalyst: '特斯拉Optimus量产，产业链爆发', expectedTime: '2026Q2' },
-            { name: '太空经济', potential: '中', catalyst: '商业航天加速发展，卫星互联网建设', expectedTime: '2026全年' }
-        ],
-        rotation: {
-            from: ['银行', '地产', '煤炭', '钢铁'],
-            to: ['人工智能', '半导体', '新能源', '创新药'],
-            analysis: '市场风格切换，从传统周期板块流向科技成长板块'
+            value: '+42.18亿',
+            isPositive: true
         }
     },
     
-    // 推荐基金（买卖建议）
-    recommendedFunds: {
-        buyList: [
-            { code: '510300', name: '沪深300ETF', price: 3.98, change: 0.85, riskLevel: '中', expectedReturn: '15-20%', buyPrice: '3.80-4.00', targetPrice: '4.50', stopLoss: '3.60', reason: '宽基指数估值处于历史低位，适合长期布局' },
-            { code: '588000', name: '科创50ETF', price: 0.93, change: 1.89, riskLevel: '高', expectedReturn: '25-35%', buyPrice: '0.90-0.95', targetPrice: '1.20', stopLoss: '0.80', reason: '科创板科技属性强，AI和半导体行情启动' },
-            { code: '515080', name: '中证红利ETF', price: 1.35, change: 0.35, riskLevel: '低', expectedReturn: '8-12%', buyPrice: '1.30-1.35', targetPrice: '1.45', stopLoss: '1.25', reason: '高股息策略在震荡市中表现稳健' },
-            { code: '006546', name: '兴银中短债C', price: 1.06, change: 0.02, riskLevel: '低', expectedReturn: '3-5%', buyPrice: '1.05-1.07', targetPrice: '1.08', stopLoss: '1.03', reason: '债券型基金，净值波动小，适合避险' }
+    // 板块排行
+    sectors: {
+        inflow: [
+            { name: '半导体', value: '+28.56亿' },
+            { name: '新能源', value: '+22.34亿' },
+            { name: '医药生物', value: '+18.92亿' },
+            { name: '白酒', value: '+15.67亿' },
+            { name: '军工', value: '+12.45亿' },
+            { name: '券商', value: '+10.23亿' },
+            { name: '光伏', value: '+8.76亿' },
+            { name: '5G', value: '+6.54亿' }
         ],
-        sellList: [
-            { code: '510500', name: '中证500ETF', price: 5.68, change: -0.25, holdDays: 60, profit: '-2.8%', reason: '中小盘短期承压，建议减仓避险' }
-        ],
-        holdList: [
-            { code: '110017', name: '易方达增强回报债券A', price: 1.33, change: 0.01, reason: '债券型基金，继续持有观望' }
+        outflow: [
+            { name: '银行', value: '-32.45亿' },
+            { name: '房地产', value: '-25.67亿' },
+            { name: '煤炭', value: '-18.23亿' },
+            { name: '钢铁', value: '-15.34亿' },
+            { name: '石油', value: '-12.56亿' },
+            { name: '建材', value: '-9.87亿' },
+            { name: '建筑', value: '-7.65亿' },
+            { name: '电力', value: '-5.43亿' }
         ]
     },
     
-    // 实时新闻
-    realtimeNews: [
-        { title: 'AI大模型重磅发布，算力需求持续爆发', impact: '利好人工智能板块', summary: '国内头部科技公司发布新一代大模型，性能大幅提升，算力需求有望持续增长', time: '07:30', source: '财联社', importance: '高', relatedSectors: ['人工智能', '半导体', '算力'] },
-        { title: '半导体国产替代加速，设备订单超预期', impact: '利好半导体板块', summary: '国内晶圆厂扩产加速，半导体设备订单超预期，国产替代进程加快', time: '08:00', source: '证券时报', importance: '高', relatedSectors: ['半导体', '设备制造'] },
-        { title: '新能源汽车销量创新高，产业链回暖', impact: '利好新能源板块', summary: '4月新能源汽车销量同比增长超50%，产业链景气度回升', time: '08:15', source: '新浪财经', importance: '中', relatedSectors: ['新能源汽车', '锂电池'] },
-        { title: '央行降准释放流动性，市场信心提升', impact: '利好大盘', summary: '央行宣布降准0.25个百分点，释放长期流动性约5000亿元', time: '07:00', source: '新华社', importance: '高', relatedSectors: ['金融', '地产'] },
-        { title: '创新药出海再传捷报，License-in模式获认可', impact: '利好创新药板块', summary: '多家药企海外授权金额创新高，创新药出海模式获得国际认可', time: '06:45', source: '医药经济报', importance: '中', relatedSectors: ['创新药', 'CRO'] }
+    // 财经新闻
+    news: [
+        {
+            title: '央行宣布降准0.25个百分点，释放长期资金约5000亿',
+            time: '15:20',
+            summary: '中国人民银行决定下调金融机构存款准备金率0.25个百分点，此次降准旨在优化金融机构资金结构，增强金融机构支持实体经济的能力。',
+            impact: 'positive',
+            url: 'https://finance.eastmoney.com/'
+        },
+        {
+            title: '新能源汽车销量创新高，产业链持续受益',
+            time: '14:45',
+            summary: '最新数据显示，国内新能源汽车销量同比增长超35%，市场渗透率持续提升，产业链相关企业业绩亮眼。',
+            impact: 'positive',
+            url: 'https://finance.eastmoney.com/'
+        },
+        {
+            title: '半导体行业迎来政策利好，国产替代加速推进',
+            time: '14:10',
+            summary: '国家出台多项支持政策，推动半导体产业发展，芯片国产化进程加快，相关板块表现活跃。',
+            impact: 'positive',
+            url: 'https://finance.eastmoney.com/'
+        },
+        {
+            title: '房地产市场持续调整，多地出台稳楼市政策',
+            time: '13:30',
+            summary: '多地陆续出台稳楼市政策，包括放宽限购、降低首付比例等措施，市场反应有待观察。',
+            impact: 'neutral',
+            url: 'https://finance.eastmoney.com/'
+        },
+        {
+            title: '美联储维持利率不变，符合市场预期',
+            time: '12:15',
+            summary: '美联储宣布维持联邦基金利率不变，市场反应平稳，全球资本市场波动不大。',
+            impact: 'neutral',
+            url: 'https://finance.eastmoney.com/'
+        },
+        {
+            title: '医药集采政策落地，医药板块迎来调整',
+            time: '11:40',
+            summary: '新一轮药品集中采购结果公布，部分药品价格降幅较大，医药板块承压。',
+            impact: 'negative',
+            url: 'https://finance.eastmoney.com/'
+        },
+        {
+            title: '煤炭价格持续下行，煤炭板块承压',
+            time: '10:55',
+            summary: '受供需关系变化，煤炭价格持续下行，相关上市公司业绩面临压力。',
+            impact: 'negative',
+            url: 'https://finance.eastmoney.com/'
+        },
+        {
+            title: '银行股集体走弱，市场情绪偏谨慎',
+            time: '10:20',
+            summary: '银行板块今日集体走弱，市场情绪偏谨慎，成交量有所萎缩。',
+            impact: 'negative',
+            url: 'https://finance.eastmoney.com/'
+        }
     ],
     
-    // 市场情绪
-    marketSentiment: {
-        score: 68,
-        level: '偏乐观',
-        description: '市场情绪回暖，科技板块领涨，成交量温和放大',
-        fearGreedIndex: 62
-    },
-    
-    // 交易提示
-    tradingTips: [
-        '今日关注：人工智能、半导体、新能源板块',
-        '北向资金连续净流入，外资看好A股后市',
-        '成交量温和放大，市场活跃度提升',
-        '科技板块领涨，市场风格偏向成长',
-        '注意控制仓位，避免追高'
-    ],
-    
-    // 基金静态数据（用于降级显示）
-    fundData: {
-        '510300': { name: '沪深300ETF', price: 3.98, change: 0.85, nav: 3.96, navDate: '2026-05-06' },
-        '588000': { name: '科创50ETF', price: 0.93, change: 1.89, nav: 0.92, navDate: '2026-05-06' },
-        '515080': { name: '中证红利ETF', price: 1.35, change: 0.35, nav: 1.34, navDate: '2026-05-06' },
-        '510500': { name: '中证500ETF', price: 5.68, change: -0.25, nav: 5.70, navDate: '2026-05-06' },
-        '006546': { name: '兴银中短债C', price: 1.06, change: 0.02, nav: 1.06, navDate: '2026-05-06' },
-        '110017': { name: '易方达增强回报债券A', price: 1.33, change: 0.01, nav: 1.33, navDate: '2026-05-06' }
-    }
+    // 基金数据
+    funds: [
+        {
+            code: '510300',
+            name: '沪深300ETF',
+            value: '4.1256',
+            change: '+0.85%',
+            changePercent: 0.85
+        },
+        {
+            code: '159915',
+            name: '创业板ETF',
+            value: '2.2345',
+            change: '+1.23%',
+            changePercent: 1.23
+        },
+        {
+            code: '510500',
+            name: '中证500ETF',
+            value: '5.6789',
+            change: '+0.56%',
+            changePercent: 0.56
+        },
+        {
+            code: '588000',
+            name: '科创50ETF',
+            value: '1.1234',
+            change: '-0.34%',
+            changePercent: -0.34
+        },
+        {
+            code: '161725',
+            name: '招商中证白酒',
+            value: '1.4567',
+            change: '+0.92%',
+            changePercent: 0.92
+        },
+        {
+            code: '005827',
+            name: '易方达蓝筹精选',
+            value: '2.3456',
+            change: '+0.45%',
+            changePercent: 0.45
+        },
+        {
+            code: '000001',
+            name: '华夏成长混合',
+            value: '3.2345',
+            change: '-0.12%',
+            changePercent: -0.12
+        },
+        {
+            code: '110011',
+            name: '易方达中小盘',
+            value: '5.6789',
+            change: '+0.67%',
+            changePercent: 0.67
+        }
+    ]
 };
-
-// 导出数据
-if (typeof module !== 'undefined' && module.exports) {
-    module.exports = { DATA_UPDATE_TIME, SAMPLE_DATA };
-}
